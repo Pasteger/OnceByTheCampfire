@@ -37,6 +37,7 @@ public class MainMenuScreen implements Screen {
 
         game.music = Gdx.audio.newMusic(Gdx.files.internal("music/bossmark.mp3"));
         game.music.setVolume(game.volume);
+        game.music.setVolume(0);
         game.music.setLooping(false);
 
         font = new BitmapFont();
@@ -88,7 +89,7 @@ public class MainMenuScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 if (!isPressed) {
                     isPressed = true;
-                    game.setScreen(new LoadScreen(game));
+                    game.setScreen(new MainGameSpace(game));
                     dispose();
                 }
             }

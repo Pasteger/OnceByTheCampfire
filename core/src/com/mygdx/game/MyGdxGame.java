@@ -18,6 +18,7 @@ public class MyGdxGame extends Game {
 	Float volume = 0.2f;
 	OrthographicCamera camera;
 
+
 	@Override
 	public void create () {
 		font = new BitmapFont();
@@ -28,6 +29,7 @@ public class MyGdxGame extends Game {
 		textButtonStyle.font = font;
 		textButtonStyle.font.getData().setScale(2);
 		batch = new SpriteBatch();
+
 
 		this.setScreen(new MainMenuScreen(this));
 	}
