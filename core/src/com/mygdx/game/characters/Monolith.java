@@ -31,7 +31,7 @@ public class Monolith extends Human{
             if (!phraseInArrayWithdrawn[phraseId]) {
                 phraseInArrayWithdrawn[phraseId] = withdrawnPhrase(phraseArray.get(phraseId));
 
-                //В этом месте происходит анимация говорения Бандита
+                //В этом месте происходит анимация говорения Монолитовца
                 if (character % 2 == 0) {
                     y += 1;
                 } else {
@@ -48,23 +48,5 @@ public class Monolith extends Human{
         } catch (Exception ignored) {
         }
         return getPhrase;
-    }
-
-    //Этот метод тоже выводит на экран фразы
-    private boolean withdrawnPhrase(String phrase){
-        boolean withdrawn = false;
-        phrasePhase = 0;
-        try {
-            getPhrase.append(phrase.charAt(character));
-            if(voiceID > 2) {
-                voice.get(random.nextInt(voice.size-1)).play();
-                voiceID = 0;
-            }
-            character++;
-        }
-        catch (Exception e){
-            withdrawn = true;
-        }
-        return withdrawn;
     }
 }

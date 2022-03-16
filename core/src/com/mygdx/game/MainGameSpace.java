@@ -17,39 +17,37 @@ import com.mygdx.game.characters.Volition;
 import java.util.Random;
 
 public class MainGameSpace implements Screen {
-    final MyGdxGame game;
-    boolean isPressed;
-    Random random;
+    private final MyGdxGame game;
+    private final  Random random;
 
-    Texture background;
-    Texture textField;
+    private final  Texture background;
+    private final  Texture textField;
 
     //В этом массиве хранятся спрайты костра
-    Array<Texture> campfire;
-    int campfirePhase;
-    int campfireThreePhase;
+    private final Array<Texture> campfire;
+    private int campfirePhase;
+    private int campfireThreePhase;
 
     //Эти переменные отвечают за вывод фраз на экран
-    StringBuilder getPhrase;
-    int paceOfSpeak;
-    boolean startSpeak;
-    int queueSpeak;
-    boolean phraseSet;
+    private StringBuilder getPhrase;
+    private int paceOfSpeak;
+    private boolean startSpeak;
+    private int queueSpeak;
+    private boolean phraseSet;
 
     //Это персонажи нашей игры
-    Bandit bandit;
-    Monolith monolith;
-    ClearSkyer clearSkyer;
-    Debter debter;
-    Freedom freedom;
-    Singleton singleton;
-    Volition volition;
+    private final Bandit bandit;
+    private final Monolith monolith;
+    private final ClearSkyer clearSkyer;
+    private final Debter debter;
+    private final Freedom freedom;
+    private final Singleton singleton;
+    private final Volition volition;
 
 
     MainGameSpace(final MyGdxGame game){
         this.game = game;
         random = new Random();
-        isPressed = false;
 
         campfire = new Array<>();
         getPhrase = new StringBuilder();
@@ -87,8 +85,8 @@ public class MainGameSpace implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.camera.update();
-        game.batch.setProjectionMatrix(game.camera.combined);
+        game.getCamera().update();
+        game.batch.setProjectionMatrix(game.getCamera().combined);
 
         game.batch.begin();
         game.batch.draw(background, 0, 0);

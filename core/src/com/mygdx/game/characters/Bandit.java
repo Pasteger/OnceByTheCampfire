@@ -50,22 +50,4 @@ public class Bandit extends Human {
         }
         return getPhrase;
     }
-
-    //Этот метод тоже выводит на экран фразы
-    private boolean withdrawnPhrase(String phrase){
-        boolean withdrawn = false;
-        phrasePhase = 0;
-        try {
-            getPhrase.append(phrase.charAt(character));
-            if(voiceID > 2) {
-                voice.get(random.nextInt(voice.size-1)).play();
-                voiceID = 0;
-            }
-            character++;
-        }
-        catch (Exception e){
-            withdrawn = true;
-        }
-        return withdrawn;
-    }
 }

@@ -39,4 +39,22 @@ public class Human {
     public int getPhraseId() {return phraseId;}
 
     public void setPhraseId(int phraseId) {this.phraseId = phraseId;}
+
+    //Этот метод выводит на экран фразы
+    protected boolean withdrawnPhrase(String phrase){
+        boolean withdrawn = false;
+        phrasePhase = 0;
+        try {
+            getPhrase.append(phrase.charAt(character));
+            if(voiceID > 2) {
+                voice.get(random.nextInt(voice.size-1)).play();
+                voiceID = 0;
+            }
+            character++;
+        }
+        catch (Exception e){
+            withdrawn = true;
+        }
+        return withdrawn;
+    }
 }

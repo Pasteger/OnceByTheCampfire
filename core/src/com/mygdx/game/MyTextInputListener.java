@@ -12,7 +12,7 @@ public class MyTextInputListener implements Input.TextInputListener {
     @Override
     public void input (String text) {
         if (text.matches("[a-zA-Z_]*")) {
-            game.saveName = text;
+            game.setSaveName(text);
             System.out.println(text);
         }
     }
