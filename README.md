@@ -7,6 +7,7 @@
 
 ## Авторы
 ![Developers](https://github.com/Pasteger/OnceByTheCampfire/blob/master/developers.png)
+
 *  Дима Придуха - автор идеи и главный сценарист - [DemasMemas](https://github.com/DemasMemas)
 *  Дима Рубин - главный разработчик и главный тестировщик - [Pasteger](https://github.com/Pasteger)
 *  Илья Соусов - главный консультант и разработчик - [Ne1ran](https://github.com/Ne1ran)
@@ -15,23 +16,30 @@
 
 ## Создано с помощью
 ![Software](https://github.com/Pasteger/OnceByTheCampfire/blob/master/softvare.png)
+
 * IntelliJIdea
 * Android Studio
 * Adobe Photoshop
+* GitHub
+* Discord
+* Yandex
 
 
 ## Управление версиями
 ![Git](https://github.com/Pasteger/OnceByTheCampfire/blob/master/git.png)
+
 Информацию о доступных версиях см. в тегах в этом репозитории.
 
 
 ## Лицензия
 ![License](https://github.com/Pasteger/OnceByTheCampfire/blob/master/license.png)
+
 Этот проект лицензируется в соответствии с лицензией Creative Commons Attribution-ShareAlike 3.0 Unported License
 
 
 ## Благодарности
 ![Thanks](https://github.com/Pasteger/OnceByTheCampfire/blob/master/thanks.png)
+
 * Благодарность тем, чей код был использован в проекте
   * Неизвестный с хабра
 * Благодарности за вдохновение и мотивацию
