@@ -2,14 +2,14 @@ package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class Freedom extends Human{
+public class Mercenary extends Human{
 
     //В разработке...
 
-    public Freedom(){
-        texture = new Texture("sprites/characters/freedom.png");
+    public Mercenary(){
+        texture = new Texture("sprites/characters/mercenary.png");
         x = 1050f;
         y = 150f;
-        name = "Freedom";
+        name = "Mercenary";
     }
 }

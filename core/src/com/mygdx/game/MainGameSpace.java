@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.characters.Bandit;
 import com.mygdx.game.characters.ClearSkyer;
 import com.mygdx.game.characters.Debter;
-import com.mygdx.game.characters.Freedom;
+import com.mygdx.game.characters.Mercenary;
 import com.mygdx.game.characters.Monolith;
 import com.mygdx.game.characters.Singleton;
 import com.mygdx.game.characters.Volition;
@@ -32,7 +32,7 @@ public class MainGameSpace implements Screen {
     private StringBuilder getPhrase;
     private int paceOfSpeak;
     private boolean startSpeak;
-    private int queueSpeak;
+    private int queueSpeak = 5;
     private boolean phraseSet;
 
     //Это персонажи нашей игры
@@ -40,7 +40,7 @@ public class MainGameSpace implements Screen {
     private final Monolith monolith;
     private final ClearSkyer clearSkyer;
     private final Debter debter;
-    private final Freedom freedom;
+    private final Mercenary mercenary;
     private final Singleton singleton;
     private final Volition volition;
 
@@ -57,7 +57,7 @@ public class MainGameSpace implements Screen {
         monolith = new Monolith();
         clearSkyer = new ClearSkyer();
         debter = new Debter();
-        freedom = new Freedom();
+        mercenary = new Mercenary();
         singleton = new Singleton();
         volition = new Volition();
 
@@ -96,7 +96,7 @@ public class MainGameSpace implements Screen {
         game.batch.draw(clearSkyer.getTexture(), clearSkyer.getX(), clearSkyer.getY());
         game.batch.draw(debter.getTexture(), debter.getX(), debter.getY());
         game.batch.draw(bandit.getTexture(), bandit.getX(), bandit.getY());
-        game.batch.draw(freedom.getTexture(), freedom.getX(), freedom.getY());
+        game.batch.draw(mercenary.getTexture(), mercenary.getX(), mercenary.getY());
         game.batch.draw(singleton.getTexture(), singleton.getX(), singleton.getY());
         game.batch.draw(volition.getTexture(), volition.getX(), volition.getY());
 
@@ -287,8 +287,27 @@ public class MainGameSpace implements Screen {
             }
         }
 
+        if(queueSpeak == 6 && paceOfSpeak >= clearSkyer.getPace()) {
+            if(!phraseSet) {
+                clearSkyer.setPhraseId(0);
+                clearSkyer.phraseArray.clear();
+                clearSkyer.phraseArray.add("Aboba aboba aboba aboba aboba aboba aboba aboba aboba" +
+                        "\n" +
+                        "aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba" +
+                        "\n" +
+                        "aboba aboba aboba aboba aboba aboba");
+                clearSkyer.phraseInArrayWithdrawn = new boolean[clearSkyer.phraseArray.size];
+                phraseSet = true;
+            }
+            getPhrase = clearSkyer.inputPhrase();
+            paceOfSpeak = 0;
+            if(clearSkyer.getPhraseId() == clearSkyer.phraseArray.size){
+                queueSpeak = 7;
+                phraseSet = false;
+            }
+        }
 
-        if(queueSpeak == 6 && paceOfSpeak >= bandit.getPace()) {
+        if(queueSpeak == 7 && paceOfSpeak >= bandit.getPace()) {
             if(!phraseSet) {
                 bandit.setPhraseId(0);
                 bandit.phraseArray.clear();
