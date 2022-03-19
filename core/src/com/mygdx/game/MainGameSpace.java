@@ -32,7 +32,7 @@ public class MainGameSpace implements Screen {
     private StringBuilder getPhrase;
     private int paceOfSpeak;
     private boolean startSpeak;
-    private int queueSpeak = 5;
+    private int queueSpeak = 0;
     private boolean phraseSet;
 
     //Это персонажи нашей игры
@@ -157,21 +157,22 @@ public class MainGameSpace implements Screen {
                 //Да, нужно писать ручками все \n и строчки
                 //Я не смог автоматизировать это. Если ты сможешь, все скажут тебе "спасибо"
                 //Как надо писать:
-                //1) В строчке должно быть примерно 93 символа
+                //1) В строчке должно быть примерно 72 символа
                 //2) В одном add() должно быть не больше 4 строчек
                 //3) Если в add() не влезает текст смело добавляй ещё один add() и пиши туда остальное
                 //Всё это можно увидеть чуть ниже
-                bandit.phraseArray.add("Fuck, and what would it be to gore, the scribe wants to eat. Damn, and there's a naked man in" +
+                bandit.phraseArray.add("Fuck, and what would it be to gore, the scribe wants to eat. Damn, and there's a naked" +
                         "\n" +
-                        "his pocket, even if a deer got caught with swag, or better with money. They say, I would like" +
+                        "man in his pocket, even if a deer got caught with swag, or better with money. They say," +
                         "\n" +
-                        "to crush an ampoule for two right now, or to fall into some kind of shesha. Right now there" +
+                        "I would like to crush an ampoule for two right now, or to fall into some kind of shesha." +
                         "\n" +
-                        "would be vodyars.. Yes, I'll get a mental snack. At least some crooked-nosed ones to poke" +
-                        "\n");
-                bandit.phraseArray.add("around, otherwise it's boring. Oh, the paritsa has already shaken here, no sensible heating " +
+                        "Right now there would be vodyars.. Yes, I'll get a mental snack. At least some"
+                );
+                bandit.phraseArray.add("crooked-nosed ones to poke around, otherwise it's boring. Oh, the paritsa has already" +
                         "\n" +
-                        "for you, no horseradish.");
+                        "shaken here, no sensible heating for you, no horseradish."
+                );
                 //Также после заполнения массива фраз нужно обновить массив выводов
                 bandit.phraseInArrayWithdrawn = new boolean[bandit.phraseArray.size];
                 phraseSet = true;
@@ -197,13 +198,15 @@ public class MainGameSpace implements Screen {
                 monolith.phraseArray.clear();
 
                 //И вот таким образо устанавливается фраза
-                monolith.phraseArray.add("We thank You for revealing to Your servants the machinations of our enemies. Shine Your" +
+                monolith.phraseArray.add("Благодарим Тебя за то, что раскрыл слугам Твоим козни врагов наших." +
                         "\n" +
-                        "radiance on the souls of those who gave their lives in fulfillment of Your will. Into battle," +
+                        "Озари сиянием Своим души тех, кто отдал жизнь во исполнение воли Твоей. В бой," +
                         "\n" +
-                        "defenders of the Monolith! Into battle! Let's avenge our fallen brothers. May their eternal" +
+                        "защитники Монолита! В бой! Отомстим за павших братьев наших. Да будет" +
                         "\n" +
-                        "unity with the Monolith be blessed! Death... fierce death to those who reject His sacred power!");
+                        "благословенно их вечное единение с Монолитом!"
+                );
+                monolith.phraseArray.add("Смерть… Лютая смерть тем, кто отвергает Его священную силу!");
 
                 //Также после заполнения массива фраз нужно обновить массив выводов
                 monolith.phraseInArrayWithdrawn = new boolean[monolith.phraseArray.size];
