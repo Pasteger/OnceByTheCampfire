@@ -8,7 +8,7 @@
 ## Авторы
 ![Developers](https://github.com/Pasteger/OnceByTheCampfire/blob/master/developers.png)
 
-*  Дима Придуха - автор идеи и главный сценарист - [DemasMemas](https://github.com/DemasMemas)
+*  Дима Придуха - автор идеи, главный сценарист и разработчик - [DemasMemas](https://github.com/DemasMemas)
 *  Дима Рубин - главный разработчик и главный тестировщик - [Pasteger](https://github.com/Pasteger)
 *  Илья Соусов - главный консультант и разработчик - [Ne1ran](https://github.com/Ne1ran)
 *  Жуков Валентин - звукооператор и спонсор - [Zzzhukov](https://github.com/Zzzhukov)
