@@ -8,7 +8,7 @@ public class Mercenary extends Human{
 
     public Mercenary(){
         texture = new Texture("sprites/characters/mercenary.png");
-        x = 1050f;
+        x = 440f;
         y = 150f;
         name = "Mercenary";
     }

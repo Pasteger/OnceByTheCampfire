@@ -7,11 +7,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.characters.Bandit;
-import com.mygdx.game.characters.ClearSkyer;
 import com.mygdx.game.characters.Debter;
 import com.mygdx.game.characters.Mercenary;
 import com.mygdx.game.characters.Monolith;
-import com.mygdx.game.characters.Singleton;
 import com.mygdx.game.characters.Volition;
 import java.util.Random;
 
@@ -37,10 +35,8 @@ public class MainGameSpace implements Screen {
     //Это персонажи нашей игры
     private final Bandit bandit;
     private final Monolith monolith;
-    private final ClearSkyer clearSkyer;
     private final Debter debter;
     private final Mercenary mercenary;
-    private final Singleton singleton;
     private final Volition volition;
 
 
@@ -54,10 +50,8 @@ public class MainGameSpace implements Screen {
         //Это персонажи нашей игры
         bandit = new Bandit();
         monolith = new Monolith();
-        clearSkyer = new ClearSkyer();
         debter = new Debter();
         mercenary = new Mercenary();
-        singleton = new Singleton();
         volition = new Volition();
 
 
@@ -92,22 +86,19 @@ public class MainGameSpace implements Screen {
 
         //Здесь рисуются персонажи
         game.batch.draw(monolith.getTexture(), monolith.getX(), monolith.getY());
-        game.batch.draw(clearSkyer.getTexture(), clearSkyer.getX(), clearSkyer.getY());
         game.batch.draw(debter.getTexture(), debter.getX(), debter.getY());
         game.batch.draw(bandit.getTexture(), bandit.getX(), bandit.getY());
         game.batch.draw(mercenary.getTexture(), mercenary.getX(), mercenary.getY());
-        game.batch.draw(singleton.getTexture(), singleton.getX(), singleton.getY());
         game.batch.draw(volition.getTexture(), volition.getX(), volition.getY());
 
 
-        //Здесь поспрайтево рисуется костёр
+        //Здесь поспрайтово рисуется костёр
         game.batch.draw(campfire.get(campfirePhase), 550, 150);
 
 
         game.batch.draw(textField, 0, 0);
-        game.batch.draw(textField, 0, 486);
         //Здесь рисуется текст
-        game.font.draw(game.batch, getPhrase.toString(), 10, 640);
+        game.font.draw(game.batch, getPhrase.toString(), 10, 150);
 
         game.batch.end();
 
@@ -289,27 +280,7 @@ public class MainGameSpace implements Screen {
             }
         }
 
-        if(queueSpeak == 6 && paceOfSpeak >= clearSkyer.getPace()) {
-            if(!phraseSet) {
-                clearSkyer.setPhraseId(0);
-                clearSkyer.phraseArray.clear();
-                clearSkyer.phraseArray.add("Aboba aboba aboba aboba aboba aboba aboba aboba aboba" +
-                        "\n" +
-                        "aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba" +
-                        "\n" +
-                        "aboba aboba aboba aboba aboba aboba");
-                clearSkyer.phraseInArrayWithdrawn = new boolean[clearSkyer.phraseArray.size];
-                phraseSet = true;
-            }
-            getPhrase = clearSkyer.inputPhrase();
-            paceOfSpeak = 0;
-            if(clearSkyer.getPhraseId() == clearSkyer.phraseArray.size){
-                queueSpeak = 7;
-                phraseSet = false;
-            }
-        }
-
-        if(queueSpeak == 7 && paceOfSpeak >= bandit.getPace()) {
+        if(queueSpeak == 6 && paceOfSpeak >= bandit.getPace()) {
             if(!phraseSet) {
                 bandit.setPhraseId(0);
                 bandit.phraseArray.clear();

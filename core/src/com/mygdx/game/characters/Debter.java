@@ -9,7 +9,7 @@ public class Debter extends Human{
     public Debter(){
         texture = new Texture("sprites/characters/debter.png");
         x = 300f;
-        y = 160f;
+        y = 140f;
         name = "Debter";
     }
 }

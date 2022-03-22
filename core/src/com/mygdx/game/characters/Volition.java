@@ -9,7 +9,7 @@ public class Volition extends Human{
     public Volition(){
         texture = new Texture("sprites/characters/volition.png");
         x = 700f;
-        y = 150f;
+        y = 140f;
         name = "Volition";
     }
 }

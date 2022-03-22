@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Bandit extends Human {
     public Bandit(){
         texture = new Texture("sprites/characters/bandit.png");
-        x = 440f;
+        x = 880f;
         y = 140f;
         name = "Стасян";
 
