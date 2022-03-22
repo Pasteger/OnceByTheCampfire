@@ -73,7 +73,7 @@ public class Human {
         try {
             getPhrase.append(phrase.charAt(character));
             if(voiceID > 2) {
-                voice.get(random.nextInt(voice.size-1)).play();
+                voice.get(random.nextInt(voice.size-1)).play(0.1F);
                 voiceID = 0;
             }
             character++;
