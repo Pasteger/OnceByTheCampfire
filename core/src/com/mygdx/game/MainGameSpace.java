@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.characters.Bandit;
 import com.mygdx.game.characters.Debter;
-import com.mygdx.game.characters.Mercenary;
+import com.mygdx.game.characters.Military;
 import com.mygdx.game.characters.Monolith;
 import com.mygdx.game.characters.Volition;
 import java.util.Random;
@@ -36,7 +36,7 @@ public class MainGameSpace implements Screen {
     private final Bandit bandit;
     private final Monolith monolith;
     private final Debter debter;
-    private final Mercenary mercenary;
+    private final Military military;
     private final Volition volition;
 
 
@@ -51,7 +51,7 @@ public class MainGameSpace implements Screen {
         bandit = new Bandit();
         monolith = new Monolith();
         debter = new Debter();
-        mercenary = new Mercenary();
+        military = new Military();
         volition = new Volition();
 
 
@@ -88,7 +88,7 @@ public class MainGameSpace implements Screen {
         game.batch.draw(monolith.getTexture(), monolith.getX(), monolith.getY());
         game.batch.draw(debter.getTexture(), debter.getX(), debter.getY());
         game.batch.draw(bandit.getTexture(), bandit.getX(), bandit.getY());
-        game.batch.draw(mercenary.getTexture(), mercenary.getX(), mercenary.getY());
+        game.batch.draw(military.getTexture(), military.getX(), military.getY());
         game.batch.draw(volition.getTexture(), volition.getX(), volition.getY());
 
 
