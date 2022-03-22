@@ -151,9 +151,9 @@ public class MainGameSpace implements Screen {
                 //2) В одном add() должно быть не больше 4 строчек
                 //3) Если в add() не влезает текст смело добавляй ещё один add() и пиши туда остальное
                 //Всё это можно увидеть чуть ниже
-                bandit.phraseArray.add("Fuck, and what would it be to gore, the scribe wants to eat. Damn, and there's a naked" +
+                bandit.phraseArray.add("Fuck, and                                       what would it be to gore, the scribe wants to eat. Damn, and there's a naked" +
                         "\n" +
-                        "man in his pocket, even if a deer got caught with swag, or better with money. They say," +
+                        "man in his pocket, even if .....................................a deer got caught with swag, or better with money. They say," +
                         "\n" +
                         "I would like to crush an ampoule for two right now, or to fall into some kind of shesha." +
                         "\n" +

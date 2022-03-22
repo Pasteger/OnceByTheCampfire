@@ -48,11 +48,17 @@ public class Human {
             if (!phraseInArrayWithdrawn[phraseId]) {
                 phraseInArrayWithdrawn[phraseId] = withdrawnPhrase(phraseArray.get(phraseId));
 
-                //В этом месте происходит анимация говорения Бандита
-                if (character % 2 == 0) {
-                    y += 1;
-                } else {
-                    y -= 1;
+                //В этом месте происходит анимация говорения
+                if(getPhrase.charAt(getPhrase.length()-1) != ' ' && getPhrase.charAt(getPhrase.length()-1) != '.') {
+                    if (character % 2 == 0) {
+                        y += 1;
+                    } else {
+                        y -= 1;
+                    }
+                    if(voiceID > 2) {
+                        voice.get(random.nextInt(voice.size-1)).play(0.1f);
+                        voiceID = 0;
+                    }
                 }
                 return getPhrase;
             } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
@@ -72,10 +78,6 @@ public class Human {
         phrasePhase = 0;
         try {
             getPhrase.append(phrase.charAt(character));
-            if(voiceID > 2) {
-                voice.get(random.nextInt(voice.size-1)).play(0.1F);
-                voiceID = 0;
-            }
             character++;
         }
         catch (Exception e){
