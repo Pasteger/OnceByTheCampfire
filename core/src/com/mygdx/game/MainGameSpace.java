@@ -13,7 +13,6 @@ import com.mygdx.game.characters.Mercenary;
 import com.mygdx.game.characters.Monolith;
 import com.mygdx.game.characters.Singleton;
 import com.mygdx.game.characters.Volition;
-
 import java.util.Random;
 
 public class MainGameSpace implements Screen {

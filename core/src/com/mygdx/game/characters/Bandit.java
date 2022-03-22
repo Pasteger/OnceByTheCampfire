@@ -8,7 +8,7 @@ public class Bandit extends Human {
         texture = new Texture("sprites/characters/bandit.png");
         x = 440f;
         y = 140f;
-        name = "Bandit";
+        name = "Стасян";
 
         //Все ноты голоса Бандита
         voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/bandit/do.wav")));
