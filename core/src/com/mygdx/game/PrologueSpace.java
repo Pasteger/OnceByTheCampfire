@@ -10,14 +10,17 @@ import com.mygdx.game.characters.*;
 public class PrologueSpace implements Screen {
     private final MyGdxGame game;
 
+    // Текстуры
     private final Texture background;
     private final Texture textField;
+    private final Texture portal;
+    public boolean portalMoment = false;
 
     //Эти переменные отвечают за вывод фраз на экран
     private StringBuilder getPhrase;
     private int paceOfSpeak;
     private boolean startSpeak;
-    public static String currentCharacter = "Author";
+    public static String currentCharacter = "";
 
     //Это персонажи нашей игры
     public static Bandit bandit;
@@ -46,6 +49,7 @@ public class PrologueSpace implements Screen {
 
         background = new Texture("sprites/backgrounds/orange_forest.png");
         textField = new Texture("sprites/text_field.png");
+        portal = new Texture("sprites/effects/portal.png");
     }
 
     @Override
@@ -58,6 +62,9 @@ public class PrologueSpace implements Screen {
 
         game.batch.begin();
         game.batch.draw(background, 0, 0);
+
+        // Здесь рисуется портал, если он нужен
+        if (portalMoment){ game.batch.draw(portal, 300, 250); }
 
         //Здесь рисуются персонажи
         game.batch.draw(debter.getTexture(), debter.getX(), debter.getY());
@@ -123,7 +130,7 @@ public class PrologueSpace implements Screen {
     }
 
     public void changeTeller(String name){
-
+        System.out.println("Сменился рассказчик на " + name);
     }
 
     public void doEffect(String name){

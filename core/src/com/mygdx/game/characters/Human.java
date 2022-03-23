@@ -34,6 +34,9 @@ public class Human {
 
     public Float getX() {return x;}
     public Float getY() {return y;}
+    public void setX(Float x) { this.x = x; }
+    public void setY(Float y) { this.y = y; }
+
     public Texture getTexture() {return texture;}
     public int getPace() {return pace;}
     public int getPhraseId() {return phraseId;}

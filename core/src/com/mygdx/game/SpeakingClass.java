@@ -80,4 +80,9 @@ public class SpeakingClass extends Thread{
         protagonist.phraseInArrayWithdrawn = new boolean[protagonist.phraseArray.size];
         currentCharacter = "Protagonist";
     }
+
+    public void changePlaceBandit(float x, float y){ bandit.setX(x); bandit.setY(y); }
+    public void changePlaceDebter(float x, float y){ debter.setX(x); debter.setY(y); }
+    public void changePlaceVolition(float x, float y){ volition.setX(x); volition.setY(y); }
+    public void changePlaceMilitary(float x, float y){ military.setX(x); military.setY(y); }
 }
