@@ -10,6 +10,5 @@ public class Military extends Human{
         texture = new Texture("sprites/characters/military.png");
         x = 440f;
         y = 150f;
-        name = "Military";
     }
 }

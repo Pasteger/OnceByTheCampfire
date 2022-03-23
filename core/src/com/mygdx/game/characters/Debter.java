@@ -10,6 +10,5 @@ public class Debter extends Human{
         texture = new Texture("sprites/characters/debter.png");
         x = 300f;
         y = 140f;
-        name = "Debter";
     }
 }

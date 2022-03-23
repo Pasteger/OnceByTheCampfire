@@ -15,7 +15,6 @@ public class Human {
     protected Texture texture;
     protected Float x;
     protected Float y;
-    protected String name;
     protected int voiceID;
     protected int phraseId;
     protected int phrasePhase;
@@ -35,7 +34,6 @@ public class Human {
 
     public Float getX() {return x;}
     public Float getY() {return y;}
-    public String getName() {return name;}
     public Texture getTexture() {return texture;}
     public int getPace() {return pace;}
     public int getPhraseId() {return phraseId;}

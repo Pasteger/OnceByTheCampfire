@@ -8,7 +8,6 @@ public class Monolith extends Human{
         texture = new Texture("sprites/characters/monolith.png");
         x = 140f;
         y = 160f;
-        name = "Monolith";
 
         //Все ноты голоса Монолитовца
         voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/monolith/do.wav")));
