@@ -46,7 +46,7 @@ public class SpeakingClass extends Thread{
         debter.phraseArray.clear();
         for (String line : phraseArrayNew) { debter.phraseArray.add(line); }
         debter.phraseInArrayWithdrawn = new boolean[debter.phraseArray.size];
-        currentCharacter = "Bandit";
+        currentCharacter = "Debter";
     }
 
     public void volitionNewPhrase(Array<String> phraseArrayNew) {
@@ -54,7 +54,7 @@ public class SpeakingClass extends Thread{
         volition.phraseArray.clear();
         for (String line : phraseArrayNew) { volition.phraseArray.add(line); }
         volition.phraseInArrayWithdrawn = new boolean[volition.phraseArray.size];
-        currentCharacter = "Bandit";
+        currentCharacter = "Volition";
     }
 
     public void militaryNewPhrase(Array<String> phraseArrayNew) {
@@ -62,7 +62,7 @@ public class SpeakingClass extends Thread{
         military.phraseArray.clear();
         for (String line : phraseArrayNew) { military.phraseArray.add(line); }
         military.phraseInArrayWithdrawn = new boolean[military.phraseArray.size];
-        currentCharacter = "Bandit";
+        currentCharacter = "Military";
     }
 
     public void authorNewPhrase(Array<String> phraseArrayNew) {
@@ -70,7 +70,7 @@ public class SpeakingClass extends Thread{
         author.phraseArray.clear();
         for (String line : phraseArrayNew) { author.phraseArray.add(line); }
         author.phraseInArrayWithdrawn = new boolean[author.phraseArray.size];
-        currentCharacter = "Bandit";
+        currentCharacter = "Author";
     }
 
     public void protagonistNewPhrase(Array<String> phraseArrayNew) {
@@ -78,6 +78,6 @@ public class SpeakingClass extends Thread{
         protagonist.phraseArray.clear();
         for (String line : phraseArrayNew) { protagonist.phraseArray.add(line); }
         protagonist.phraseInArrayWithdrawn = new boolean[protagonist.phraseArray.size];
-        currentCharacter = "Bandit";
+        currentCharacter = "Protagonist";
     }
 }

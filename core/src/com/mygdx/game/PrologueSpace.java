@@ -27,9 +27,6 @@ public class PrologueSpace implements Screen {
     public static Author author;
     public static Protagonist protagonist;
 
-    //Нужен класс для мыслей и автора
-
-
     //Класс для прочитки текста
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
