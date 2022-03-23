@@ -232,9 +232,9 @@ public class MainGameSpace implements Screen {
             if(!phraseSet) {
                 monolith.setPhraseId(0);
                 monolith.phraseArray.clear();
-                monolith.phraseArray.add("Monolith we can't hear you. Why did you leave us, monolith? We are waiting for your" +
+                monolith.phraseArray.add("Монолит, мы не слышим тебя. Почему ты оставил нас, Монолит? Мы ждем" +
                         "\n" +
-                        "orders, monolith.");
+                        "твоих приказов, Монолит.");
                 monolith.phraseInArrayWithdrawn = new boolean[monolith.phraseArray.size];
                 phraseSet = true;
             }

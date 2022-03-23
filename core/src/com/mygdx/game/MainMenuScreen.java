@@ -12,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 public class MainMenuScreen implements Screen {
     private final MyGdxGame game;
     private final Texture background;
-    private final Button startButton;
+    private final Button newGameButton;
+    private final Button loadGameButton;
     private final Button settingsButton;
     private final Button exitButton;
     MyTextInputListener listener;
@@ -23,16 +24,18 @@ public class MainMenuScreen implements Screen {
         this.game = gam;
         listenerExist = false;
 
-
         game.music = Gdx.audio.newMusic(Gdx.files.internal("music/bossmark.mp3"));
         game.music.setVolume(game.volume);
         game.music.setVolume(0);
         game.music.setLooping(false);
 
+        newGameButton = new TextButton("New Game", game.getTextButtonStyle());
+        game.stage.addActor(newGameButton);
+        newGameButton.setPosition(20, 200);
 
-        startButton = new TextButton("Start", game.getTextButtonStyle());
-        game.stage.addActor(startButton);
-        startButton.setPosition(20, 150);
+        loadGameButton = new TextButton("Load Game", game.getTextButtonStyle());
+        game.stage.addActor(loadGameButton);
+        loadGameButton.setPosition(20, 150);
 
         settingsButton = new TextButton("Settings", game.getTextButtonStyle());
         game.stage.addActor(settingsButton);
@@ -64,19 +67,28 @@ public class MainMenuScreen implements Screen {
 
         game.stage.draw();
 
-
-
-        startButton.addListener(new ChangeListener() {
+        newGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (game.isButtonIsPressed()) {
                     game.setButtonIsPressed(true);
-                    game.setScreen(new MainGameSpace(game));
+                    game.setScreen(new PrologueSpace(game));
                     dispose();
                 }
             }
         });
 
+
+        loadGameButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (game.isButtonIsPressed()) {
+                    game.setButtonIsPressed(true);
+                    game.setScreen(new LoadScreen(game));
+                    dispose();
+                }
+            }
+        });
 
         settingsButton.addListener(new ChangeListener() {
             @Override

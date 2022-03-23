@@ -57,9 +57,9 @@ public class LoadScreen implements Screen {
         game.stage.addActor(saveDescriptionFirst);
         saveDescriptionFirst.setPosition(70, 300);
 
-        deleteButtonThird = new TextButton("Save 2", game.getTextButtonStyle());
-        game.stage.addActor(deleteButtonThird);
-        deleteButtonThird.setPosition(270, 300);
+        saveDescriptionSecond = new TextButton("Save 2", game.getTextButtonStyle());
+        game.stage.addActor(saveDescriptionSecond);
+        saveDescriptionSecond.setPosition(270, 300);
 
         saveDescriptionThird = new TextButton("Save 3", game.getTextButtonStyle());
         game.stage.addActor(saveDescriptionThird);
