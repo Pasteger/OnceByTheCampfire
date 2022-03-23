@@ -72,7 +72,7 @@ public class MainMenuScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 if (game.isButtonIsPressed()) {
                     game.setButtonIsPressed(true);
-                    game.setScreen(new MainGameSpace(game));
+                    game.setScreen(new PrologueSpace(game));
                     dispose();
                 }
             }
