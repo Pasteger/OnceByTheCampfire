@@ -17,15 +17,14 @@ import static com.mygdx.game.PrologueSpace.currentCharacter;
 
 public class SpeakingClass extends Thread{
     String inputFileName;
-    SpeakingClass (String inputFileName){
-        this.inputFileName = inputFileName;
-    }
+    SpeakingClass (String inputFileName){ this.inputFileName = inputFileName; }
     @Override
     public void run() {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName))) {
             String line;
-            while (!(line = reader.readLine()).equals("КОНЕЦ")) {
+            while ((line = reader.readLine()) != null) {
                 System.out.println(line);
+                if (line.split(" ")[0].contains("END")){ break; }
             }
         }
         catch (IOException e) {
