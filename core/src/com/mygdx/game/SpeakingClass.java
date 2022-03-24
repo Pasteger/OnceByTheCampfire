@@ -85,4 +85,17 @@ public class SpeakingClass extends Thread{
     public void changePlaceDebter(float x, float y){ debter.setX(x); debter.setY(y); }
     public void changePlaceVolition(float x, float y){ volition.setX(x); volition.setY(y); }
     public void changePlaceMilitary(float x, float y){ military.setX(x); military.setY(y); }
+
+    public void changeReputationBandit(String sign, int amount){
+        if (sign.equals("+")){ System.out.println("Бандит + " + amount); }
+        else { System.out.println("Бандит - " + amount); } }
+    public void changeReputationDebter(String sign, int amount){
+        if (sign.equals("+")){ System.out.println("Долг + " + amount); }
+        else { System.out.println("Долг - " + amount); } }
+    public void changeReputationVolition(String sign, int amount){
+        if (sign.equals("+")){ System.out.println("Свобода + " + amount); }
+        else { System.out.println("Свобода - " + amount); } }
+    public void changeReputationMilitary(String sign, int amount){
+        if (sign.equals("+")){ System.out.println("Военный + " + amount); }
+        else { System.out.println("Военный - " + amount); } }
 }
