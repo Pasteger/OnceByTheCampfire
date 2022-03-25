@@ -220,7 +220,7 @@ public class PrologueSpace implements Screen {
     }
 
     public static void changeTeller(String name){
-        System.out.println("Сменился рассказчик на " + name);
+        System.out.println("Changed teller to " + name);
     }
 
     public static void doEffect(String name){

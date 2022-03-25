@@ -32,6 +32,7 @@ public class SpeakingClass extends Thread{
                         System.out.println(line);
                         command = line.split(" ");
                         // QTE
+                        protagonistNewPhrase(phrase);
                         if (line.contains("QTE")){
                             switch (command[1]){
                                 case("EASY"):
@@ -87,6 +88,60 @@ public class SpeakingClass extends Thread{
                             if (line.contains("EFFECT")){
                                 com.mygdx.game.PrologueSpace.doEffect(command[1]);
                             }
+                            // читаемся
+                            if (startWriting) {
+                                StringCounter++;
+                                if (StringCounter == 4){
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    currentSpeaker = "NONE";
+                                    break;
+                                }
+                                if (line.equals("DEBT")){
+                                    System.out.println("boba1");
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("VOLITION")){
+                                    System.out.println("boba2");
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("BANDIT")){
+                                    System.out.println("boba3");
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("PROTAGONIST")){
+                                    System.out.println("boba4");
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+
+                                }
+                                if (line.equals("MILITARY")){
+                                    System.out.println("boba5");
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("AUTHOR")){
+                                    System.out.println("boba6");
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                            }
                             // Смена рассказчика
                             if (command.length == 1){
                                 switch (line){
@@ -120,37 +175,6 @@ public class SpeakingClass extends Thread{
                                         currentSpeaker = "PROTAGONIST";
                                         startWriting = true;
                                 }
-                            }
-                            if (startWriting) {
-                                StringCounter++;
-                                if (StringCounter == 4){
-                                    startWriting = false;
-                                    doReading = false;
-                                    break;
-                                }
-                                if (line.equals("DEBT")){
-                                    System.out.println("boba1");
-                                }
-                                if (line.equals("VOLITION")){
-                                    System.out.println("boba2");
-                                }
-                                if (line.equals("BANDIT")){
-                                    System.out.println("boba3");
-                                }
-                                if (line.equals("PROTAGONIST")){
-                                    System.out.println("boba4");
-                                }
-                                if (line.equals("MILITARY>")){
-                                    System.out.println("boba5");
-                                }
-                                if (line.equals("AUTHOR")){
-                                    System.out.println("boba6");
-                                }
-                                phrase.add(line);
-
-                            }
-                            if (!currentSpeaker.equals(line)){
-                                changeTeller(line);
                             }
                         }
                     }
@@ -227,4 +251,26 @@ public class SpeakingClass extends Thread{
     public void changeReputationMilitary(String sign, int amount){
         if (sign.equals("+")){ System.out.println("Военный + " + amount); }
         else { System.out.println("Военный - " + amount); } }
+
+    public void setPhrase(String teller, Array<String> phrase){
+        switch (teller){
+            case("DEBT"):
+                debterNewPhrase(phrase);
+                break;
+            case("VOLITION"):
+                volitionNewPhrase(phrase);
+                break;
+            case("MILITARY"):
+                militaryNewPhrase(phrase);
+                break;
+            case("BANDIT"):
+                banditNewPhrase(phrase);
+                break;
+            case("AUTHOR"):
+                authorNewPhrase(phrase);
+                break;
+            case("PROTAGONIST"):
+                protagonistNewPhrase(phrase);
+        }
+    }
 }
