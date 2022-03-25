@@ -2,9 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.utils.Array;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 import static com.mygdx.game.MainMenuScreen.doReading;
 import static com.mygdx.game.MainMenuScreen.QTESuccess;
@@ -17,7 +16,8 @@ public class SpeakingClass extends Thread{
     SpeakingClass (String inputFileName){ this.inputFileName = inputFileName; }
     @Override
     public void run() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName))) {
+        try (FileInputStream fis =  new FileInputStream(inputFileName);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
             Array<String> phrase = new Array<>();
             String[] command;
             String line;
