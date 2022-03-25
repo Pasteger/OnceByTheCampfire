@@ -134,7 +134,7 @@ public class PrologueSpace implements Screen {
     }
 
     public void doEffect(String name){
-        if(name.equals("АБОБА21")){
+        if(name.equals("ABOBA21")){
             System.out.println("АБОБА21");
         }
     }
