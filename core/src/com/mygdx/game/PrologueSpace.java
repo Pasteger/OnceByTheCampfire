@@ -133,11 +133,11 @@ public class PrologueSpace implements Screen {
             if(bandit.getPhraseId() == bandit.phraseArray.size){ currentCharacter = ""; } }
     }
 
-    public void changeTeller(String name){
+    public static void changeTeller(String name){
         System.out.println("Сменился рассказчик на " + name);
     }
 
-    public void doEffect(String name){
+    public static void doEffect(String name){
         if(name.equals("ABOBA21")){
             System.out.println("АБОБА21");
         }

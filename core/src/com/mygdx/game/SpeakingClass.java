@@ -6,14 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static com.mygdx.game.PrologueSpace.bandit;
-import static com.mygdx.game.PrologueSpace.debter;
-import static com.mygdx.game.PrologueSpace.military;
-import static com.mygdx.game.PrologueSpace.volition;
-import static com.mygdx.game.PrologueSpace.author;
-import static com.mygdx.game.PrologueSpace.protagonist;
-import static com.mygdx.game.PrologueSpace.currentCharacter;
 import static com.mygdx.game.MainMenuScreen.doReading;
+import static com.mygdx.game.PrologueSpace.*;
 
 
 public class SpeakingClass extends Thread{
@@ -22,19 +16,60 @@ public class SpeakingClass extends Thread{
     @Override
     public void run() {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName))) {
+            Array<String> phrase = new Array<String>();
+            String[] command;
             String line;
-            int abiba = 0;
-            while (true){
+            String currentSpeaker = "NONE";
+            int StringCounter = 0;
+            boolean startWriting = false;
+        while (true){
                 sleep(500);
                 if (doReading){
                     while ((line = reader.readLine()) != null) {
-                        abiba++;
-                        System.out.println(line);
-                        if(abiba % 4 == 0){
-                            System.out.println("Курент абиба: " + abiba);
-                            doReading =false;
-                            break;
+                        command = line.split(" ");
+                        // Появление персонажа. Убрать в метод
+                        if (line.contains("APPEAR")){
+                            if (command[1].equals("DEBT")){
+                                changePlaceDebter(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                            if (command[1].equals("VOLITION")){
+                                changePlaceVolition(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                            if (command[1].equals("MILITARY")){
+                                changePlaceMilitary(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                            if (command[1].equals("BANDIT")){
+                                changePlaceBandit(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
                         }
+                        // Эффект
+                        if (line.contains("EFFECT")){
+                            com.mygdx.game.PrologueSpace.doEffect(command[1]);
+                        }
+                        // Смена рассказчика
+                        if (command.length == 1){
+                            switch (line){
+                                case("DEBT"):
+                                    changeTeller("Долг1");
+                                    currentSpeaker = "DEBT";
+                                case("VOLITION"):
+                                    changeTeller("Свобода2");
+                                    currentSpeaker = "VOLITION";
+                                case("MILITARY"):
+                                    changeTeller("Вояка3");
+                                    currentSpeaker = "MILITARY";
+                                case("BANDIT"):
+                                    changeTeller("Бандос4");
+                                    currentSpeaker = "BANDIT";
+                                case("AUTHOR"):
+                                    changeTeller("Автор5");
+                                    currentSpeaker = "AUTHOR";
+                                case("PROTAGONIST"):
+                                    changeTeller("Герой6");
+                                    currentSpeaker = "PROTAGONIST";
+                            }
+                        }
+                        if (startWriting) {
+                            StringCounter++;
+                            phrase.add(line);
+                        }
+                        System.out.println(line);
                         if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                     }
                 }
