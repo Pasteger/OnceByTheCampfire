@@ -87,7 +87,6 @@ public class PrologueSpace implements Screen {
         }
         if(!doReading && Gdx.input.isKeyPressed(Input.Keys.G)){
             doReading = true;
-            System.out.println("123");
         }
         //Этот метод вызывается каждый цикл рендера и на текстовом поле мечатается фраза
         if(startSpeak) { speak(); }
