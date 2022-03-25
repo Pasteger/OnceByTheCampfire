@@ -188,7 +188,7 @@ public class PrologueSpace implements Screen {
         if(currentCharacter.equals("Debter") && paceOfSpeak >= debter.getPace()) {
             getPhrase = debter.inputPhrase();
             paceOfSpeak = 0;
-            if(bandit.getPhraseId() == debter.phraseArray.size){ currentCharacter = ""; } }
+            if(debter.getPhraseId() == debter.phraseArray.size){ currentCharacter = ""; } }
 
         // Говорит свободовец
         if(currentCharacter.equals("Volition") && paceOfSpeak >= volition.getPace()) {
@@ -203,16 +203,16 @@ public class PrologueSpace implements Screen {
             if(military.getPhraseId() == military.phraseArray.size){ currentCharacter = ""; } }
 
         // Говорит автор
-        if(currentCharacter.equals("Author") && paceOfSpeak >= bandit.getPace()) {
-            getPhrase = bandit.inputPhrase();
+        if(currentCharacter.equals("Author") && paceOfSpeak >= author.getPace()) {
+            getPhrase = author.inputPhrase();
             paceOfSpeak = 0;
-            if(bandit.getPhraseId() == bandit.phraseArray.size){ currentCharacter = ""; } }
+            if(author.getPhraseId() == author.phraseArray.size){ currentCharacter = ""; } }
 
         // Говорит герой
-        if(currentCharacter.equals("Protagonist") && paceOfSpeak >= bandit.getPace()) {
-            getPhrase = bandit.inputPhrase();
+        if(currentCharacter.equals("Protagonist") && paceOfSpeak >= protagonist.getPace()) {
+            getPhrase = protagonist.inputPhrase();
             paceOfSpeak = 0;
-            if(bandit.getPhraseId() == bandit.phraseArray.size){ currentCharacter = ""; } }
+            if(protagonist.getPhraseId() == protagonist.phraseArray.size){ currentCharacter = ""; } }
     }
 
     public static void startChoice(int countChoice, ArrayList<String> choiceNames) {
