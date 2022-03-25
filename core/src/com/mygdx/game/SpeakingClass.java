@@ -194,6 +194,7 @@ public class SpeakingClass extends Thread{
     }
 
     public void debterNewPhrase(Array<String> phraseArrayNew) {
+        String tempLine = "";
         debter.setPhraseId(0);
         debter.phraseArray.clear();
         for (String line : phraseArrayNew) { debter.phraseArray.add(line); }
@@ -202,6 +203,7 @@ public class SpeakingClass extends Thread{
     }
 
     public void volitionNewPhrase(Array<String> phraseArrayNew) {
+        String tempLine = "";
         volition.setPhraseId(0);
         volition.phraseArray.clear();
         for (String line : phraseArrayNew) { volition.phraseArray.add(line); }
@@ -210,6 +212,7 @@ public class SpeakingClass extends Thread{
     }
 
     public void militaryNewPhrase(Array<String> phraseArrayNew) {
+        String tempLine = "";
         military.setPhraseId(0);
         military.phraseArray.clear();
         for (String line : phraseArrayNew) { military.phraseArray.add(line); }
