@@ -31,46 +31,42 @@ public class SpeakingClass extends Thread{
                     while ((line = reader.readLine()) != null) {
                         System.out.println(line);
                         command = line.split(" ");
-                        // QTE
                         protagonistNewPhrase(phrase);
+                        // QTE
                         if (line.contains("QTE")){
                             switch (command[1]){
                                 case("EASY"):
-                                    System.out.println("КУТЕЕ");
-                                    QTEActive = true;
-                                    break;
                                 case("NORMAL"):
-                                    System.out.println("КУТЕЕ НОРМ");
-                                    QTEActive = true;
-                                    break;
                                 case("HARD"):
-                                    System.out.println("КУТЕЕ СЛОЖНААА");
                                     QTEActive = true;
+                                    doReading = false;
+                                    com.mygdx.game.PrologueSpace.makeQTE(command[1]);
                                     break;
                                 case("SUCCESS"):
-                                    System.out.println("КУТЕЕ УСПЕХ");
                                     QTEActive = false;
                                     if(!QTESuccess){
                                         skipLines = true;
                                     }
+                                    if (QTESuccess && skipLines){
+                                        skipLines = false;
+                                    }
                                     break;
                                 case("FAIL"):
-                                    System.out.println("КУТЕЕ ПРОВАЛ");
                                     QTEActive = false;
                                     if(QTESuccess){
                                         skipLines = true;
                                     }
+                                    if (!QTESuccess && skipLines){
+                                        skipLines = false;
+                                    }
                                     break;
                                 case("END"):
-                                    System.out.println("КУТЕЕ КОНЧИЛОСЬ");
                                     QTESuccess = false;
+                                    skipLines = false;
+                                    QTEActive = false;
                             }
                         }
-                        if (QTEActive){
-                            doReading = false;
-                            com.mygdx.game.PrologueSpace.makeQTE(command[1]);
-                            break;
-                        }
+                        if (QTEActive){ break; }
                         if (!skipLines){
                             if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                             // Появление персонажа
