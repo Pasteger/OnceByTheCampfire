@@ -18,6 +18,7 @@ public class MainMenuScreen implements Screen {
     private final Button exitButton;
     MyTextInputListener listener;
     boolean listenerExist;
+    public static boolean doReading = true;
 
 
     MainMenuScreen(final MyGdxGame gam){

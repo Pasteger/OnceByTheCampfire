@@ -5,16 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.characters.*;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class PrologueSpace implements Screen {
     private final MyGdxGame game;
@@ -39,11 +30,6 @@ public class PrologueSpace implements Screen {
     public static Author author;
     public static Protagonist protagonist;
 
-    //кнопки
-    private Button choiceFirstButton;
-    private Button choiceSecondButton;
-    private Button choiceThirdButton;
-
     //Класс для прочитки текста
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
@@ -64,37 +50,10 @@ public class PrologueSpace implements Screen {
         background = new Texture("sprites/backgrounds/orange_forest.png");
         textField = new Texture("sprites/text_field.png");
         portal = new Texture("sprites/effects/portal.png");
-
-        game.stage = new Stage();
-        Gdx.input.setInputProcessor(game.stage);
-        game.batch = new SpriteBatch();
-
-        choiceFirstButton = new TextButton("", game.getTextButtonStyle());
-        game.stage.addActor(choiceFirstButton);
-        choiceFirstButton.setPosition(20, 200);
-        choiceFirstButton.setVisible(false);
-
-        choiceSecondButton = new TextButton("", game.getTextButtonStyle());
-        game.stage.addActor(choiceSecondButton);
-        choiceSecondButton.setPosition(20, 200);
-        choiceSecondButton.setVisible(false);
-
-        choiceThirdButton = new TextButton("", game.getTextButtonStyle());
-        game.stage.addActor(choiceThirdButton);
-        choiceThirdButton.setPosition(20, 200);
-        choiceThirdButton.setVisible(false);
-
-        ArrayList<String> a = new ArrayList<>();
-        a.add("Выбор 1");
-        a.add("Выбор 2");
-        a.add("Выбор 3");
-
-        startChoice(new boolean[]{true, true, true}, a);
     }
 
     @Override
     public void render(float delta) {
-        game.setButtonIsPressed(false);
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -119,56 +78,6 @@ public class PrologueSpace implements Screen {
         game.font.draw(game.batch, getPhrase.toString(), 10, 150);
 
         game.batch.end();
-
-        game.stage.draw();
-
-        choiceFirstButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (game.isButtonIsPressed()) {
-                    game.setButtonIsPressed(true);
-                    choiceFirstButton.setVisible(false);
-                    choiceSecondButton.setVisible(false);
-                    choiceThirdButton.setVisible(false);
-
-                    System.out.println("Произошёл выбор 1");
-
-                    dispose();
-                }
-            }
-        });
-
-        choiceSecondButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (game.isButtonIsPressed()) {
-                    game.setButtonIsPressed(true);
-                    choiceFirstButton.setVisible(false);
-                    choiceSecondButton.setVisible(false);
-                    choiceThirdButton.setVisible(false);
-
-                    System.out.println("Произошёл выбор 2");
-
-                    dispose();
-                }
-            }
-        });
-
-        choiceThirdButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (game.isButtonIsPressed()) {
-                    game.setButtonIsPressed(true);
-                    choiceFirstButton.setVisible(false);
-                    choiceSecondButton.setVisible(false);
-                    choiceThirdButton.setVisible(false);
-
-                    System.out.println("Произошёл выбор 3");
-
-                    dispose();
-                }
-            }
-        });
 
         //Этот флаг нужен, чтобы персонаж начинал говорить не с запуска окна, а с нажатия пробела
         if(!startSpeak && Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
@@ -218,27 +127,6 @@ public class PrologueSpace implements Screen {
             getPhrase = bandit.inputPhrase();
             paceOfSpeak = 0;
             if(bandit.getPhraseId() == bandit.phraseArray.size){ currentCharacter = ""; } }
-    }
-
-    public void startChoice(boolean[] countChoice, ArrayList<String> choiceNames) {
-        if (countChoice[0]) {
-            choiceFirstButton = new TextButton(choiceNames.get(0), game.getTextButtonStyle());
-            game.stage.addActor(choiceFirstButton);
-            choiceFirstButton.setPosition(20, 110);
-            choiceFirstButton.setVisible(true);
-        }
-        if (countChoice[1]) {
-            choiceSecondButton = new TextButton(choiceNames.get(1), game.getTextButtonStyle());
-            game.stage.addActor(choiceSecondButton);
-            choiceSecondButton.setPosition(20, 60);
-            choiceSecondButton.setVisible(true);
-        }
-        if (countChoice[2]) {
-            choiceThirdButton = new TextButton(choiceNames.get(2), game.getTextButtonStyle());
-            game.stage.addActor(choiceThirdButton);
-            choiceThirdButton.setPosition(20, 10);
-            choiceThirdButton.setVisible(true);
-        }
     }
 
     public void changeTeller(String name){

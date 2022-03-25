@@ -151,17 +151,13 @@ public class MainGameSpace implements Screen {
                 //2) В одном add() должно быть не больше 4 строчек
                 //3) Если в add() не влезает текст смело добавляй ещё один add() и пиши туда остальное
                 //Всё это можно увидеть чуть ниже
-                bandit.phraseArray.add("Fuck, and                                       what would it be to gore, the scribe wants to eat. Damn, and there's a naked" +
+                bandit.phraseArray.add("ПО РУССКИ ПО РУССКИ ГОВОРИ" +
                         "\n" +
-                        "man in his pocket, even if .....................................a deer got caught with swag, or better with money. They say," +
+                        "Так, мужики, о чем это я, на повестке дня - водка" +
                         "\n" +
-                        "I would like to crush an ampoule for two right now, or to fall into some kind of shesha." +
+                        "Я предлагаю жестко затариться в ближайшей пятере и напиться в хлам вечером" +
                         "\n" +
-                        "Right now there would be vodyars.. Yes, I'll get a mental snack. At least some"
-                );
-                bandit.phraseArray.add("crooked-nosed ones to poke around, otherwise it's boring. Oh, the paritsa has already" +
-                        "\n" +
-                        "shaken here, no sensible heating for you, no horseradish."
+                        "Как хорошо что уже 8 вечера"
                 );
                 //Также после заполнения массива фраз нужно обновить массив выводов
                 bandit.phraseInArrayWithdrawn = new boolean[bandit.phraseArray.size];
@@ -196,7 +192,7 @@ public class MainGameSpace implements Screen {
                         "\n" +
                         "благословенно их вечное единение с Монолитом!"
                 );
-                monolith.phraseArray.add("Смерть… Лютая смерть тем, кто отвергает Его священную силу!");
+                monolith.phraseArray.add("Смерть. Лютая смерть тем, кто отвергает Его священную силу!");
 
                 //Также после заполнения массива фраз нужно обновить массив выводов
                 monolith.phraseInArrayWithdrawn = new boolean[monolith.phraseArray.size];
@@ -215,7 +211,7 @@ public class MainGameSpace implements Screen {
             if(!phraseSet) {
                 bandit.setPhraseId(0);
                 bandit.phraseArray.clear();
-                bandit.phraseArray.add("Shut up!");
+                bandit.phraseArray.add("ДА ЗАТКНИСЬ УЖЕ СИНЯК");
                 bandit.phraseInArrayWithdrawn = new boolean[bandit.phraseArray.size];
                 phraseSet = true;
             }
@@ -249,9 +245,7 @@ public class MainGameSpace implements Screen {
             if(!phraseSet) {
                 bandit.setPhraseId(0);
                 bandit.phraseArray.clear();
-                bandit.phraseArray.add("Fuck off! I don't have time to chat. Fuck off, bro! What are you staring at?" +
-                        "\n" +
-                        "Haven't you been hit in the neck for a long time?");
+                bandit.phraseArray.add("ОТВЯНЬ У НАС НЕТ ВРЕМЕНИ ИДТИ К БАБЕ ЗИНЕ ЗА САМОГОНОМ");
                 bandit.phraseInArrayWithdrawn = new boolean[bandit.phraseArray.size];
                 phraseSet = true;
             }
@@ -266,9 +260,9 @@ public class MainGameSpace implements Screen {
             if(!phraseSet) {
                 monolith.setPhraseId(0);
                 monolith.phraseArray.clear();
-                monolith.phraseArray.add("We know what they want, but we will fulfill our purpose, we will protect the monolith." +
+                monolith.phraseArray.add("Мы знаем что ты хочешь. Вернись к нам и восстань, Монолит." +
                         "\n" +
-                        "He will come back and rejoice, he will rejoice.. We will rejoice.");
+                        "Он вернется и мы возрадуемся. Возрадуется и он. Монолит");
                 monolith.phraseInArrayWithdrawn = new boolean[monolith.phraseArray.size];
                 phraseSet = true;
             }
