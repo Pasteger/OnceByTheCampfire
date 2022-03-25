@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Array;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static com.mygdx.game.MainMenuScreen.doReading;
 import static com.mygdx.game.PrologueSpace.*;
@@ -27,6 +26,8 @@ public class SpeakingClass extends Thread{
                 sleep(500);
                 if (doReading){
                     while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                        if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                         command = line.split(" ");
                         // Появление персонажа. Убрать в метод
                         if (line.contains("APPEAR")){
@@ -43,35 +44,61 @@ public class SpeakingClass extends Thread{
                         if (line.contains("EFFECT")){
                             com.mygdx.game.PrologueSpace.doEffect(command[1]);
                         }
+                        // QTE
+                        if (line.contains("QTE")){
+                            switch (command[1]){
+                                case("EASY"):
+                                    System.out.println("КУТЕЕ");
+                                    break;
+                                case("NORMAL"):
+                                    System.out.println("КУТЕЕ НОРМ");
+                                    break;
+                                case("HARD"):
+                                    System.out.println("КУТЕЕ СЛОЖНААА");
+                                    break;
+                                case("SUCCESS"):
+                                    System.out.println("КУТЕЕ УСПЕХ");
+                                    break;
+                                case("FAIL"):
+                                    System.out.println("КУТЕЕ ПРОВАЛ");
+                                    break;
+                                case("END"):
+                                    System.out.println("КУТЕЕ КОНЧИЛОСЬ");
+                            }
+                        }
                         // Смена рассказчика
                         if (command.length == 1){
                             switch (line){
                                 case("DEBT"):
                                     changeTeller("Долг1");
                                     currentSpeaker = "DEBT";
+                                    break;
                                 case("VOLITION"):
                                     changeTeller("Свобода2");
                                     currentSpeaker = "VOLITION";
+                                    break;
                                 case("MILITARY"):
                                     changeTeller("Вояка3");
                                     currentSpeaker = "MILITARY";
+                                    break;
                                 case("BANDIT"):
                                     changeTeller("Бандос4");
                                     currentSpeaker = "BANDIT";
+                                    break;
                                 case("AUTHOR"):
                                     changeTeller("Автор5");
                                     currentSpeaker = "AUTHOR";
+                                    break;
                                 case("PROTAGONIST"):
                                     changeTeller("Герой6");
                                     currentSpeaker = "PROTAGONIST";
                             }
                         }
+
                         if (startWriting) {
                             StringCounter++;
                             phrase.add(line);
                         }
-                        System.out.println(line);
-                        if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                     }
                 }
             }

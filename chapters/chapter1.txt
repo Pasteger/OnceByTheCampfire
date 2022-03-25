@@ -223,10 +223,18 @@ APPEAR DEBT -1000 -1000
 PROTAGONIST
 *Нужно смываться, пока при памяти*
 EFFECT ABOBA21
+QTE HARD
+QTE SUCCESS
+PROTAGONIST
+*Ух ты ж блин.... Фух... Свалил. Все. Нафиг зону эту, пойду у вояк просить выпустить*
+QTE FAIL
+EFFECT ABOBA21
 EFFECT BLOODKAPETZ
 EFFECT NYAMNYAMNYAM6
-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А-А!
+PROTAGONIST
+А-А-А-А-А-А-А-А-А-А-А-А-А-А А-А-А-А-А-А-А-А-А А-А-А-А-А-А-А-А-А!
 *Сбылась у человека мечта, полетел*
+QTE END
 CHOICE 1 END
 END
 ABOBA21 - Тряска экрана
