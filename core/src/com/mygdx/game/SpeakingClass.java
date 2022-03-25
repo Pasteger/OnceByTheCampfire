@@ -19,6 +19,7 @@ public class SpeakingClass extends Thread{
             Array<String> phrase = new Array<String>();
             String[] command;
             String line;
+            boolean QTEActive = false;
             String currentSpeaker = "NONE";
             int StringCounter = 0;
             boolean startWriting = false;
@@ -49,22 +50,32 @@ public class SpeakingClass extends Thread{
                             switch (command[1]){
                                 case("EASY"):
                                     System.out.println("КУТЕЕ");
+                                    QTEActive = true;
                                     break;
                                 case("NORMAL"):
                                     System.out.println("КУТЕЕ НОРМ");
+                                    QTEActive = true;
                                     break;
                                 case("HARD"):
                                     System.out.println("КУТЕЕ СЛОЖНААА");
+                                    QTEActive = true;
                                     break;
                                 case("SUCCESS"):
                                     System.out.println("КУТЕЕ УСПЕХ");
+                                    QTEActive = false;
                                     break;
                                 case("FAIL"):
                                     System.out.println("КУТЕЕ ПРОВАЛ");
+                                    QTEActive = false;
                                     break;
                                 case("END"):
                                     System.out.println("КУТЕЕ КОНЧИЛОСЬ");
                             }
+                        }
+                        if (QTEActive){
+                            doReading = false;
+                            com.mygdx.game.PrologueSpace.makeQTE(command[1]);
+                            break;
                         }
                         // Смена рассказчика
                         if (command.length == 1){

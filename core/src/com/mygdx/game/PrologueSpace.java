@@ -228,6 +228,10 @@ public class PrologueSpace implements Screen {
         }
     }
 
+    public static void makeQTE(String difficulty){
+
+    }
+
     @Override public void show() { }
     @Override public void resize(int width, int height) { }
     @Override public void pause() { }
