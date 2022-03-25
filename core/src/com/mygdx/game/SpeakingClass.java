@@ -13,6 +13,7 @@ import static com.mygdx.game.PrologueSpace.volition;
 import static com.mygdx.game.PrologueSpace.author;
 import static com.mygdx.game.PrologueSpace.protagonist;
 import static com.mygdx.game.PrologueSpace.currentCharacter;
+import static com.mygdx.game.MainMenuScreen.doReading;
 
 
 public class SpeakingClass extends Thread{
@@ -22,12 +23,24 @@ public class SpeakingClass extends Thread{
     public void run() {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-                if (line.split(" ")[0].contains("END")){ break; }
+            int abiba = 0;
+            while (true){
+                sleep(500);
+                if (doReading){
+                    while ((line = reader.readLine()) != null) {
+                        abiba++;
+                        System.out.println(line);
+                        if(abiba % 4 == 0){
+                            System.out.println("Курент абиба: " + abiba);
+                            doReading =false;
+                            break;
+                        }
+                        if (line.split(" ")[0].contains("END")){ doReading=false; break; }
+                    }
+                }
             }
         }
-        catch (IOException e) {
+        catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

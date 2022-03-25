@@ -93,10 +93,10 @@ CHOICE 2
 PROTAGONIST
 Так, бандиты, руки вверх и потопали отсюда,
 и мы тоже отойдем назад. И чтоб без фокусов!
-РЕПУТАЦИЯ + 5 MILITARY
-РЕПУТАЦИЯ + 5 DEBT
-РЕПУТАЦИЯ - 15 VOLITION
-РЕПУТАЦИЯ - 15 BANDIT
+REPUTATION + 5 MILITARY
+REPUTATION + 5 DEBT
+REPUTATION - 15 VOLITION
+REPUTATION - 15 BANDIT
 AUTHOR
 Вы медленно идете назад и пристально смотрите
 на бандита и свободовца, метров через 50
@@ -122,10 +122,10 @@ AUTHOR
 Вы целитесь на долговца и военного
 PROTAGONIST
 Расходимся на сто метров и никто никого не валит, уяснили?
-РЕПУТАЦИЯ + 5 BANDIT
-РЕПУТАЦИЯ + 5 VOLITION
-РЕПУТАЦИЯ - 15 DEBT
-РЕПУТАЦИЯ - 15 MILITARY
+REPUTATION + 5 BANDIT
+REPUTATION + 5 VOLITION
+REPUTATION - 15 DEBT
+REPUTATION - 15 MILITARY
 AUTHOR
 Вы медленно идете назад и пристально смотрите на военного и долговца.
 Спустя метров 50 они скрываются из вашего поля зрения...
@@ -164,10 +164,10 @@ AUTHOR
 Вы решили не вмешиваться в происходящее.
 Кто знает, как еще могут среагировать ваши новые знакомые...
 EFFECT ABOBA21
-РЕПУТАЦИЯ - 5 BANDIT
-РЕПУТАЦИЯ - 5 VOLITION
-РЕПУТАЦИЯ - 5 DEBT
-РЕПУТАЦИЯ - 5 MILITARY
+REPUTATION - 5 BANDIT
+REPUTATION - 5 VOLITION
+REPUTATION - 5 DEBT
+REPUTATION - 5 MILITARY
 BANDIT
 Ай, млин, башкой ударился… Опять вы? 
 MILITARY
