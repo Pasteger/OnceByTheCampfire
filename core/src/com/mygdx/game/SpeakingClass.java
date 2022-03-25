@@ -93,47 +93,82 @@ public class SpeakingClass extends Thread{
                             }
                             // Смена рассказчика
                             if (command.length == 1) {
-                                    switch (line) {
-                                        case ("DEBT"):
-                                            changeTeller("dept1");
-                                            currentSpeaker = "DEBT";
-                                            startWriting = true;
-                                            interruption = true;
-                                            continue;
-                                        case ("VOLITION"):
-                                            changeTeller("vol2");
-                                            currentSpeaker = "VOLITION";
-                                            startWriting = true;
-                                            interruption = true;
-                                            continue;
-                                        case ("MILITARY"):
-                                            changeTeller("mil3");
-                                            currentSpeaker = "MILITARY";
-                                            startWriting = true;
-                                            interruption = true;
-                                            continue;
-                                        case ("BANDIT"):
-                                            changeTeller("ban4");
-                                            currentSpeaker = "BANDIT";
-                                            startWriting = true;
-                                            interruption = true;
-                                            continue;
-                                        case ("AUTHOR"):
-                                            changeTeller("auth5");
-                                            currentSpeaker = "AUTHOR";
-                                            startWriting = true;
-                                            interruption = true;
-                                            continue;
-                                        case ("PROTAGONIST"):
-                                            changeTeller("mc6");
-                                            currentSpeaker = "PROTAGONIST";
-                                            startWriting = true;
-                                            interruption = true;
-                                            continue;
+                                    if (line.equals("DEBT")) {
+                                        changeTeller("dept1");
+                                        currentSpeaker = "DEBT";
+                                        startWriting = true;
+                                        continue;
                                     }
+                                    if (line.equals("VOLITION")) {
+                                        changeTeller("vol2");
+                                        currentSpeaker = "DEBT";
+                                        startWriting = true;
+                                        continue;
+                                    }
+                                    if (line.equals("MILITARY")) {
+                                        changeTeller("mil3");
+                                        currentSpeaker = "DEBT";
+                                        startWriting = true;
+                                        continue;
+                                    }
+                                    if (line.equals("PROTAGONIST")) {
+                                        changeTeller("pro4");
+                                        currentSpeaker = "DEBT";
+                                        startWriting = true;
+                                        continue;
+                                    }
+                                    if (line.equals("AUTHOR")) {
+                                        changeTeller("auth5");
+                                        currentSpeaker = "DEBT";
+                                        startWriting = true;
+                                        continue;
+                                    }
+                                    if (line.equals("BANDIT")) {
+                                        changeTeller("ban6");
+                                        currentSpeaker = "DEBT";
+                                        startWriting = true;
+                                        continue;
+                                }
                             }
+
                             // читаемся
                             if (startWriting) {
+                                if (line.equals("DEBT")) {
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("VOLITION")) {
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("MILITARY")) {
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("PROTAGONIST")) {
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("AUTHOR")) {
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
+                                if (line.equals("BANDIT")) {
+                                    startWriting = false;
+                                    doReading = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    break;
+                                }
                                 phrase.add(line);
                                 StringCounter++;
                                 if (StringCounter == 4){
@@ -142,47 +177,6 @@ public class SpeakingClass extends Thread{
                                     setPhrase(currentSpeaker, phrase);
                                     break;
                                 }
-                                if (line.equals("DEBT")){
-                                    startWriting = false;
-                                    doReading = false;
-                                    setPhrase(currentSpeaker, phrase);
-                                    break;
-                                }
-                                if (line.equals("VOLITION")){
-                                    startWriting = false;
-                                    doReading = false;
-                                    setPhrase(currentSpeaker, phrase);
-                                    break;
-                                }
-                                if (line.equals("BANDIT")){
-                                    startWriting = false;
-                                    doReading = false;
-                                    setPhrase(currentSpeaker, phrase);
-                                    break;
-                                }
-                                if (line.equals("PROTAGONIST")){
-                                    startWriting = false;
-                                    doReading = false;
-                                    setPhrase(currentSpeaker, phrase);
-                                    break;
-
-                                }
-                                if (line.equals("MILITARY")){
-                                    startWriting = false;
-                                    doReading = false;
-                                    setPhrase(currentSpeaker, phrase);
-                                    break;
-                                }
-                                if (line.equals("AUTHOR")){
-                                    startWriting = false;
-                                    doReading = false;
-                                    setPhrase(currentSpeaker, phrase);
-                                    break;
-                                }
-                            }
-                            if (!startWriting && phrase.size != 0){
-                                setPhrase(currentSpeaker, phrase);
-                                phrase.clear();
                             }
                         }
                     }
