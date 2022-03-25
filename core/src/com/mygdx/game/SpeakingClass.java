@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import static com.mygdx.game.MainMenuScreen.doReading;
 import static com.mygdx.game.MainMenuScreen.QTESuccess;
+import static com.mygdx.game.MainMenuScreen.QTEActive;
 import static com.mygdx.game.PrologueSpace.*;
 
 
@@ -17,10 +18,9 @@ public class SpeakingClass extends Thread{
     @Override
     public void run() {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName))) {
-            Array<String> phrase = new Array<String>();
+            Array<String> phrase = new Array<>();
             String[] command;
             String line;
-            boolean QTEActive = false;
             boolean skipLines = false;
             String currentSpeaker = "NONE";
             int StringCounter = 0;

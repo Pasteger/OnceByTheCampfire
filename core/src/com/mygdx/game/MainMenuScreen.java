@@ -20,6 +20,7 @@ public class MainMenuScreen implements Screen {
     boolean listenerExist;
     public static boolean doReading = true;
     public static boolean QTESuccess = false;
+    public static boolean QTEActive = false;
 
 
     MainMenuScreen(final MyGdxGame gam){
