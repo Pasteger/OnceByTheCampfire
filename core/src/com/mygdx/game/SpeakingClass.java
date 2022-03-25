@@ -29,7 +29,6 @@ public class SpeakingClass extends Thread{
                 sleep(500);
                 if (doReading){
                     while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
                         command = line.split(" ");
                         protagonistNewPhrase(phrase);
                         // QTE
@@ -86,14 +85,6 @@ public class SpeakingClass extends Thread{
                             }
                             // читаемся
                             if (startWriting) {
-                                StringCounter++;
-                                if (StringCounter == 4){
-                                    startWriting = false;
-                                    doReading = false;
-                                    setPhrase(currentSpeaker, phrase);
-                                    currentSpeaker = "NONE";
-                                    break;
-                                }
                                 if (line.equals("DEBT")){
                                     System.out.println("boba1");
                                     startWriting = false;
@@ -137,6 +128,9 @@ public class SpeakingClass extends Thread{
                                     setPhrase(currentSpeaker, phrase);
                                     break;
                                 }
+                                StringCounter++;
+                                System.out.println(line);
+                                phrase.add(line);
                             }
                             // Смена рассказчика
                             if (command.length == 1){
