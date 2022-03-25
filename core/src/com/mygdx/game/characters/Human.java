@@ -21,7 +21,8 @@ public class Human {
     protected int character;
     protected Array<Sound> voice;
     protected Random random;
-    protected int pace;
+    protected int pace = 0;
+    public boolean needToClear = false;
 
     public Human(){
         phraseArray = new Array<>();
@@ -59,11 +60,10 @@ public class Human {
                     }
                 }
                 return getPhrase;
-            } /*else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            } else {
                 phraseId++;
-                getPhrase = new StringBuilder();
-                character = 0;
-            }*/
+                needToClear = true;
+            }
         } catch (Exception ignored) {
         }
         return getPhrase;
@@ -83,7 +83,9 @@ public class Human {
     }
 
     public void clearPhrase(){
+        phraseId = 0;
         getPhrase = new StringBuilder();
         character = 0;
+        needToClear = false;
     }
 }

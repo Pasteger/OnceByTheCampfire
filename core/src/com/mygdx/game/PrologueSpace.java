@@ -162,15 +162,10 @@ public class PrologueSpace implements Screen {
             speakingClass.start();
         }
         // Временное значение для промотки текста
-        if(!doReading && Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if(!doReading && Gdx.input.isKeyPressed(Input.Keys.G)){
             doReading = true;
         }
 
-        // Кнопки для QTE
-        if (QTEActive && (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.D)
-                || Gdx.input.isKeyPressed(Input.Keys.S)) || Gdx.input.isKeyPressed(Input.Keys.W)){
-
-        }
         //Этот метод вызывается каждый цикл рендера и на текстовом поле мечатается фраза
         if(startSpeak) { speak(); }
 
@@ -242,11 +237,17 @@ public class PrologueSpace implements Screen {
 
     public static void makeQTE(String difficulty){
         aimCountTemp = 0;
-        int mistakes = 3; int time = 8; int aimCount = 5; String[] keysMas = new String[]{"A", "D"};
-        if (difficulty.equals("NORMAL")){ mistakes = 2; time = 5; aimCount = 8; String[] keysAmount = new String[]{"A", "D", "S"}; }
-        if (difficulty.equals("HARD")){ mistakes = 1; time = 3; aimCount = 10; String[] keysAmount = new String[]{"A", "D", "S", "W"}; }
+        int mistakes = 3; int time = 8; int aimCount = 5;
+        if (difficulty.equals("NORMAL")){ mistakes = 2; time = 5; aimCount = 8; }
+        if (difficulty.equals("HARD")){ mistakes = 1; time = 3; aimCount = 10; }
         long timeStart = System.currentTimeMillis();
-        while (aimCountTemp < aimCount){ }
+        while (aimCountTemp < aimCount){
+            // Кнопки для QTE
+            if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.D)
+                    || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.W)){
+
+            }
+        }
         long timeFinish = System.currentTimeMillis();
         if (timeFinish-timeStart>time){ mistakes = 0; }
         if (mistakes >= 1){
