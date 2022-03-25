@@ -48,7 +48,6 @@ public class Human {
         try {
             if (!phraseInArrayWithdrawn[phraseId]) {
                 phraseInArrayWithdrawn[phraseId] = withdrawnPhrase(phraseArray.get(phraseId));
-
                 //В этом месте происходит анимация говорения
                 if(getPhrase.charAt(getPhrase.length()-1) != ' ' && getPhrase.charAt(getPhrase.length()-1) != '.') {
                     if (character % 2 == 0) {
