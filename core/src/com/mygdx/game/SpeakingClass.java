@@ -27,9 +27,9 @@ public class SpeakingClass extends Thread{
                 sleep(500);
                 if (doReading){
                     while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
-                        if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                         command = line.split(" ");
+                        if (command[0].contains("END")){ doReading=false; break; }
+                        System.out.println(line);
                         // Появление персонажа. Убрать в метод
                         if (line.contains("APPEAR")){
                             if (command[1].equals("DEBT")){
@@ -81,34 +81,66 @@ public class SpeakingClass extends Thread{
                         if (command.length == 1){
                             switch (line){
                                 case("DEBT"):
-                                    changeTeller("Долг1");
+                                    changeTeller("dept1");
                                     currentSpeaker = "DEBT";
+                                    startWriting = true;
                                     break;
                                 case("VOLITION"):
-                                    changeTeller("Свобода2");
+                                    changeTeller("vol2");
                                     currentSpeaker = "VOLITION";
+                                    startWriting = true;
                                     break;
                                 case("MILITARY"):
-                                    changeTeller("Вояка3");
+                                    changeTeller("mil3");
                                     currentSpeaker = "MILITARY";
+                                    startWriting = true;
                                     break;
                                 case("BANDIT"):
-                                    changeTeller("Бандос4");
+                                    changeTeller("ban4");
                                     currentSpeaker = "BANDIT";
+                                    startWriting = true;
                                     break;
                                 case("AUTHOR"):
-                                    changeTeller("Автор5");
+                                    changeTeller("auth5");
                                     currentSpeaker = "AUTHOR";
+                                    startWriting = true;
                                     break;
                                 case("PROTAGONIST"):
-                                    changeTeller("Герой6");
+                                    changeTeller("mc6");
                                     currentSpeaker = "PROTAGONIST";
+                                    startWriting = true;
                             }
                         }
-
                         if (startWriting) {
                             StringCounter++;
+                            if (StringCounter == 4){
+                                startWriting = false;
+                                doReading = false;
+                                break;
+                            }
+                            if (line.equals("DEBT")){
+                                System.out.println("boba1");
+                            }
+                            if (line.equals("VOLITION")){
+                                System.out.println("boba2");
+                            }
+                            if (line.equals("BANDIT")){
+                                System.out.println("boba3");
+                            }
+                            if (line.equals("PROTAGONIST")){
+                                System.out.println("boba4");
+                            }
+                            if (line.equals("MILITARY>")){
+                                System.out.println("boba5");
+                            }
+                            if (line.equals("AUTHOR")){
+                                System.out.println("boba6");
+                            }
                             phrase.add(line);
+
+                        }
+                        if (!currentSpeaker.equals(line)){
+                            changeTeller(line);
                         }
                     }
                 }
