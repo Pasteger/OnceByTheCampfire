@@ -87,6 +87,42 @@ public class SpeakingClass extends Thread{
                             // Эффект
                             if (line.contains("EFFECT")){
                                 com.mygdx.game.PrologueSpace.doEffect(command[1]);
+                                startWriting = false;
+                            }
+                            // Смена рассказчика
+                            if (command.length == 1){
+                                switch (line){
+                                    case("DEBT"):
+                                        changeTeller("dept1");
+                                        currentSpeaker = "DEBT";
+                                        startWriting = true;
+                                        continue;
+                                    case("VOLITION"):
+                                        changeTeller("vol2");
+                                        currentSpeaker = "VOLITION";
+                                        startWriting = true;
+                                        continue;
+                                    case("MILITARY"):
+                                        changeTeller("mil3");
+                                        currentSpeaker = "MILITARY";
+                                        startWriting = true;
+                                        continue;
+                                    case("BANDIT"):
+                                        changeTeller("ban4");
+                                        currentSpeaker = "BANDIT";
+                                        startWriting = true;
+                                        continue;
+                                    case("AUTHOR"):
+                                        changeTeller("auth5");
+                                        currentSpeaker = "AUTHOR";
+                                        startWriting = true;
+                                        continue;
+                                    case("PROTAGONIST"):
+                                        changeTeller("mc6");
+                                        currentSpeaker = "PROTAGONIST";
+                                        startWriting = true;
+                                        continue;
+                                }
                             }
                             // читаемся
                             if (startWriting) {
@@ -94,7 +130,7 @@ public class SpeakingClass extends Thread{
                                 StringCounter++;
                                 System.out.println(StringCounter);
                                 if (StringCounter == 4){
-                                    System.out.println("pizda1");
+                                    System.out.println("del1");
                                     startWriting = false;
                                     doReading = false;
                                     setPhrase(currentSpeaker, phrase);
@@ -142,40 +178,6 @@ public class SpeakingClass extends Thread{
                                     doReading = false;
                                     setPhrase(currentSpeaker, phrase);
                                     break;
-                                }
-                            }
-                            // Смена рассказчика
-                            if (command.length == 1){
-                                switch (line){
-                                    case("DEBT"):
-                                        changeTeller("dept1");
-                                        currentSpeaker = "DEBT";
-                                        startWriting = true;
-                                        break;
-                                    case("VOLITION"):
-                                        changeTeller("vol2");
-                                        currentSpeaker = "VOLITION";
-                                        startWriting = true;
-                                        break;
-                                    case("MILITARY"):
-                                        changeTeller("mil3");
-                                        currentSpeaker = "MILITARY";
-                                        startWriting = true;
-                                        break;
-                                    case("BANDIT"):
-                                        changeTeller("ban4");
-                                        currentSpeaker = "BANDIT";
-                                        startWriting = true;
-                                        break;
-                                    case("AUTHOR"):
-                                        changeTeller("auth5");
-                                        currentSpeaker = "AUTHOR";
-                                        startWriting = true;
-                                        break;
-                                    case("PROTAGONIST"):
-                                        changeTeller("mc6");
-                                        currentSpeaker = "PROTAGONIST";
-                                        startWriting = true;
                                 }
                             }
                         }
