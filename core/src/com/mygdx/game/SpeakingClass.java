@@ -88,49 +88,8 @@ public class SpeakingClass extends Thread{
                             // Эффект
                             if (line.contains("EFFECT")){
                                 com.mygdx.game.PrologueSpace.doEffect(command[1]);
-                                startWriting = false;
                                 continue;
                             }
-                            // Смена рассказчика
-                            if (command.length == 1) {
-                                    if (line.equals("DEBT")) {
-                                        changeTeller("dept1");
-                                        currentSpeaker = "DEBT";
-                                        startWriting = true;
-                                        continue;
-                                    }
-                                    if (line.equals("VOLITION")) {
-                                        changeTeller("vol2");
-                                        currentSpeaker = "DEBT";
-                                        startWriting = true;
-                                        continue;
-                                    }
-                                    if (line.equals("MILITARY")) {
-                                        changeTeller("mil3");
-                                        currentSpeaker = "DEBT";
-                                        startWriting = true;
-                                        continue;
-                                    }
-                                    if (line.equals("PROTAGONIST")) {
-                                        changeTeller("pro4");
-                                        currentSpeaker = "DEBT";
-                                        startWriting = true;
-                                        continue;
-                                    }
-                                    if (line.equals("AUTHOR")) {
-                                        changeTeller("auth5");
-                                        currentSpeaker = "DEBT";
-                                        startWriting = true;
-                                        continue;
-                                    }
-                                    if (line.equals("BANDIT")) {
-                                        changeTeller("ban6");
-                                        currentSpeaker = "DEBT";
-                                        startWriting = true;
-                                        continue;
-                                }
-                            }
-
                             // читаемся
                             if (startWriting) {
                                 if (line.equals("DEBT")) {
@@ -176,6 +135,44 @@ public class SpeakingClass extends Thread{
                                     doReading = false;
                                     setPhrase(currentSpeaker, phrase);
                                     break;
+                                }
+                            }
+                            // Смена рассказчика
+                            if (command.length == 1) {
+                                if (line.equals("DEBT")) {
+                                    changeTeller("dept1");
+                                    currentSpeaker = "DEBT";
+                                    startWriting = true;
+                                    continue;
+                                }
+                                if (line.equals("VOLITION")) {
+                                    changeTeller("vol2");
+                                    currentSpeaker = "VOLITION";
+                                    startWriting = true;
+                                    continue;
+                                }
+                                if (line.equals("MILITARY")) {
+                                    changeTeller("mil3");
+                                    currentSpeaker = "MILITARY";
+                                    startWriting = true;
+                                    continue;
+                                }
+                                if (line.equals("PROTAGONIST")) {
+                                    changeTeller("pro4");
+                                    currentSpeaker = "PROTAGONIST";
+                                    startWriting = true;
+                                    continue;
+                                }
+                                if (line.equals("AUTHOR")) {
+                                    changeTeller("auth5");
+                                    currentSpeaker = "AUTHOR";
+                                    startWriting = true;
+                                    continue;
+                                }
+                                if (line.equals("BANDIT")) {
+                                    changeTeller("ban6");
+                                    currentSpeaker = "BANDIT";
+                                    startWriting = true;
                                 }
                             }
                         }
