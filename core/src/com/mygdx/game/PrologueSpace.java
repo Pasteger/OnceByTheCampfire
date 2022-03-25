@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.characters.*;
+import static com.mygdx.game.MainMenuScreen.doReading;
 
 public class PrologueSpace implements Screen {
     private final MyGdxGame game;
@@ -84,7 +85,10 @@ public class PrologueSpace implements Screen {
             startSpeak = true;
             speakingClass.start();
         }
-
+        if(!doReading && Gdx.input.isKeyPressed(Input.Keys.G)){
+            doReading = true;
+            System.out.println("123");
+        }
         //Этот метод вызывается каждый цикл рендера и на текстовом поле мечатается фраза
         if(startSpeak) { speak(); }
 
@@ -129,12 +133,12 @@ public class PrologueSpace implements Screen {
             if(bandit.getPhraseId() == bandit.phraseArray.size){ currentCharacter = ""; } }
     }
 
-    public void changeTeller(String name){
+    public static void changeTeller(String name){
         System.out.println("Сменился рассказчик на " + name);
     }
 
-    public void doEffect(String name){
-        if(name.equals("АБОБА21")){
+    public static void doEffect(String name){
+        if(name.equals("ABOBA21")){
             System.out.println("АБОБА21");
         }
     }
