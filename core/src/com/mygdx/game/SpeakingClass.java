@@ -17,7 +17,7 @@ public class SpeakingClass extends Thread{
     @Override
     public void run() {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName))) {
-            Array<String> phrase = new Array<String>();
+            Array<String> phrase = new Array<>();
             String[] command;
             String line;
             boolean QTEActive = false;
@@ -29,47 +29,44 @@ public class SpeakingClass extends Thread{
                 sleep(500);
                 if (doReading){
                     while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
                         command = line.split(" ");
+                        System.out.println(line);
                         // QTE
                         if (line.contains("QTE")){
                             switch (command[1]){
                                 case("EASY"):
-                                    System.out.println("КУТЕЕ");
-                                    QTEActive = true;
-                                    break;
                                 case("NORMAL"):
-                                    System.out.println("КУТЕЕ НОРМ");
-                                    QTEActive = true;
-                                    break;
                                 case("HARD"):
-                                    System.out.println("КУТЕЕ СЛОЖНААА");
                                     QTEActive = true;
+                                    doReading = false;
+                                    com.mygdx.game.PrologueSpace.makeQTE(command[1]);
                                     break;
                                 case("SUCCESS"):
-                                    System.out.println("КУТЕЕ УСПЕХ");
                                     QTEActive = false;
                                     if(!QTESuccess){
                                         skipLines = true;
                                     }
+                                    if (QTESuccess && skipLines){
+                                        skipLines = false;
+                                    }
                                     break;
                                 case("FAIL"):
-                                    System.out.println("КУТЕЕ ПРОВАЛ");
                                     QTEActive = false;
                                     if(QTESuccess){
                                         skipLines = true;
                                     }
+                                    if (!QTESuccess && skipLines){
+                                        skipLines = false;
+                                    }
                                     break;
                                 case("END"):
-                                    System.out.println("КУТЕЕ КОНЧИЛОСЬ");
                                     QTESuccess = false;
+                                    skipLines = false;
+                                    QTEActive = false;
                             }
                         }
-                        if (QTEActive){
-                            doReading = false;
-                            com.mygdx.game.PrologueSpace.makeQTE(command[1]);
-                            break;
-                        }
+                        if (QTEActive){ break; }
+
                         if (!skipLines){
                             if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                             // Появление персонажа
@@ -147,10 +144,6 @@ public class SpeakingClass extends Thread{
                                     System.out.println("boba6");
                                 }
                                 phrase.add(line);
-
-                            }
-                            if (!currentSpeaker.equals(line)){
-                                changeTeller(line);
                             }
                         }
                     }
