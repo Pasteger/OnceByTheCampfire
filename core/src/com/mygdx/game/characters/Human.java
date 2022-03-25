@@ -59,11 +59,11 @@ public class Human {
                     }
                 }
                 return getPhrase;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            } /*else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 phraseId++;
                 getPhrase = new StringBuilder();
                 character = 0;
-            }
+            }*/
         } catch (Exception ignored) {
         }
         return getPhrase;
@@ -80,5 +80,10 @@ public class Human {
             withdrawn = true;
         }
         return withdrawn;
+    }
+
+    public void clearPhrase(){
+        getPhrase = new StringBuilder();
+        character = 0;
     }
 }
