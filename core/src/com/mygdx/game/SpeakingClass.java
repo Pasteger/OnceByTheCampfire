@@ -197,7 +197,10 @@ public class SpeakingClass extends Thread{
         String tempLine = "";
         debter.setPhraseId(0);
         debter.phraseArray.clear();
-        for (String line : phraseArrayNew) { debter.phraseArray.add(line); }
+        for (String line : phraseArrayNew) {
+            tempLine = tempLine + line + "\n";
+        }
+        debter.phraseArray.add(tempLine);
         debter.phraseInArrayWithdrawn = new boolean[debter.phraseArray.size];
         currentCharacter = "Debter";
     }
@@ -206,7 +209,10 @@ public class SpeakingClass extends Thread{
         String tempLine = "";
         volition.setPhraseId(0);
         volition.phraseArray.clear();
-        for (String line : phraseArrayNew) { volition.phraseArray.add(line); }
+        for (String line : phraseArrayNew) {
+            tempLine = tempLine + line + "\n";
+        }
+        volition.phraseArray.add(tempLine);
         volition.phraseInArrayWithdrawn = new boolean[volition.phraseArray.size];
         currentCharacter = "Volition";
     }
@@ -215,7 +221,10 @@ public class SpeakingClass extends Thread{
         String tempLine = "";
         military.setPhraseId(0);
         military.phraseArray.clear();
-        for (String line : phraseArrayNew) { military.phraseArray.add(line); }
+        for (String line : phraseArrayNew) {
+            tempLine = tempLine + line + "\n";
+        }
+        military.phraseArray.add(tempLine);
         military.phraseInArrayWithdrawn = new boolean[military.phraseArray.size];
         currentCharacter = "Military";
     }
@@ -224,7 +233,10 @@ public class SpeakingClass extends Thread{
         String tempLine = "";
         author.setPhraseId(0);
         author.phraseArray.clear();
-        for (String line : phraseArrayNew) { author.phraseArray.add(line); }
+        for (String line : phraseArrayNew) {
+            tempLine = tempLine + line + "\n";
+        }
+        author.phraseArray.add(tempLine);
         author.phraseInArrayWithdrawn = new boolean[author.phraseArray.size];
         currentCharacter = "Author";
     }

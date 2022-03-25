@@ -162,7 +162,7 @@ public class PrologueSpace implements Screen {
             speakingClass.start();
         }
         // Временное значение для промотки текста
-        if(!doReading && Gdx.input.isKeyPressed(Input.Keys.G)){
+        if(!doReading && Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             doReading = true;
         }
 

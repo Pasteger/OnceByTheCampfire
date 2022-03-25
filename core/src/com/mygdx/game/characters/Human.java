@@ -17,7 +17,6 @@ public class Human {
     protected Float y;
     protected int voiceID;
     protected int phraseId;
-    protected int phrasePhase;
     protected StringBuilder getPhrase;
     protected int character;
     protected Array<Sound> voice;
@@ -29,7 +28,6 @@ public class Human {
         getPhrase = new StringBuilder();
         voice = new Array<>();
         random = new Random();
-        phrasePhase = 1;
     }
 
     public Float getX() {return x;}
@@ -63,7 +61,6 @@ public class Human {
                 return getPhrase;
             } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 phraseId++;
-                phrasePhase = 0;
                 getPhrase = new StringBuilder();
                 character = 0;
             }
@@ -75,7 +72,6 @@ public class Human {
     //Этот метод тоже выводит на экран фразы
     protected boolean withdrawnPhrase(String phrase){
         boolean withdrawn = false;
-        phrasePhase = 0;
         try {
             getPhrase.append(phrase.charAt(character));
             character++;
