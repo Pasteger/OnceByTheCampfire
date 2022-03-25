@@ -21,7 +21,7 @@ public class Human {
     protected int character;
     protected Array<Sound> voice;
     protected Random random;
-    protected int pace;
+    protected int pace = 0;
     public boolean needToClear = false;
 
     public Human(){
