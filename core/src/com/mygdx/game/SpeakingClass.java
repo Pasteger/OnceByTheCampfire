@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import static com.mygdx.game.MainMenuScreen.doReading;
+import static com.mygdx.game.MainMenuScreen.QTESuccess;
 import static com.mygdx.game.PrologueSpace.*;
 
 
@@ -20,6 +21,7 @@ public class SpeakingClass extends Thread{
             String[] command;
             String line;
             boolean QTEActive = false;
+            boolean skipLines = false;
             String currentSpeaker = "NONE";
             int StringCounter = 0;
             boolean startWriting = false;
@@ -27,24 +29,8 @@ public class SpeakingClass extends Thread{
                 sleep(500);
                 if (doReading){
                     while ((line = reader.readLine()) != null) {
-                        command = line.split(" ");
-                        if (command[0].contains("END")){ doReading=false; break; }
                         System.out.println(line);
-                        // Появление персонажа. Убрать в метод
-                        if (line.contains("APPEAR")){
-                            if (command[1].equals("DEBT")){
-                                changePlaceDebter(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
-                            if (command[1].equals("VOLITION")){
-                                changePlaceVolition(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
-                            if (command[1].equals("MILITARY")){
-                                changePlaceMilitary(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
-                            if (command[1].equals("BANDIT")){
-                                changePlaceBandit(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
-                        }
-                        // Эффект
-                        if (line.contains("EFFECT")){
-                            com.mygdx.game.PrologueSpace.doEffect(command[1]);
-                        }
+                        command = line.split(" ");
                         // QTE
                         if (line.contains("QTE")){
                             switch (command[1]){
@@ -63,13 +49,20 @@ public class SpeakingClass extends Thread{
                                 case("SUCCESS"):
                                     System.out.println("КУТЕЕ УСПЕХ");
                                     QTEActive = false;
+                                    if(!QTESuccess){
+                                        skipLines = true;
+                                    }
                                     break;
                                 case("FAIL"):
                                     System.out.println("КУТЕЕ ПРОВАЛ");
                                     QTEActive = false;
+                                    if(QTESuccess){
+                                        skipLines = true;
+                                    }
                                     break;
                                 case("END"):
                                     System.out.println("КУТЕЕ КОНЧИЛОСЬ");
+                                    QTESuccess = false;
                             }
                         }
                         if (QTEActive){
@@ -77,70 +70,56 @@ public class SpeakingClass extends Thread{
                             com.mygdx.game.PrologueSpace.makeQTE(command[1]);
                             break;
                         }
-                        // Смена рассказчика
-                        if (command.length == 1){
-                            switch (line){
-                                case("DEBT"):
-                                    changeTeller("dept1");
-                                    currentSpeaker = "DEBT";
-                                    startWriting = true;
-                                    break;
-                                case("VOLITION"):
-                                    changeTeller("vol2");
-                                    currentSpeaker = "VOLITION";
-                                    startWriting = true;
-                                    break;
-                                case("MILITARY"):
-                                    changeTeller("mil3");
-                                    currentSpeaker = "MILITARY";
-                                    startWriting = true;
-                                    break;
-                                case("BANDIT"):
-                                    changeTeller("ban4");
-                                    currentSpeaker = "BANDIT";
-                                    startWriting = true;
-                                    break;
-                                case("AUTHOR"):
-                                    changeTeller("auth5");
-                                    currentSpeaker = "AUTHOR";
-                                    startWriting = true;
-                                    break;
-                                case("PROTAGONIST"):
-                                    changeTeller("mc6");
-                                    currentSpeaker = "PROTAGONIST";
-                                    startWriting = true;
+                        if (!skipLines){
+                            if (line.split(" ")[0].contains("END")){ doReading=false; break; }
+                            // Появление персонажа
+                            if (line.contains("APPEAR")){
+                                if (command[1].equals("DEBT")){
+                                    changePlaceDebter(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                                if (command[1].equals("VOLITION")){
+                                    changePlaceVolition(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                                if (command[1].equals("MILITARY")){
+                                    changePlaceMilitary(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                                if (command[1].equals("BANDIT")){
+                                    changePlaceBandit(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
                             }
-                        }
-                        if (startWriting) {
-                            StringCounter++;
-                            if (StringCounter == 4){
-                                startWriting = false;
-                                doReading = false;
-                                break;
+                            // Эффект
+                            if (line.contains("EFFECT")){
+                                com.mygdx.game.PrologueSpace.doEffect(command[1]);
                             }
-                            if (line.equals("DEBT")){
-                                System.out.println("boba1");
+                            // Смена рассказчика
+                            if (command.length == 1){
+                                switch (line){
+                                    case("DEBT"):
+                                        changeTeller("Долг1");
+                                        currentSpeaker = "DEBT";
+                                        break;
+                                    case("VOLITION"):
+                                        changeTeller("Свобода2");
+                                        currentSpeaker = "VOLITION";
+                                        break;
+                                    case("MILITARY"):
+                                        changeTeller("Вояка3");
+                                        currentSpeaker = "MILITARY";
+                                        break;
+                                    case("BANDIT"):
+                                        changeTeller("Бандос4");
+                                        currentSpeaker = "BANDIT";
+                                        break;
+                                    case("AUTHOR"):
+                                        changeTeller("Автор5");
+                                        currentSpeaker = "AUTHOR";
+                                        break;
+                                    case("PROTAGONIST"):
+                                        changeTeller("Герой6");
+                                        currentSpeaker = "PROTAGONIST";
+                                }
                             }
-                            if (line.equals("VOLITION")){
-                                System.out.println("boba2");
-                            }
-                            if (line.equals("BANDIT")){
-                                System.out.println("boba3");
-                            }
-                            if (line.equals("PROTAGONIST")){
-                                System.out.println("boba4");
-                            }
-                            if (line.equals("MILITARY>")){
-                                System.out.println("boba5");
-                            }
-                            if (line.equals("AUTHOR")){
-                                System.out.println("boba6");
-                            }
-                            phrase.add(line);
 
-                        }
-                        if (!currentSpeaker.equals(line)){
-                            changeTeller(line);
+                            if (startWriting) {
+                                StringCounter++;
+                                phrase.add(line);
+                            }
                         }
                     }
                 }

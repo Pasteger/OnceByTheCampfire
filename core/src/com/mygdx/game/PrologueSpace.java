@@ -15,6 +15,7 @@ import com.mygdx.game.characters.*;
 import java.util.ArrayList;
 
 import static com.mygdx.game.MainMenuScreen.doReading;
+import static com.mygdx.game.MainMenuScreen.QTESuccess;
 
 public class PrologueSpace implements Screen {
     private final MyGdxGame game;
@@ -229,7 +230,12 @@ public class PrologueSpace implements Screen {
     }
 
     public static void makeQTE(String difficulty){
-
+        if (true){
+            QTESuccess = true;
+        } else {
+            QTESuccess = false;
+        }
+        doReading = true;
     }
 
     @Override public void show() { }
