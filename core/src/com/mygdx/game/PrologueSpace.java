@@ -13,21 +13,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.characters.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-import static com.mygdx.game.MainMenuScreen.doReading;
-import static com.mygdx.game.MainMenuScreen.QTESuccess;
-import static com.mygdx.game.MainMenuScreen.QTEActive;
+import static com.mygdx.game.MainMenuScreen.*;
 
 public class PrologueSpace implements Screen {
     private final MyGdxGame game;
-
-    // Переменная для QTE
-    private static int aimCountTemp = 0;
 
     // Текстуры
     private final Texture background;
     private final Texture textField;
     private final Texture portal;
+    private static Texture[] QTELetters;
+    static int currentLetter = 0;
     public boolean portalMoment = false;
 
     //Эти переменные отвечают за вывод фраз на экран
@@ -35,6 +33,16 @@ public class PrologueSpace implements Screen {
     private int paceOfSpeak;
     private boolean startSpeak;
     public static String currentCharacter = "";
+
+    // QTE
+    public static String difficulty;
+    public static boolean FuncStarted = false;
+    public static boolean tunedUp = false;
+    static int aimCountTemp = 0;
+    static int mistakes = 3; static int time = 8; static int aimCount = 5; static String[] keyMas = new String[]{"A", "D"};
+    static String currentKey = "";
+    static long timeStart = 0;
+    static boolean keyPressed;
 
     //Это персонажи нашей игры
     public static Bandit bandit;
@@ -69,6 +77,10 @@ public class PrologueSpace implements Screen {
         background = new Texture("sprites/backgrounds/orange_forest.png");
         textField = new Texture("sprites/text_field.png");
         portal = new Texture("sprites/effects/portal.png");
+        QTELetters = new Texture[]{new Texture("sprites/QTELetters/letter_A.png"),
+                new Texture("sprites/QTELetters/letter_D.png"),
+                new Texture("sprites/QTELetters/letter_S.png"),
+                new Texture("sprites/QTELetters/letter_W.png")};
 
         game.stage = new Stage();
         Gdx.input.setInputProcessor(game.stage);
@@ -89,6 +101,7 @@ public class PrologueSpace implements Screen {
 
     @Override
     public void render(float delta) {
+        keyPressed = false;
         game.setButtonIsPressed(false);
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -108,6 +121,8 @@ public class PrologueSpace implements Screen {
         game.batch.draw(military.getTexture(), military.getX(), military.getY());
         game.batch.draw(volition.getTexture(), volition.getX(), volition.getY());
 
+        // Отрисовка буковки для QTE
+        if (QTEActive){ game.batch.draw(QTELetters[currentLetter], 50, 400); }
 
         game.batch.draw(textField, 0, 0);
         //Здесь рисуется текст
@@ -162,8 +177,61 @@ public class PrologueSpace implements Screen {
             speakingClass.start();
         }
         // Временное значение для промотки текста
-        if(!doReading && Gdx.input.isKeyPressed(Input.Keys.G)){
+        if(!doReading && Gdx.input.isKeyPressed(Input.Keys.G) && !QTEActive){
             doReading = true;
+        }
+
+        // Вызов метода QTE
+        if (QTEActive && FuncStarted){
+            if(!tunedUp){
+                aimCountTemp = 0;
+                mistakes = 3; time = 8; aimCount = 5; keyMas = new String[]{"A", "D"};
+                if (difficulty.equals("NORMAL")){ mistakes = 2; time = 5; aimCount = 8; keyMas = new String[]{"A", "D", "S"};}
+                if (difficulty.equals("HARD")){ mistakes = 1; time = 3; aimCount = 10; keyMas = new String[]{"A", "D", "S", "W"};}
+                Random random = new Random();
+                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                tunedUp = true;
+            }
+            if(tunedUp){
+                Random random = new Random();
+                // Кнопки для QTE
+                if (!keyPressed){
+                    while (true){
+                        if (Gdx.input.isKeyJustPressed(Input.Keys.A)){
+                            if(currentKey.equals("A")){ aimCountTemp += 1;
+                                keyPressed = true;
+                                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                            break;}
+                            else { mistakes -= 1; } }
+                        if (Gdx.input.isKeyJustPressed(Input.Keys.D)){
+                            if(currentKey.equals("D")){ aimCountTemp += 1;
+                                keyPressed = true;
+                                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                            break;}
+                            else { mistakes -= 1; } }
+                        if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
+                            if(currentKey.equals("S")){ aimCountTemp += 1;
+                                keyPressed = true;
+                                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                            break;}
+                            else { mistakes -= 1; } }
+                        if (Gdx.input.isKeyJustPressed(Input.Keys.W)){
+                            if(currentKey.equals("W")){ aimCountTemp += 1;
+                                keyPressed = true;
+                                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                            break;}
+                            else { mistakes -= 1; } }
+                        break;
+                    }
+                }
+                if (aimCountTemp >= aimCount){
+                    long timeFinish = System.currentTimeMillis();
+                    if (timeFinish - timeStart>time * 1000L){ mistakes = -1; }
+                    QTESuccess = mistakes >= 0;
+                    doReading = true;
+                    FuncStarted = false;
+                }
+            }
         }
 
         //Этот метод вызывается каждый цикл рендера и на текстовом поле мечатается фраза
@@ -235,27 +303,10 @@ public class PrologueSpace implements Screen {
         }
     }
 
-    public static void makeQTE(String difficulty){
-        aimCountTemp = 0;
-        int mistakes = 3; int time = 8; int aimCount = 5;
-        if (difficulty.equals("NORMAL")){ mistakes = 2; time = 5; aimCount = 8; }
-        if (difficulty.equals("HARD")){ mistakes = 1; time = 3; aimCount = 10; }
-        long timeStart = System.currentTimeMillis();
-        while (aimCountTemp < aimCount){
-            // Кнопки для QTE
-            if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.D)
-                    || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.W)){
-
-            }
-        }
-        long timeFinish = System.currentTimeMillis();
-        if (timeFinish-timeStart>time){ mistakes = 0; }
-        if (mistakes >= 1){
-            QTESuccess = true;
-        } else {
-            QTESuccess = false;
-        }
-        doReading = true;
+    public static void makeQTE(String difficultyNew){
+        FuncStarted = true;
+        difficulty = difficultyNew;
+        tunedUp = false;
     }
 
     @Override public void show() { }
