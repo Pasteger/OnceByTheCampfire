@@ -84,8 +84,8 @@ public class SpeakingClass extends Thread{
                             }
                             // читаемся
                             if (startWriting) {
-                                StringCounter++;
                                 phrase.add(line);
+                                StringCounter++;
                                 if (StringCounter == 4){
                                     System.out.println("pizda1");
                                     startWriting = false;
@@ -136,7 +136,6 @@ public class SpeakingClass extends Thread{
                                     setPhrase(currentSpeaker, phrase);
                                     break;
                                 }
-                                System.out.println(line);
                             }
                             // Смена рассказчика
                             if (command.length == 1){
@@ -183,9 +182,13 @@ public class SpeakingClass extends Thread{
     }
 
     public void banditNewPhrase(Array<String> phraseArrayNew) {
+        String tempLine = "";
         bandit.setPhraseId(0);
         bandit.phraseArray.clear();
-        for (String line : phraseArrayNew) { bandit.phraseArray.add(line); }
+        for (String line : phraseArrayNew) {
+            tempLine = tempLine + line + "\n";
+        }
+        bandit.phraseArray.add(tempLine);
         bandit.phraseInArrayWithdrawn = new boolean[bandit.phraseArray.size];
         currentCharacter = "Bandit";
     }
@@ -215,6 +218,7 @@ public class SpeakingClass extends Thread{
     }
 
     public void authorNewPhrase(Array<String> phraseArrayNew) {
+        String tempLine = "";
         author.setPhraseId(0);
         author.phraseArray.clear();
         for (String line : phraseArrayNew) { author.phraseArray.add(line); }
@@ -223,9 +227,13 @@ public class SpeakingClass extends Thread{
     }
 
     public void protagonistNewPhrase(Array<String> phraseArrayNew) {
+        String tempLine = "";
         protagonist.setPhraseId(0);
         protagonist.phraseArray.clear();
-        for (String line : phraseArrayNew) { protagonist.phraseArray.add(line); }
+        for (String line : phraseArrayNew) {
+            tempLine = tempLine + line + "\n";
+        }
+        protagonist.phraseArray.add(tempLine);
         protagonist.phraseInArrayWithdrawn = new boolean[protagonist.phraseArray.size];
         currentCharacter = "Protagonist";
     }
