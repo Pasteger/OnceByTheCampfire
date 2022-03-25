@@ -26,6 +26,8 @@ public class SpeakingClass extends Thread{
             int StringCounter = 0;
             boolean startWriting = false;
         while (true){
+            StringCounter = 0;
+            phrase.clear();
                 sleep(500);
                 if (doReading){
                     while ((line = reader.readLine()) != null) {
@@ -70,13 +72,17 @@ public class SpeakingClass extends Thread{
                             // Появление персонажа
                             if (line.contains("APPEAR")){
                                 if (command[1].equals("DEBT")){
-                                    changePlaceDebter(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                                    changePlaceDebter(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
+                                    continue;}
                                 if (command[1].equals("VOLITION")){
-                                    changePlaceVolition(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                                    changePlaceVolition(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
+                                    continue;}
                                 if (command[1].equals("MILITARY")){
-                                    changePlaceMilitary(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                                    changePlaceMilitary(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
+                                    continue;}
                                 if (command[1].equals("BANDIT")){
-                                    changePlaceBandit(Integer.parseInt(command[2]), Integer.parseInt(command[3])); }
+                                    changePlaceBandit(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
+                                    continue;}
                             }
                             // Эффект
                             if (line.contains("EFFECT")){
@@ -86,6 +92,7 @@ public class SpeakingClass extends Thread{
                             if (startWriting) {
                                 phrase.add(line);
                                 StringCounter++;
+                                System.out.println(StringCounter);
                                 if (StringCounter == 4){
                                     System.out.println("pizda1");
                                     startWriting = false;
