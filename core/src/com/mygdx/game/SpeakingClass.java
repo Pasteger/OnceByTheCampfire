@@ -21,15 +21,12 @@ public class SpeakingClass extends Thread{
             Array<String> phrase = new Array<>();
             String[] command;
             String line;
-            boolean interruption = false;
             boolean skipLines = false;
             String currentSpeaker = "NONE";
-            int StringCounter = 0;
             boolean startWriting = false;
         while (true){
                 sleep(250);
                 if (doReading){
-                    StringCounter = 0;
                     phrase.clear();
                     while ((line = reader.readLine()) != null) {
                         command = line.split(" ");
@@ -165,8 +162,7 @@ public class SpeakingClass extends Thread{
         military.setPhraseId(0);
         military.phraseArray.clear();
         for (String line : phraseArrayNew) {
-            tempLine = tempLine + line + "\n";
-        }
+            tempLine = tempLine + line + "\n"; }
         military.phraseArray.add(tempLine);
         military.phraseInArrayWithdrawn = new boolean[military.phraseArray.size];
         currentCharacter = "Military";
@@ -177,8 +173,7 @@ public class SpeakingClass extends Thread{
         author.setPhraseId(0);
         author.phraseArray.clear();
         for (String line : phraseArrayNew) {
-            tempLine = tempLine + line + "\n";
-        }
+            tempLine = tempLine + line + "\n"; }
         author.phraseArray.add(tempLine);
         author.phraseInArrayWithdrawn = new boolean[author.phraseArray.size];
         currentCharacter = "Author";
@@ -189,8 +184,7 @@ public class SpeakingClass extends Thread{
         protagonist.setPhraseId(0);
         protagonist.phraseArray.clear();
         for (String line : phraseArrayNew) {
-            tempLine = tempLine + line + "\n";
-        }
+            tempLine = tempLine + line + "\n"; }
         protagonist.phraseArray.add(tempLine);
         protagonist.phraseInArrayWithdrawn = new boolean[protagonist.phraseArray.size];
         currentCharacter = "Protagonist";

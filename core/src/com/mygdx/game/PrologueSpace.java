@@ -284,7 +284,7 @@ public class PrologueSpace implements Screen {
             speakerName = "Автор";
             getPhrase = author.inputPhrase();
             paceOfSpeak = 0;
-            if(author.getPhraseId() == author.phraseArray.size){ currentCharacter = ""; } author.clearPhrase();}
+            if(author.getPhraseId() == author.phraseArray.size){ currentCharacter = ""; author.clearPhrase();} }
 
         // Говорит герой
         if(currentCharacter.equals("Protagonist") && paceOfSpeak >= protagonist.getPace()) {
