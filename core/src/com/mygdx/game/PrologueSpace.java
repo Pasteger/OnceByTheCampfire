@@ -21,7 +21,9 @@ public class PrologueSpace implements Screen {
     private final MyGdxGame game;
 
     // Текстуры
-    private final Texture background;
+    private static Texture background;
+    private static Texture backgroundPolyana;
+    public static Texture currentBackground;
     private final Texture textField;
     private final Texture nameField;
     private final Texture portal;
@@ -78,6 +80,8 @@ public class PrologueSpace implements Screen {
         protagonist = new Protagonist();
 
         background = new Texture("sprites/backgrounds/orange_forest.png");
+        backgroundPolyana = new Texture("sprites/backgrounds/main_polyana.png");
+        currentBackground = background;
         textField = new Texture("sprites/text_field.png");
         nameField = new Texture("sprites/name_field.png");
         portal = new Texture("sprites/effects/portal.png");
@@ -114,7 +118,7 @@ public class PrologueSpace implements Screen {
         game.batch.setProjectionMatrix(game.getCamera().combined);
 
         game.batch.begin();
-        game.batch.draw(background, 0, 0);
+        game.batch.draw(currentBackground, 0, 0);
 
         // Здесь рисуется портал, если он нужен
         if (portalMoment){ game.batch.draw(portal, 300, 250); }
@@ -319,6 +323,10 @@ public class PrologueSpace implements Screen {
         FuncStarted = true;
         difficulty = difficultyNew;
         tunedUp = false;
+    }
+
+    public static void changeBG(String fileName){
+        currentBackground = backgroundPolyana;
     }
 
     @Override public void show() { }

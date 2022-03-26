@@ -85,6 +85,11 @@ public class SpeakingClass extends Thread{
                                     changePlaceBandit(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
                                     continue;}
                             }
+                            // Смена фона
+                            if (line.contains("CHANGE_BG")){
+                                    com.mygdx.game.PrologueSpace.changeBG(command[1]);
+                                    continue;
+                            }
                             // Эффект
                             if (line.contains("EFFECT")){
                                 com.mygdx.game.PrologueSpace.doEffect(command[1]);
@@ -129,8 +134,7 @@ public class SpeakingClass extends Thread{
                                     break;
                                 }
                                 phrase.add(line);
-                                StringCounter++;
-                                if (StringCounter == 4){
+                                if (++StringCounter == 4){
                                     startWriting = false;
                                     doReading = false;
                                     setPhrase(currentSpeaker, phrase);
@@ -138,7 +142,7 @@ public class SpeakingClass extends Thread{
                                 }
                             }
                             // Смена рассказчика
-                            if (command.length == 1) {
+                            if (command.length == 1 && doReading) {
                                 if (line.equals("DEBT")) {
                                     changeTeller("dept1");
                                     currentSpeaker = "DEBT";
