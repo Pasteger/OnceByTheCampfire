@@ -23,12 +23,14 @@ public class PrologueSpace implements Screen {
     // Текстуры
     private final Texture background;
     private final Texture textField;
+    private final Texture nameField;
     private final Texture portal;
     private static Texture[] QTELetters;
     static int currentLetter = 0;
     public boolean portalMoment = false;
 
     //Эти переменные отвечают за вывод фраз на экран
+    private String speakerName;
     private StringBuilder getPhrase;
     private int paceOfSpeak;
     private boolean startSpeak;
@@ -65,6 +67,7 @@ public class PrologueSpace implements Screen {
         this.game = game;
 
         getPhrase = new StringBuilder();
+        speakerName = "";
 
         //Это персонажи нашей игры
         bandit = new Bandit();
@@ -76,6 +79,7 @@ public class PrologueSpace implements Screen {
 
         background = new Texture("sprites/backgrounds/orange_forest.png");
         textField = new Texture("sprites/text_field.png");
+        nameField = new Texture("sprites/name_field.png");
         portal = new Texture("sprites/effects/portal.png");
         QTELetters = new Texture[]{new Texture("sprites/QTELetters/letter_A.png"),
                 new Texture("sprites/QTELetters/letter_D.png"),
@@ -125,8 +129,10 @@ public class PrologueSpace implements Screen {
         if (QTEActive){ game.batch.draw(QTELetters[currentLetter], 50, 400); }
 
         game.batch.draw(textField, 0, 0);
+        game.batch.draw(nameField, 0, 162);
         //Здесь рисуется текст
         game.font.draw(game.batch, getPhrase.toString(), 10, 150);
+        game.font.draw(game.batch, speakerName, 10, 200);
 
         game.batch.end();
 
@@ -243,36 +249,42 @@ public class PrologueSpace implements Screen {
     private void speak(){
         // Говорит бандит
         if(currentCharacter.equals("Bandit") && paceOfSpeak >= bandit.getPace()) {
+            speakerName = "Бандит";
             getPhrase = bandit.inputPhrase();
             paceOfSpeak = 0;
             if(bandit.getPhraseId() == bandit.phraseArray.size){ currentCharacter = ""; bandit.clearPhrase();} }
 
         // Говорит долгаш
         if(currentCharacter.equals("Debter") && paceOfSpeak >= debter.getPace()) {
+            speakerName = "Долговец";
             getPhrase = debter.inputPhrase();
             paceOfSpeak = 0;
             if(debter.getPhraseId() == debter.phraseArray.size){ currentCharacter = ""; debter.clearPhrase();} }
 
         // Говорит свободовец
         if(currentCharacter.equals("Volition") && paceOfSpeak >= volition.getPace()) {
+            speakerName = "Свободовец";
             getPhrase = volition.inputPhrase();
             paceOfSpeak = 0;
             if(volition.getPhraseId() == volition.phraseArray.size){ currentCharacter = ""; volition.clearPhrase();} }
 
         // Говорит военный
         if(currentCharacter.equals("Military") && paceOfSpeak >= military.getPace()) {
+            speakerName = "Вояка";
             getPhrase = military.inputPhrase();
             paceOfSpeak = 0;
             if(military.getPhraseId() == military.phraseArray.size){ currentCharacter = ""; military.clearPhrase();} }
 
         // Говорит автор
         if(currentCharacter.equals("Author") && paceOfSpeak >= author.getPace()) {
+            speakerName = "Автор";
             getPhrase = author.inputPhrase();
             paceOfSpeak = 0;
             if(author.getPhraseId() == author.phraseArray.size){ currentCharacter = ""; } author.clearPhrase();}
 
         // Говорит герой
         if(currentCharacter.equals("Protagonist") && paceOfSpeak >= protagonist.getPace()) {
+            speakerName = "Вы";
             getPhrase = protagonist.inputPhrase();
             paceOfSpeak = 0;
             if(protagonist.getPhraseId() == protagonist.phraseArray.size){ currentCharacter = ""; protagonist.clearPhrase();} }
