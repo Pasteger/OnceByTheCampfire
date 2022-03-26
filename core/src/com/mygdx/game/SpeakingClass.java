@@ -11,12 +11,16 @@ import static com.mygdx.game.MainMenuScreen.QTEActive;
 import static com.mygdx.game.PrologueSpace.*;
 
 
-public class SpeakingClass extends Thread{
+public class SpeakingClass extends Thread {
     String inputFileName;
-    SpeakingClass (String inputFileName){ this.inputFileName = inputFileName; }
+
+    SpeakingClass(String inputFileName) {
+        this.inputFileName = inputFileName;
+    }
+
     @Override
     public void run() {
-        try (FileInputStream fis =  new FileInputStream(inputFileName);
+        try (FileInputStream fis = new FileInputStream(inputFileName);
              BufferedReader reader = new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
             Array<String> phrase = new Array<>();
             String[] command;
@@ -26,72 +30,81 @@ public class SpeakingClass extends Thread{
             String currentSpeaker = "NONE";
             int StringCounter = 0;
             boolean startWriting = false;
-        while (true){
+            while (true) {
                 sleep(700);
-                if (doReading){
+                if (doReading) {
                     StringCounter = 0;
                     phrase.clear();
                     while ((line = reader.readLine()) != null) {
                         command = line.split(" ");
                         // QTE
-                        if (line.contains("QTE")){
-                            switch (command[1]){
-                                case("EASY"):
-                                case("NORMAL"):
-                                case("HARD"):
+                        if (line.contains("QTE")) {
+                            switch (command[1]) {
+                                case ("EASY"):
+                                case ("NORMAL"):
+                                case ("HARD"):
                                     QTEActive = true;
                                     doReading = false;
                                     com.mygdx.game.PrologueSpace.makeQTE(command[1]);
                                     break;
-                                case("SUCCESS"):
+                                case ("SUCCESS"):
                                     QTEActive = false;
-                                    if(!QTESuccess){
+                                    if (!QTESuccess) {
                                         skipLines = true;
                                     }
-                                    if (QTESuccess && skipLines){
+                                    if (QTESuccess && skipLines) {
                                         skipLines = false;
                                     }
                                     break;
-                                case("FAIL"):
+                                case ("FAIL"):
                                     QTEActive = false;
-                                    if(QTESuccess){
+                                    if (QTESuccess) {
                                         skipLines = true;
                                     }
-                                    if (!QTESuccess && skipLines){
+                                    if (!QTESuccess && skipLines) {
                                         skipLines = false;
                                     }
                                     break;
-                                case("END"):
+                                case ("END"):
                                     QTESuccess = false;
                                     skipLines = false;
                                     QTEActive = false;
                             }
                         }
-                        if (QTEActive){ break; }
-                        if (!skipLines){
-                            if (line.split(" ")[0].contains("END")){ doReading=false; break; }
+                        if (QTEActive) {
+                            break;
+                        }
+                        if (!skipLines) {
+                            if (line.split(" ")[0].contains("END")) {
+                                doReading = false;
+                                break;
+                            }
                             // Появление персонажа
-                            if (line.contains("APPEAR")){
-                                if (command[1].equals("DEBT")){
+                            if (line.contains("APPEAR")) {
+                                if (command[1].equals("DEBT")) {
                                     changePlaceDebter(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
-                                    continue;}
-                                if (command[1].equals("VOLITION")){
+                                    continue;
+                                }
+                                if (command[1].equals("VOLITION")) {
                                     changePlaceVolition(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
-                                    continue;}
-                                if (command[1].equals("MILITARY")){
+                                    continue;
+                                }
+                                if (command[1].equals("MILITARY")) {
                                     changePlaceMilitary(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
-                                    continue;}
-                                if (command[1].equals("BANDIT")){
+                                    continue;
+                                }
+                                if (command[1].equals("BANDIT")) {
                                     changePlaceBandit(Integer.parseInt(command[2]), Integer.parseInt(command[3]));
-                                    continue;}
+                                    continue;
+                                }
                             }
                             // Смена фона
-                            if (line.contains("CHANGE_BG")){
-                                    com.mygdx.game.PrologueSpace.changeBG(command[1]);
-                                    continue;
+                            if (line.contains("CHANGE_BG")) {
+                                com.mygdx.game.PrologueSpace.changeBG(command[1]);
+                                continue;
                             }
                             // Эффект
-                            if (line.contains("EFFECT")){
+                            if (line.contains("EFFECT")) {
                                 com.mygdx.game.PrologueSpace.doEffect(command[1]);
                                 continue;
                             }
@@ -134,7 +147,7 @@ public class SpeakingClass extends Thread{
                                     break;
                                 }
                                 phrase.add(line);
-                                if (++StringCounter == 4){
+                                if (++StringCounter == 4) {
                                     startWriting = false;
                                     doReading = false;
                                     setPhrase(currentSpeaker, phrase);
@@ -183,8 +196,7 @@ public class SpeakingClass extends Thread{
                     }
                 }
             }
-        }
-        catch (IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -261,42 +273,76 @@ public class SpeakingClass extends Thread{
         currentCharacter = "Protagonist";
     }
 
-    public void changePlaceBandit(float x, float y){ bandit.setX(x); bandit.setY(y); }
-    public void changePlaceDebter(float x, float y){ debter.setX(x); debter.setY(y); }
-    public void changePlaceVolition(float x, float y){ volition.setX(x); volition.setY(y); }
-    public void changePlaceMilitary(float x, float y){ military.setX(x); military.setY(y); }
+    public void changePlaceBandit(float x, float y) {
+        bandit.setX(x);
+        bandit.setY(y);
+    }
 
-    public void changeReputationBandit(String sign, int amount){
-        if (sign.equals("+")){ System.out.println("Бандит + " + amount); }
-        else { System.out.println("Бандит - " + amount); } }
-    public void changeReputationDebter(String sign, int amount){
-        if (sign.equals("+")){ System.out.println("Долг + " + amount); }
-        else { System.out.println("Долг - " + amount); } }
-    public void changeReputationVolition(String sign, int amount){
-        if (sign.equals("+")){ System.out.println("Свобода + " + amount); }
-        else { System.out.println("Свобода - " + amount); } }
-    public void changeReputationMilitary(String sign, int amount){
-        if (sign.equals("+")){ System.out.println("Военный + " + amount); }
-        else { System.out.println("Военный - " + amount); } }
+    public void changePlaceDebter(float x, float y) {
+        debter.setX(x);
+        debter.setY(y);
+    }
 
-    public void setPhrase(String teller, Array<String> phrase){
-        switch (teller){
-            case("DEBT"):
+    public void changePlaceVolition(float x, float y) {
+        volition.setX(x);
+        volition.setY(y);
+    }
+
+    public void changePlaceMilitary(float x, float y) {
+        military.setX(x);
+        military.setY(y);
+    }
+
+    public void changeReputationBandit(String sign, int amount) {
+        if (sign.equals("+")) {
+            System.out.println("Бандит + " + amount);
+        } else {
+            System.out.println("Бандит - " + amount);
+        }
+    }
+
+    public void changeReputationDebter(String sign, int amount) {
+        if (sign.equals("+")) {
+            System.out.println("Долг + " + amount);
+        } else {
+            System.out.println("Долг - " + amount);
+        }
+    }
+
+    public void changeReputationVolition(String sign, int amount) {
+        if (sign.equals("+")) {
+            System.out.println("Свобода + " + amount);
+        } else {
+            System.out.println("Свобода - " + amount);
+        }
+    }
+
+    public void changeReputationMilitary(String sign, int amount) {
+        if (sign.equals("+")) {
+            System.out.println("Военный + " + amount);
+        } else {
+            System.out.println("Военный - " + amount);
+        }
+    }
+
+    public void setPhrase(String teller, Array<String> phrase) {
+        switch (teller) {
+            case ("DEBT"):
                 debterNewPhrase(phrase);
                 break;
-            case("VOLITION"):
+            case ("VOLITION"):
                 volitionNewPhrase(phrase);
                 break;
-            case("MILITARY"):
+            case ("MILITARY"):
                 militaryNewPhrase(phrase);
                 break;
-            case("BANDIT"):
+            case ("BANDIT"):
                 banditNewPhrase(phrase);
                 break;
-            case("AUTHOR"):
+            case ("AUTHOR"):
                 authorNewPhrase(phrase);
                 break;
-            case("PROTAGONIST"):
+            case ("PROTAGONIST"):
                 protagonistNewPhrase(phrase);
         }
     }
