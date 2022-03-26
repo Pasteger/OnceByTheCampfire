@@ -309,10 +309,6 @@ public class PrologueSpace implements Screen {
             choiceThirdButton.setVisible(true); }
     }
 
-    public static void changeTeller(String name){
-        System.out.println("Changed teller to " + name);
-    }
-
     public static void doEffect(String name){
         if(name.equals("ABOBA21")){
             System.out.println("АБОБА21");
