@@ -19,6 +19,7 @@ public class SpeakingClass extends Thread{
         try (FileInputStream fis =  new FileInputStream(inputFileName);
              BufferedReader reader = new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
             Array<String> phrase = new Array<>();
+            Array<Integer> choicesPicked = new Array<>();
             String[] command;
             String line;
             boolean skipLines = false;
@@ -72,12 +73,18 @@ public class SpeakingClass extends Thread{
                             System.out.println("CHOICE STARTED");
                             startChoice = true;
                             choiceIndex = Integer.parseInt(command[1]);
+                            choicesPicked.add(choiceIndex);
                             continue;
                         }
                         if (startChoice){
                             if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == choiceIndex){
                                     System.out.println("Choice ended");
+                                }
+                            }
+                            if(line.contains("CHOICE")){
+                                if (command.length == 3){
+                                    System.out.println("booba");
                                 }
                             }
                         }
