@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,6 +17,7 @@ public class MainMenuScreen implements Screen {
     private final Button loadGameButton;
     private final Button settingsButton;
     private final Button exitButton;
+    private final Music menuMusic;
     MyTextInputListener listener;
     boolean listenerExist;
     public static boolean doReading = true;
@@ -27,10 +29,9 @@ public class MainMenuScreen implements Screen {
         this.game = gam;
         listenerExist = false;
 
-        game.music = Gdx.audio.newMusic(Gdx.files.internal("music/bossmark.mp3"));
-        game.music.setVolume(game.volume);
-        game.music.setVolume(0);
-        game.music.setLooping(false);
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/Zhukov - Forest.mp3"));
+        menuMusic.setLooping(true);
+        menuMusic.setVolume(0.1f);
 
         newGameButton = new TextButton("New Game", game.getTextButtonStyle());
         game.stage.addActor(newGameButton);
@@ -48,7 +49,7 @@ public class MainMenuScreen implements Screen {
         game.stage.addActor(exitButton);
         exitButton.setPosition(20, 50);
 
-        background = new Texture("sprites/main_menu_background.jpg");
+        background = new Texture("sprites/backgrounds/main_polyana.png");
 
         listener = new MyTextInputListener(game);
     }
@@ -58,8 +59,6 @@ public class MainMenuScreen implements Screen {
         game.setButtonIsPressed(false);
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        if(!game.music.isPlaying()){ game.music.play(); }
 
         game.getCamera().update();
         game.batch.setProjectionMatrix(game.getCamera().combined);
@@ -75,6 +74,7 @@ public class MainMenuScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 if (game.isButtonIsPressed()) {
                     game.setButtonIsPressed(true);
+                    menuMusic.stop();
                     game.setScreen(new PrologueSpace(game));
                     dispose();
                 }
@@ -115,7 +115,7 @@ public class MainMenuScreen implements Screen {
         });
 
     }
-    @Override public void show(){}
+    @Override public void show(){menuMusic.play();}
     @Override public void resize(int width, int height){}
     @Override public void pause(){}
     @Override public void resume(){}
