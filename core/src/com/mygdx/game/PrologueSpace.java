@@ -43,10 +43,9 @@ public class PrologueSpace implements Screen {
     public static boolean FuncStarted = false;
     public static boolean tunedUp = false;
     static int aimCountTemp = 0;
-    static int mistakes = 3; static int time = 8; static int aimCount = 5; static String[] keyMas = new String[]{"A", "D"};
+    static int mistakes = 3; static long time = 8; static int aimCount = 5; static String[] keyMas = new String[]{"A", "D"};
     static String currentKey = "";
     static long timeStart = 0;
-    static boolean keyPressed;
 
     //Это персонажи нашей игры
     public static Bandit bandit;
@@ -109,7 +108,6 @@ public class PrologueSpace implements Screen {
 
     @Override
     public void render(float delta) {
-        keyPressed = false;
         game.setButtonIsPressed(false);
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -195,9 +193,9 @@ public class PrologueSpace implements Screen {
         if (QTEActive && FuncStarted){
             if(!tunedUp){
                 aimCountTemp = 0;
-                mistakes = 3; time = 8; aimCount = 5; keyMas = new String[]{"A", "D"};
-                if (difficulty.equals("NORMAL")){ mistakes = 2; time = 5; aimCount = 8; keyMas = new String[]{"A", "D", "S"};}
-                if (difficulty.equals("HARD")){ mistakes = 1; time = 3; aimCount = 10; keyMas = new String[]{"A", "D", "S", "W"};}
+                mistakes = 3; time = 8000 + System.currentTimeMillis(); aimCount = 5; keyMas = new String[]{"A", "D"};
+                if (difficulty.equals("NORMAL")){ mistakes = 2; time = 5000 + System.currentTimeMillis(); aimCount = 8; keyMas = new String[]{"A", "D", "S"};}
+                if (difficulty.equals("HARD")){ mistakes = 1; time = 3000 + System.currentTimeMillis(); aimCount = 10; keyMas = new String[]{"A", "D", "S", "W"};}
                 Random random = new Random();
                 currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
                 tunedUp = true;
@@ -205,38 +203,32 @@ public class PrologueSpace implements Screen {
             if(tunedUp){
                 Random random = new Random();
                 // Кнопки для QTE
-                if (!keyPressed){
                     while (true){
                         if (Gdx.input.isKeyJustPressed(Input.Keys.A)){
                             if(currentKey.equals("A")){ aimCountTemp += 1;
-                                keyPressed = true;
                                 currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
                             break;}
                             else { mistakes -= 1; } }
                         if (Gdx.input.isKeyJustPressed(Input.Keys.D)){
                             if(currentKey.equals("D")){ aimCountTemp += 1;
-                                keyPressed = true;
                                 currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
                             break;}
                             else { mistakes -= 1; } }
                         if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
                             if(currentKey.equals("S")){ aimCountTemp += 1;
-                                keyPressed = true;
                                 currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
                             break;}
                             else { mistakes -= 1; } }
                         if (Gdx.input.isKeyJustPressed(Input.Keys.W)){
                             if(currentKey.equals("W")){ aimCountTemp += 1;
-                                keyPressed = true;
                                 currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
                             break;}
                             else { mistakes -= 1; } }
                         break;
-                    }
                 }
-                if (aimCountTemp >= aimCount){
+                if (aimCountTemp >= aimCount || System.currentTimeMillis() - timeStart>time){
                     long timeFinish = System.currentTimeMillis();
-                    if (timeFinish - timeStart>time * 1000L){ mistakes = -1; }
+                    if (timeFinish - timeStart>time){ mistakes = -1; }
                     QTESuccess = mistakes >= 0;
                     doReading = true;
                     FuncStarted = false;

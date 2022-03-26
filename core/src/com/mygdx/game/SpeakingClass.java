@@ -67,6 +67,22 @@ public class SpeakingClass extends Thread{
                         if (QTEActive){ break; }
                         if (!skipLines){
                             if (line.split(" ")[0].contains("END")){ doReading=false; break; }
+                            // Репутация
+                            if (line.contains("REPUTATION")){
+                                if (line.contains("DEBT")){
+                                    changeReputationDebter(command[1], Integer.parseInt(command[2]));
+                                }
+                                if (line.contains("VOLITION")){
+                                    changeReputationVolition(command[1], Integer.parseInt(command[2]));
+                                }
+                                if (line.contains("MILITARY")){
+                                    changeReputationMilitary(command[1], Integer.parseInt(command[2]));
+                                }
+                                if (line.contains("BANDIT")){
+                                    changeReputationBandit(command[1], Integer.parseInt(command[2]));
+                                }
+                                continue;
+                            }
                             // Появление персонажа
                             if (line.contains("APPEAR")){
                                 if (command[1].equals("DEBT")){
@@ -111,6 +127,8 @@ public class SpeakingClass extends Thread{
                                     break;
                                 }
                             }
+                            // choices
+
                         }
                     }
                 }
@@ -195,18 +213,18 @@ public class SpeakingClass extends Thread{
     public void changePlaceVolition(float x, float y){ volition.setX(x); volition.setY(y); }
     public void changePlaceMilitary(float x, float y){ military.setX(x); military.setY(y); }
 
+    public void changeReputationDebter(String sign, int amount) {
+        if (sign.equals("+")){ System.out.println("Debt + " + amount); }
+        else { System.out.println("Debt - " + amount); } }
     public void changeReputationBandit(String sign, int amount){
-        if (sign.equals("+")){ System.out.println("Бандит + " + amount); }
-        else { System.out.println("Бандит - " + amount); } }
-    public void changeReputationDebter(String sign, int amount){
-        if (sign.equals("+")){ System.out.println("Долг + " + amount); }
-        else { System.out.println("Долг - " + amount); } }
+        if (sign.equals("+")){ System.out.println("Bandit + " + amount); }
+        else { System.out.println("Bandit - " + amount); } }
     public void changeReputationVolition(String sign, int amount){
-        if (sign.equals("+")){ System.out.println("Свобода + " + amount); }
-        else { System.out.println("Свобода - " + amount); } }
+        if (sign.equals("+")){ System.out.println("Volition + " + amount); }
+        else { System.out.println("Volition - " + amount); } }
     public void changeReputationMilitary(String sign, int amount){
-        if (sign.equals("+")){ System.out.println("Военный + " + amount); }
-        else { System.out.println("Военный - " + amount); } }
+        if (sign.equals("+")){ System.out.println("Military + " + amount); }
+        else { System.out.println("Military - " + amount); } }
 
     public void setPhrase(String teller, Array<String> phrase){
         switch (teller){
