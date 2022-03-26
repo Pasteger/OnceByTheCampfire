@@ -24,6 +24,8 @@ public class SpeakingClass extends Thread{
             boolean skipLines = false;
             String currentSpeaker = "NONE";
             boolean startWriting = false;
+            boolean startChoice = false;
+            int choiceIndex = 0;
         while (true){
                 sleep(250);
                 if (doReading){
@@ -65,6 +67,20 @@ public class SpeakingClass extends Thread{
                             }
                         }
                         if (QTEActive){ break; }
+                        if (line.contains("CHOICE")){
+                            currentSpeaker = "CHOICE";
+                            System.out.println("CHOICE STARTED");
+                            startChoice = true;
+                            choiceIndex = Integer.parseInt(command[1]);
+                            continue;
+                        }
+                        if (startChoice){
+                            if(line.contains("CHOICE") && line.contains("END")){
+                                if(Integer.parseInt(command[1]) == choiceIndex){
+                                    System.out.println("Choice ended");
+                                }
+                            }
+                        }
                         if (!skipLines){
                             if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                             // Репутация
