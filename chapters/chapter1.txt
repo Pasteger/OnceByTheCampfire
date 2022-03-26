@@ -223,7 +223,7 @@ APPEAR DEBT -1000 -1000
 PROTAGONIST
 *Нужно смываться, пока при памяти*
 EFFECT ABOBA21
-QTE EASY
+QTE HARD
 QTE SUCCESS
 PROTAGONIST
 *Ух ты ж блин.... Фух... Свалил. Все. Нафиг зону эту, пойду у вояк просить выпустить*
