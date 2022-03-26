@@ -31,7 +31,7 @@ public class MainMenuScreen implements Screen {
 
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/Zhukov - Forest.mp3"));
         menuMusic.setLooping(true);
-        menuMusic.setVolume(0.1f);
+        menuMusic.setVolume(0.7f);
 
         newGameButton = new TextButton("New Game", game.getTextButtonStyle());
         game.stage.addActor(newGameButton);

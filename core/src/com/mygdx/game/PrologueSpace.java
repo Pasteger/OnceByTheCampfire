@@ -43,7 +43,10 @@ public class PrologueSpace implements Screen {
     public static boolean FuncStarted = false;
     public static boolean tunedUp = false;
     static int aimCountTemp = 0;
-    static int mistakes = 3; static long time = 8; static int aimCount = 5; static String[] keyMas = new String[]{"A", "D"};
+    static int mistakes = 3;
+    static long time = 8;
+    static int aimCount = 5;
+    static String[] keyMas = new String[]{"A", "D"};
     static String currentKey = "";
     static long timeStart = 0;
 
@@ -64,7 +67,7 @@ public class PrologueSpace implements Screen {
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
 
-    PrologueSpace(final MyGdxGame game){
+    PrologueSpace(final MyGdxGame game) {
         this.game = game;
 
         getPhrase = new StringBuilder();
@@ -119,7 +122,9 @@ public class PrologueSpace implements Screen {
         game.batch.draw(currentBackground, 0, 0);
 
         // Здесь рисуется портал, если он нужен
-        if (portalMoment){ game.batch.draw(portal, 300, 250); }
+        if (portalMoment) {
+            game.batch.draw(portal, 300, 250);
+        }
 
         //Здесь рисуются персонажи
         game.batch.draw(debter.getTexture(), debter.getX(), debter.getY());
@@ -128,7 +133,9 @@ public class PrologueSpace implements Screen {
         game.batch.draw(volition.getTexture(), volition.getX(), volition.getY());
 
         // Отрисовка буковки для QTE
-        if (QTEActive){ game.batch.draw(QTELetters[currentLetter], 50, 400); }
+        if (QTEActive) {
+            game.batch.draw(QTELetters[currentLetter], 50, 400);
+        }
 
         game.batch.draw(textField, 0, 0);
         game.batch.draw(nameField, 0, 162);
@@ -151,7 +158,10 @@ public class PrologueSpace implements Screen {
 
                     System.out.println("Произошёл выбор 1");
 
-                    dispose(); } }});
+                    dispose();
+                }
+            }
+        });
 
         choiceSecondButton.addListener(new ChangeListener() {
             @Override
@@ -164,7 +174,10 @@ public class PrologueSpace implements Screen {
 
                     System.out.println("Произошёл выбор 2");
 
-                    dispose(); } }});
+                    dispose();
+                }
+            }
+        });
 
         choiceThirdButton.addListener(new ChangeListener() {
             @Override
@@ -177,58 +190,92 @@ public class PrologueSpace implements Screen {
 
                     System.out.println("Произошёл выбор 3");
 
-                    dispose(); } }});
+                    dispose();
+                }
+            }
+        });
 
         //Этот флаг нужен, чтобы персонаж начинал говорить не с запуска окна, а с нажатия пробела
-        if(!startSpeak && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (!startSpeak && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             startSpeak = true;
             speakingClass.start();
         }
         // Временное значение для промотки текста
-        if(!doReading && Gdx.input.isKeyJustPressed(Input.Keys.G) && !QTEActive){
+        if (!doReading && Gdx.input.isKeyJustPressed(Input.Keys.G) && !QTEActive) {
             doReading = true;
         }
 
         // Вызов метода QTE
-        if (QTEActive && FuncStarted){
-            if(!tunedUp){
+        if (QTEActive && FuncStarted) {
+            if (!tunedUp) {
                 aimCountTemp = 0;
-                mistakes = 3; time = 8000 + System.currentTimeMillis(); aimCount = 5; keyMas = new String[]{"A", "D"};
-                if (difficulty.equals("NORMAL")){ mistakes = 2; time = 5000 + System.currentTimeMillis(); aimCount = 8; keyMas = new String[]{"A", "D", "S"};}
-                if (difficulty.equals("HARD")){ mistakes = 1; time = 3000 + System.currentTimeMillis(); aimCount = 10; keyMas = new String[]{"A", "D", "S", "W"};}
+                mistakes = 3;
+                time = 8000 + System.currentTimeMillis();
+                aimCount = 5;
+                keyMas = new String[]{"A", "D"};
+                if (difficulty.equals("NORMAL")) {
+                    mistakes = 2;
+                    time = 5000 + System.currentTimeMillis();
+                    aimCount = 8;
+                    keyMas = new String[]{"A", "D", "S"};
+                }
+                if (difficulty.equals("HARD")) {
+                    mistakes = 1;
+                    time = 3000 + System.currentTimeMillis();
+                    aimCount = 10;
+                    keyMas = new String[]{"A", "D", "S", "W"};
+                }
                 Random random = new Random();
                 currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
                 tunedUp = true;
             }
-            if(tunedUp){
+            if (tunedUp) {
                 Random random = new Random();
                 // Кнопки для QTE
-                    while (true){
-                        if (Gdx.input.isKeyJustPressed(Input.Keys.A)){
-                            if(currentKey.equals("A")){ aimCountTemp += 1;
-                                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                            break;}
-                            else { mistakes -= 1; } }
-                        if (Gdx.input.isKeyJustPressed(Input.Keys.D)){
-                            if(currentKey.equals("D")){ aimCountTemp += 1;
-                                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                            break;}
-                            else { mistakes -= 1; } }
-                        if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
-                            if(currentKey.equals("S")){ aimCountTemp += 1;
-                                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                            break;}
-                            else { mistakes -= 1; } }
-                        if (Gdx.input.isKeyJustPressed(Input.Keys.W)){
-                            if(currentKey.equals("W")){ aimCountTemp += 1;
-                                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                            break;}
-                            else { mistakes -= 1; } }
-                        break;
+                while (true) {
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+                        if (currentKey.equals("A")) {
+                            aimCountTemp += 1;
+                            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                            break;
+                        } else {
+                            mistakes -= 1;
+                        }
+                    }
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+                        if (currentKey.equals("D")) {
+                            aimCountTemp += 1;
+                            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                            break;
+                        } else {
+                            mistakes -= 1;
+                        }
+                    }
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+                        if (currentKey.equals("S")) {
+                            aimCountTemp += 1;
+                            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                            break;
+                        } else {
+                            mistakes -= 1;
+                        }
+                    }
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                        if (currentKey.equals("W")) {
+                            aimCountTemp += 1;
+                            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+                            break;
+                        } else {
+                            mistakes -= 1;
+                        }
+                    }
+                    break;
                 }
-                if (aimCountTemp >= aimCount || System.currentTimeMillis() - timeStart>time){
+                if (aimCountTemp >= aimCount || System.currentTimeMillis() - timeStart > time) {
                     long timeFinish = System.currentTimeMillis();
-                    if (timeFinish - timeStart>time){ mistakes = -1; }
+                    if (timeFinish - timeStart > time) {
+                        mistakes = -1;
+                    }
                     QTESuccess = mistakes >= 0;
                     doReading = true;
                     FuncStarted = false;
@@ -237,90 +284,137 @@ public class PrologueSpace implements Screen {
         }
 
         //Этот метод вызывается каждый цикл рендера и на текстовом поле мечатается фраза
-        if(startSpeak) { speak(); }
+        if (startSpeak) {
+            speak();
+        }
 
         paceOfSpeak++;
     }
 
-    private void speak(){
+    private void speak() {
         // Говорит бандит
-        if(currentCharacter.equals("Bandit") && paceOfSpeak >= bandit.getPace()) {
+        if (currentCharacter.equals("Bandit") && paceOfSpeak >= bandit.getPace()) {
             speakerName = "Бандит";
             getPhrase = bandit.inputPhrase();
             paceOfSpeak = 0;
-            if(bandit.getPhraseId() == bandit.phraseArray.size){ currentCharacter = ""; bandit.clearPhrase();} }
+            if (bandit.getPhraseId() == bandit.phraseArray.size) {
+                currentCharacter = "";
+                bandit.clearPhrase();
+            }
+        }
 
         // Говорит долгаш
-        if(currentCharacter.equals("Debter") && paceOfSpeak >= debter.getPace()) {
+        if (currentCharacter.equals("Debter") && paceOfSpeak >= debter.getPace()) {
             speakerName = "Долговец";
             getPhrase = debter.inputPhrase();
             paceOfSpeak = 0;
-            if(debter.getPhraseId() == debter.phraseArray.size){ currentCharacter = ""; debter.clearPhrase();} }
+            if (debter.getPhraseId() == debter.phraseArray.size) {
+                currentCharacter = "";
+                debter.clearPhrase();
+            }
+        }
 
         // Говорит свободовец
-        if(currentCharacter.equals("Volition") && paceOfSpeak >= volition.getPace()) {
+        if (currentCharacter.equals("Volition") && paceOfSpeak >= volition.getPace()) {
             speakerName = "Свободовец";
             getPhrase = volition.inputPhrase();
             paceOfSpeak = 0;
-            if(volition.getPhraseId() == volition.phraseArray.size){ currentCharacter = ""; volition.clearPhrase();} }
+            if (volition.getPhraseId() == volition.phraseArray.size) {
+                currentCharacter = "";
+                volition.clearPhrase();
+            }
+        }
 
         // Говорит военный
-        if(currentCharacter.equals("Military") && paceOfSpeak >= military.getPace()) {
+        if (currentCharacter.equals("Military") && paceOfSpeak >= military.getPace()) {
             speakerName = "Вояка";
             getPhrase = military.inputPhrase();
             paceOfSpeak = 0;
-            if(military.getPhraseId() == military.phraseArray.size){ currentCharacter = ""; military.clearPhrase();} }
+            if (military.getPhraseId() == military.phraseArray.size) {
+                currentCharacter = "";
+                military.clearPhrase();
+            }
+        }
 
         // Говорит автор
-        if(currentCharacter.equals("Author") && paceOfSpeak >= author.getPace()) {
+        if (currentCharacter.equals("Author") && paceOfSpeak >= author.getPace()) {
             speakerName = "Автор";
             getPhrase = author.inputPhrase();
             paceOfSpeak = 0;
-            if(author.getPhraseId() == author.phraseArray.size){ currentCharacter = ""; author.clearPhrase();} }
+            if (author.getPhraseId() == author.phraseArray.size) {
+                currentCharacter = "";
+                author.clearPhrase();
+            }
+        }
 
         // Говорит герой
-        if(currentCharacter.equals("Protagonist") && paceOfSpeak >= protagonist.getPace()) {
+        if (currentCharacter.equals("Protagonist") && paceOfSpeak >= protagonist.getPace()) {
             speakerName = "Вы";
             getPhrase = protagonist.inputPhrase();
             paceOfSpeak = 0;
-            if(protagonist.getPhraseId() == protagonist.phraseArray.size){ currentCharacter = ""; protagonist.clearPhrase();} }
+            if (protagonist.getPhraseId() == protagonist.phraseArray.size) {
+                currentCharacter = "";
+                protagonist.clearPhrase();
+            }
+        }
     }
 
     public static void startChoice(int countChoice, ArrayList<String> choiceNames) {
         if (countChoice >= 1) {
             choiceFirstButton.setText(choiceNames.get(0));
             choiceFirstButton.setPosition(640, 110);
-            choiceFirstButton.setVisible(true); }
+            choiceFirstButton.setVisible(true);
+        }
         if (countChoice >= 2) {
             choiceSecondButton.setText(choiceNames.get(1));
             choiceSecondButton.setPosition(640, 60);
-            choiceSecondButton.setVisible(true); }
+            choiceSecondButton.setVisible(true);
+        }
         if (countChoice >= 3) {
             choiceThirdButton.setText(choiceNames.get(2));
             choiceThirdButton.setPosition(640, 10);
-            choiceThirdButton.setVisible(true); }
+            choiceThirdButton.setVisible(true);
+        }
     }
 
-    public static void doEffect(String name){
-        if(name.equals("ABOBA21")){
+    public static void doEffect(String name) {
+        if (name.equals("ABOBA21")) {
             System.out.println("АБОБА21");
         }
     }
 
-    public static void makeQTE(String difficultyNew){
+    public static void makeQTE(String difficultyNew) {
         FuncStarted = true;
         difficulty = difficultyNew;
         tunedUp = false;
     }
 
-    public static void changeBG(String fileName){
+    public static void changeBG(String fileName) {
         currentBackground = backgroundPolyana;
     }
 
-    @Override public void show() { }
-    @Override public void resize(int width, int height) { }
-    @Override public void pause() { }
-    @Override public void resume() { }
-    @Override public void hide() { }
-    @Override public void dispose() { game.font.dispose(); }
+    @Override
+    public void show() {
+    }
+
+    @Override
+    public void resize(int width, int height) {
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+    @Override
+    public void hide() {
+    }
+
+    @Override
+    public void dispose() {
+        game.font.dispose();
+    }
 }
