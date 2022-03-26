@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 public class Bandit extends Human {
     public Bandit(){
         texture = new Texture("sprites/characters/bandit.png");
-        x = 880f;
-        y = 140f;
+        x = -1000f;
+        y = -1000f;
 
         //Все ноты голоса Бандита
         voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/bandit/do.wav")));

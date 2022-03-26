@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 public class Monolith extends Human{
     public Monolith(){
         texture = new Texture("sprites/characters/monolith.png");
-        x = 140f;
-        y = 160f;
+        x = -1000f;
+        y = -1000f;
 
         //Все ноты голоса Монолитовца
         voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/monolith/do.wav")));
