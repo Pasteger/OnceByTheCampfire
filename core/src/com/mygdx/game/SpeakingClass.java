@@ -113,6 +113,7 @@ public class SpeakingClass extends Thread{
                                 } else {
                                     System.out.println("skipaem tupa");
                                     skipLines = true;
+                                    startChoiceReading = false;
                                 }
                                 doReading = false;
                                 break;
