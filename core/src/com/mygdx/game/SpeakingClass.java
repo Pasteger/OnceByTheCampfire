@@ -24,10 +24,15 @@ public class SpeakingClass extends Thread{
             String[] command;
             ArrayList<String> choicesToPick = new ArrayList<>();
             String line;
+            Array<String> choicesInPrologue = new Array<>();
+            choicesInPrologue.add("1-");
+            choicesInPrologue.add("2-");
+            choicesInPrologue.add("3-");
             boolean skipLines = false;
             String currentSpeaker = "NONE";
+            boolean waitForAnswer = false;
             boolean startWriting = false;
-            boolean startChoice = false;
+            boolean startChoiceReading = false;
             int choiceIndex = 0;
         while (true){
                 sleep(250);
@@ -74,27 +79,34 @@ public class SpeakingClass extends Thread{
                         if (line.contains("CHOICE") && command.length == 2){
                             currentSpeaker = "CHOICE" + command[1];
                             System.out.println("CHOICE " + command[1] +" STARTED");
-                            startChoice = true;
+                            startChoiceReading = true;
                             choiceIndex = Integer.parseInt(command[1]);
                             choicesPicked.add(choiceIndex);
                             continue;
                         }
                         // Считывание строк выбора
-                        if (startChoice){
+                        if (startChoiceReading){
+                            if (waitForAnswer){
+                                choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
+                                System.out.println(ChoiceHandler.getChoiceFromArray(1));
+                                waitForAnswer = false;
+                                break;
+                            }
                             if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == choiceIndex){
                                     System.out.println("Choice ended");
                                 }
-                            }if(line.contains("CHOICE")){
+                            } if(line.contains("CHOICE")){
                                 if (command.length == 3){
                                     System.out.println("Found choice num num");
-                                    startChoice(2, choiceIndex, choicesToPick);
+                                    startChoice(2, Integer.parseInt(command[1]), choicesToPick);
+                                    waitForAnswer = true;
+                                    doReading = false;
                                     break;
                                 }
                             }
                             choicesToPick.add(line);
-                            System.out.println("line");
-                        }
+                        continue;}
                         if (!skipLines){
                             if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                             // Репутация
@@ -157,8 +169,6 @@ public class SpeakingClass extends Thread{
                                     break;
                                 }
                             }
-                            // choices
-
                         }
                     }
                 }
@@ -168,6 +178,18 @@ public class SpeakingClass extends Thread{
             e.printStackTrace();
         }
     }
+
+    /*  public void choiceNewPhrase(Array<String> phraseArrayNew) {
+        String tempLine = "";
+        choiceMaker.setPhraseId(0);
+        choiceMaker.phraseArray.clear();
+        for (String line : phraseArrayNew) {
+            tempLine = tempLine + line + "\n";
+        }
+        choiceMaker.phraseArray.add(tempLine);
+        choiceMaker.phraseInArrayWithdrawn = new boolean[choiceMaker.phraseArray.size];
+        currentCharacter = "Choice";
+    }*/
 
     public void banditNewPhrase(Array<String> phraseArrayNew) {
         String tempLine = "";

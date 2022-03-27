@@ -1,13 +1,11 @@
 package com.mygdx.game;
 
-import jdk.internal.icu.text.UnicodeSet;
-
-import java.util.ArrayList;
+import com.badlogic.gdx.utils.Array;
 
 public class ChoiceHandler {
-    public static ArrayList<String> choiceArray = new ArrayList<>();
+    public static Array<String> choiceArray = new Array<>();
 
-    public static ArrayList<String> getChoiceArray() {
+    public static Array<String> getChoiceArray() {
         return choiceArray;
     }
 
@@ -15,6 +13,11 @@ public class ChoiceHandler {
     }
 
     public static void addInArray(String strChoice){
+        System.out.println("ABOASOFAGE");
         choiceArray.add(strChoice);
+    }
+
+    public static String getChoiceFromArray (int choiceIndex) {
+        return choiceArray.get(choiceIndex - 1);
     }
 }

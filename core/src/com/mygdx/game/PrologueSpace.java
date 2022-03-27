@@ -57,6 +57,7 @@ public class PrologueSpace implements Screen {
     public static Volition volition;
     public static Author author;
     public static Protagonist protagonist;
+    //public static ChoiceMaker choiceMaker;
 
     //кнопки
     private static TextButton choiceFirstButton;
@@ -66,7 +67,7 @@ public class PrologueSpace implements Screen {
     //Класс для прочитки текста
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
-    //Shit для работы выборов
+    //Sheash для работы выборов
     public static ChoiceHandler choiceHandler = new ChoiceHandler();
 
 
@@ -162,13 +163,11 @@ public class PrologueSpace implements Screen {
                     choiceThirdButton.setVisible(false);
                     setChoice(1);
                     System.out.println("Choice 1 was taken");
-
-                    dispose();
                 }
             }
             public void setChoice(int choiceID){
                 System.out.println("baobab");
-                ChoiceHandler.addInArray("CHOICE " + choiceID + 1);
+                ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 1);
             }
         });
 
@@ -180,11 +179,13 @@ public class PrologueSpace implements Screen {
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-
+                    setChoice(1);
                     System.out.println("Choice 2 was taken");
-
-                    dispose();
                 }
+            }
+            public void setChoice(int choiceID){
+                System.out.println("baobab");
+                ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 2);
             }
         });
 
@@ -196,11 +197,13 @@ public class PrologueSpace implements Screen {
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-
+                    setChoice(1);
                     System.out.println("Choice 3 was taken");
-
-                    dispose();
                 }
+            }
+            public void setChoice(int choiceID){
+                System.out.println("baobab");
+                ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 3);
             }
         });
 
@@ -367,6 +370,17 @@ public class PrologueSpace implements Screen {
                 protagonist.clearPhrase();
             }
         }
+
+        /* Говорит... выбор?!
+        if (currentCharacter.equals("Choice") && paceOfSpeak >= choiceMaker.getPace()) {
+            speakerName = "Выбор";
+            getPhrase = choiceMaker.inputPhrase();
+            paceOfSpeak = 0;
+            if (choiceMaker.getPhraseId() == choiceMaker.phraseArray.size) {
+                currentCharacter = "";
+                choiceMaker.clearPhrase();
+            }
+        } */
     }
 
     public static void startChoice(int countChoice, int choiceID, ArrayList<String> choiceNames) {
