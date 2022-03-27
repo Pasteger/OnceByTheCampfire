@@ -90,27 +90,41 @@ public class SpeakingClass extends Thread{
                             if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == choiceIndex){
                                     System.out.println("Choice ended");
+                                    skipLines = false;
                                 }
                             }
                             if (waitForAnswer){
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
                                 waitForAnswer = false;
                                 startChoiceReading = false;
-                                break;
+                                doReading = false;
                             }
                             if (ChoiceHandler.getChoiceArray().notEmpty()){
-                                System.out.println("baobab");
-                            }
-                            if(line.contains("CHOICE")){
-                                if (command.length == 3){
-                                    startChoice(2, Integer.parseInt(command[1]), choicesToPick);
-                                    waitForAnswer = true;
-                                    doReading = false;
-                                    break;
+                                if (ChoiceHandler.getChoiceFromArray(1).equals(choicesInPrologue.get(0))){
+                                    System.out.println("KAVO");
+                                } else {
+                                    System.out.println("NEKAVO");
                                 }
                             }
+                            if(line.contains("CHOICE") && command.length == 3){
+                                if (line.equals(choicesInPrologue.get(0))){
+                                    System.out.println("a niche");
+                                    skipLines = false;
+                                } else {
+                                    System.out.println("skipaem tupa");
+                                    skipLines = true;
+                                }
+                                doReading = false;
+                                break;
+                            }
                             choicesToPick.add(line);
-                        continue;}
+                            if (line.contains("/")){
+                                waitForAnswer = true;
+                                startChoice(2, 1, choicesToPick);
+                                doReading = false;
+                                break;
+                            }
+                            continue;}
                         if (!skipLines){
                             if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                             // Репутация
@@ -157,7 +171,8 @@ public class SpeakingClass extends Thread{
                             // читаемся
                             if (startWriting) {
                                 if (line.equals("DEBT") || line.equals("VOLITION") || line.equals("MILITARY") ||
-                                        line.equals("PROTAGONIST") || line.equals("AUTHOR") || line.equals("BANDIT")) {
+                                        line.equals("PROTAGONIST") || line.equals("AUTHOR") || line.equals("BANDIT")
+                                || line.contains("CHOICE")) {
                                     startWriting = false;
                                     doReading = false;
                                     setPhrase(currentSpeaker, phrase);
