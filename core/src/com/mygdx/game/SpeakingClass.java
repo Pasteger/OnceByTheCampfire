@@ -77,6 +77,10 @@ public class SpeakingClass extends Thread{
                         if (QTEActive){ break; }
                         // Нахождение выбора
                         if (line.contains("CHOICE") && command.length == 2){
+                            if (!phrase.isEmpty()){
+                                startWriting = false;
+                                setPhrase(currentSpeaker, phrase);
+                            }
                             currentSpeaker = "CHOICE" + command[1];
                             System.out.println("CHOICE " + command[1] +" STARTED");
                             startChoiceReading = true;
@@ -90,6 +94,7 @@ public class SpeakingClass extends Thread{
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
                                 System.out.println(ChoiceHandler.getChoiceFromArray(1));
                                 waitForAnswer = false;
+                                startChoiceReading = false;
                                 break;
                             }
                             if(line.contains("CHOICE") && line.contains("END")){
@@ -98,7 +103,6 @@ public class SpeakingClass extends Thread{
                                 }
                             } if(line.contains("CHOICE")){
                                 if (command.length == 3){
-                                    System.out.println("Found choice num num");
                                     startChoice(2, Integer.parseInt(command[1]), choicesToPick);
                                     waitForAnswer = true;
                                     doReading = false;
