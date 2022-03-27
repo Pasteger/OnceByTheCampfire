@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 import static com.mygdx.game.MainMenuScreen.doReading;
 import static com.mygdx.game.MainMenuScreen.QTESuccess;
@@ -21,6 +22,7 @@ public class SpeakingClass extends Thread{
             Array<String> phrase = new Array<>();
             Array<Integer> choicesPicked = new Array<>();
             String[] command;
+            ArrayList<String> choicesToPick = new ArrayList<>();
             String line;
             boolean skipLines = false;
             String currentSpeaker = "NONE";
@@ -68,25 +70,30 @@ public class SpeakingClass extends Thread{
                             }
                         }
                         if (QTEActive){ break; }
-                        if (line.contains("CHOICE")){
-                            currentSpeaker = "CHOICE";
-                            System.out.println("CHOICE STARTED");
+                        // Нахождение выбора
+                        if (line.contains("CHOICE") && command.length == 2){
+                            currentSpeaker = "CHOICE" + command[1];
+                            System.out.println("CHOICE " + command[1] +" STARTED");
                             startChoice = true;
                             choiceIndex = Integer.parseInt(command[1]);
                             choicesPicked.add(choiceIndex);
                             continue;
                         }
+                        // Считывание строк выбора
                         if (startChoice){
                             if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == choiceIndex){
                                     System.out.println("Choice ended");
                                 }
-                            }
-                            if(line.contains("CHOICE")){
+                            }if(line.contains("CHOICE")){
                                 if (command.length == 3){
-                                    System.out.println("booba");
+                                    System.out.println("Found choice num num");
+                                    startChoice(2, choiceIndex, choicesToPick);
+                                    break;
                                 }
                             }
+                            choicesToPick.add(line);
+                            System.out.println("line");
                         }
                         if (!skipLines){
                             if (line.split(" ")[0].contains("END")){ doReading=false; break; }

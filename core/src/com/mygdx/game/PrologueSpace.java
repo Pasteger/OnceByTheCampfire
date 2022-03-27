@@ -66,6 +66,9 @@ public class PrologueSpace implements Screen {
     //Класс для прочитки текста
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
+    //Shit для работы выборов
+    public static ChoiceHandler choiceHandler = new ChoiceHandler();
+
 
     PrologueSpace(final MyGdxGame game) {
         this.game = game;
@@ -148,18 +151,24 @@ public class PrologueSpace implements Screen {
         game.stage.draw();
 
         choiceFirstButton.addListener(new ChangeListener() {
+            boolean listener;
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (game.isButtonIsPressed()) {
+                    listener = true;
                     game.setButtonIsPressed(true);
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-
-                    System.out.println("Произошёл выбор 1");
+                    setChoice(1);
+                    System.out.println("Choice 1 was taken");
 
                     dispose();
                 }
+            }
+            public void setChoice(int choiceID){
+                System.out.println("baobab");
+                ChoiceHandler.addInArray("CHOICE " + choiceID + 1);
             }
         });
 
@@ -172,7 +181,7 @@ public class PrologueSpace implements Screen {
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
 
-                    System.out.println("Произошёл выбор 2");
+                    System.out.println("Choice 2 was taken");
 
                     dispose();
                 }
@@ -188,7 +197,7 @@ public class PrologueSpace implements Screen {
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
 
-                    System.out.println("Произошёл выбор 3");
+                    System.out.println("Choice 3 was taken");
 
                     dispose();
                 }
@@ -343,6 +352,7 @@ public class PrologueSpace implements Screen {
             paceOfSpeak = 0;
             if (author.getPhraseId() == author.phraseArray.size) {
                 currentCharacter = "";
+
                 author.clearPhrase();
             }
         }
@@ -359,7 +369,7 @@ public class PrologueSpace implements Screen {
         }
     }
 
-    public static void startChoice(int countChoice, ArrayList<String> choiceNames) {
+    public static void startChoice(int countChoice, int choiceID, ArrayList<String> choiceNames) {
         if (countChoice >= 1) {
             choiceFirstButton.setText(choiceNames.get(0));
             choiceFirstButton.setPosition(640, 110);
@@ -379,7 +389,7 @@ public class PrologueSpace implements Screen {
 
     public static void doEffect(String name) {
         if (name.equals("ABOBA21")) {
-            System.out.println("АБОБА21");
+            System.out.println("ABOBA21");
         }
     }
 
