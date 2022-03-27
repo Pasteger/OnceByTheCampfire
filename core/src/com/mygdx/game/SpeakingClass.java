@@ -25,9 +25,6 @@ public class SpeakingClass extends Thread{
             ArrayList<String> choicesToPick = new ArrayList<>();
             String line;
             Array<String> choicesInPrologue = new Array<>();
-            choicesInPrologue.add("1-");
-            choicesInPrologue.add("2-");
-            choicesInPrologue.add("3-");
             boolean skipLines = false;
             String currentSpeaker = "NONE";
             boolean waitForAnswer = false;
@@ -90,18 +87,21 @@ public class SpeakingClass extends Thread{
                         }
                         // Считывание строк выбора
                         if (startChoiceReading){
-                            if (waitForAnswer){
-                                choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
-                                System.out.println(ChoiceHandler.getChoiceFromArray(1));
-                                waitForAnswer = false;
-                                startChoiceReading = false;
-                                break;
-                            }
                             if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == choiceIndex){
                                     System.out.println("Choice ended");
                                 }
-                            } if(line.contains("CHOICE")){
+                            }
+                            if (waitForAnswer){
+                                choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
+                                waitForAnswer = false;
+                                startChoiceReading = false;
+                                break;
+                            }
+                            if (ChoiceHandler.getChoiceArray().notEmpty()){
+                                System.out.println("baobab");
+                            }
+                            if(line.contains("CHOICE")){
                                 if (command.length == 3){
                                     startChoice(2, Integer.parseInt(command[1]), choicesToPick);
                                     waitForAnswer = true;
