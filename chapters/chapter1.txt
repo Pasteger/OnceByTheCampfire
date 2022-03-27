@@ -222,6 +222,7 @@ CHOICE 1 2
 APPEAR DEBT -1000 -1000
 PROTAGONIST
 *Нужно смываться, пока при памяти*
+PROTAGONIST
 EFFECT ABOBA21
 QTE HARD
 QTE SUCCESS
@@ -233,9 +234,10 @@ EFFECT BLOODKAPETZ
 EFFECT NYAMNYAMNYAM6
 PROTAGONIST
 А-А-А-А-А-А-А-А-А-А-А-А-А-А А-А-А-А-А-А-А-А-А А-А-А-А-А-А-А-А-А!
-*Сбылась у человека мечта, полетел*
-QTE END
+AUTHOR
+Сбылась у человека мечта, полетел...!
 CHOICE 1 END
+QTE END
 END
 ABOBA21 - Тряска экрана
 AMOGUS36 - Синее свечение

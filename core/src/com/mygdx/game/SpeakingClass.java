@@ -38,7 +38,7 @@ public class SpeakingClass extends Thread{
                     while ((line = reader.readLine()) != null) {
                         command = line.split(" ");
                         // QTE
-                        if (line.contains("QTE")){
+                        /*if (line.contains("QTE")){
                             switch (command[1]){
                                 case("EASY"):
                                 case("NORMAL"):
@@ -71,7 +71,7 @@ public class SpeakingClass extends Thread{
                                     QTEActive = false;
                             }
                         }
-                        if (QTEActive){ break; }
+                        if (QTEActive){ break; } */
                         // Нахождение выбора
                         if (line.contains("CHOICE") && command.length == 2){
                             if (!phrase.isEmpty()){
@@ -87,12 +87,12 @@ public class SpeakingClass extends Thread{
                         }
                         // Считывание строк выбора
                         if (startChoiceReading){
-                            if(line.contains("CHOICE") && line.contains("END")){
+                            /*if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == choiceIndex){
                                     System.out.println("Choice ended");
                                     skipLines = false;
                                 }
-                            }
+                            }*/
                             if (waitForAnswer){
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
                                 waitForAnswer = false;
