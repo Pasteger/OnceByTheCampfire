@@ -234,12 +234,12 @@ public class PrologueSpace implements Screen {
         });
 
         //Этот флаг нужен, чтобы персонаж начинал говорить не с запуска окна, а с нажатия пробела
-        if (!startSpeak /*&& Gdx.input.isKeyJustPressed(Input.Keys.SPACE)*/) {
+        if (!startSpeak) {
             startSpeak = true;
             speakingClass.start();
         }
         // Временное значение для промотки текста
-        if (!doReading && Gdx.input.isKeyJustPressed(Input.Keys.G) && !QTEActive) {
+        if (!doReading && Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !QTEActive) {
             doReading = true;
         }
 
