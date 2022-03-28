@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -67,17 +68,17 @@ public class PrologueSpace implements Screen {
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
     //Переменные для эффектов
-    private final Texture portal;
+    private final Sprite portal;
     private final Texture blueGlowTexture;
+    private final Texture bloodTexture;
     private static boolean screenShakingMoment;
     private static boolean screenUp;
     private static boolean screenDown;
     public static boolean portalMoment;
     private static boolean blueGlowMoment;
-    private static int blueGlowAlpha;
     private static boolean bloodMoment;
-    int backgroundX = -10;
-    int backgroundY = -10;
+    private int backgroundX = -10;
+    private int backgroundY = -10;
 
     //Sheash для работы выборов
     public static ChoiceHandler choiceHandler = new ChoiceHandler();
@@ -109,7 +110,10 @@ public class PrologueSpace implements Screen {
 
         //Текстуры эффектов
         blueGlowTexture = new Texture("sprites/effects/blue_glow.png");
-        portal = new Texture("sprites/effects/portal.png");
+        portal = new Sprite(new Texture("sprites/effects/portal.png"), 400, 400);
+        portal.setX(300);
+        portal.setY(250);
+        bloodTexture = new Texture("sprites/effects/blood3.png");
 
         game.stage = new Stage();
         Gdx.input.setInputProcessor(game.stage);
@@ -141,7 +145,8 @@ public class PrologueSpace implements Screen {
         game.batch.draw(currentBackground, backgroundX, backgroundY);
         // Здесь рисуется портал, если он нужен
         if (portalMoment) {
-            game.batch.draw(portal, 300, 250);
+            portal.draw(game.batch);
+            portal.rotate(-1);
         }
 
         //Здесь рисуются персонажи
@@ -161,8 +166,10 @@ public class PrologueSpace implements Screen {
         game.font.draw(game.batch, getPhrase.toString(), 10, 150);
         game.font.draw(game.batch, speakerName, 10, 200);
 
+        if (bloodMoment){
+            game.batch.draw(bloodTexture, 0, 0);
+        }
         if (blueGlowMoment){
-            blueGlowAlpha--;
             game.batch.draw(blueGlowTexture, 0, 0);
         }
 
