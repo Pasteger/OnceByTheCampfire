@@ -38,7 +38,7 @@ public class SpeakingClass extends Thread{
                     while ((line = reader.readLine()) != null) {
                         command = line.split(" ");
                         // QTE
-                        /*if (line.contains("QTE")){
+                        if (line.contains("QTE")){
                             switch (command[1]){
                                 case("EASY"):
                                 case("NORMAL"):
@@ -71,7 +71,7 @@ public class SpeakingClass extends Thread{
                                     QTEActive = false;
                             }
                         }
-                        if (QTEActive){ break; } */
+                        if (QTEActive){ break; }
                         // Нахождение выбора
                         if (line.contains("CHOICE") && command.length == 2){
                             if (!phrase.isEmpty()){

@@ -223,11 +223,13 @@ PROTAGONIST
 *Нужно смываться, пока при памяти*
 PROTAGONIST
 EFFECT ABOBA21
-QTE HARD
+QTE EASY
 QTE SUCCESS
+EFFECT ABOBA21
 PROTAGONIST
 *Ух ты ж блин.... Фух... Свалил. Все. Нафиг зону эту, пойду у вояк просить выпустить*
-QTE FAIL
+EFFECT CLEAR
+QTE HARD
 EFFECT ABOBA21
 EFFECT BLOODKAPETZ
 EFFECT NYAMNYAMNYAM6
@@ -235,6 +237,7 @@ PROTAGONIST
 А-А-А-А-А-А-А-А-А-А-А-А-А-А А-А-А-А-А-А-А-А-А А-А-А-А-А-А-А-А-А!
 AUTHOR
 Сбылась у человека мечта, полетел...!
+EFFECT CLEAR
 CHOICE 1 END
 QTE END
 END
