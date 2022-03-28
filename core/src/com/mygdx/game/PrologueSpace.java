@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -21,15 +23,12 @@ public class PrologueSpace implements Screen {
     private final MyGdxGame game;
 
     // Текстуры
-    private static Texture background;
     private static Texture backgroundPolyana;
     public static Texture currentBackground;
     private final Texture textField;
     private final Texture nameField;
-    private final Texture portal;
     private static Texture[] QTELetters;
     static int currentLetter = 0;
-    public boolean portalMoment = false;
 
     //Эти переменные отвечают за вывод фраз на экран
     private String speakerName;
@@ -66,6 +65,19 @@ public class PrologueSpace implements Screen {
     //Класс для прочитки текста
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
+    //Переменные для эффектов
+    private final Texture portal;
+    private final Texture blueGlowTexture;
+    private static boolean screenShakingMoment;
+    private static boolean screenUp;
+    private static boolean screenDown;
+    public static boolean portalMoment;
+    private static boolean blueGlowMoment;
+    private static int blueGlowAlpha;
+    private static boolean bloodMoment;
+    int backgroundX = -10;
+    int backgroundY = -10;
+
 
     PrologueSpace(final MyGdxGame game) {
         this.game = game;
@@ -81,16 +93,19 @@ public class PrologueSpace implements Screen {
         author = new Author();
         protagonist = new Protagonist();
 
-        background = new Texture("sprites/backgrounds/orange_forest.png");
+        currentBackground = new Texture("sprites/backgrounds/orange_forest.png");
         backgroundPolyana = new Texture("sprites/backgrounds/main_polyana.png");
-        currentBackground = background;
         textField = new Texture("sprites/text_field.png");
         nameField = new Texture("sprites/name_field.png");
-        portal = new Texture("sprites/effects/portal.png");
         QTELetters = new Texture[]{new Texture("sprites/QTELetters/letter_A.png"),
                 new Texture("sprites/QTELetters/letter_D.png"),
                 new Texture("sprites/QTELetters/letter_S.png"),
                 new Texture("sprites/QTELetters/letter_W.png")};
+
+
+        //Текстуры эффектов
+        blueGlowTexture = new Texture("sprites/effects/blue_glow.png");
+        portal = new Texture("sprites/effects/portal.png");
 
         game.stage = new Stage();
         Gdx.input.setInputProcessor(game.stage);
@@ -119,8 +134,7 @@ public class PrologueSpace implements Screen {
         game.batch.setProjectionMatrix(game.getCamera().combined);
 
         game.batch.begin();
-        game.batch.draw(currentBackground, 0, 0);
-
+        game.batch.draw(currentBackground, backgroundX, backgroundY);
         // Здесь рисуется портал, если он нужен
         if (portalMoment) {
             game.batch.draw(portal, 300, 250);
@@ -142,6 +156,11 @@ public class PrologueSpace implements Screen {
         //Здесь рисуется текст
         game.font.draw(game.batch, getPhrase.toString(), 10, 150);
         game.font.draw(game.batch, speakerName, 10, 200);
+
+        if (blueGlowMoment){
+            blueGlowAlpha--;
+            game.batch.draw(blueGlowTexture, 0, 0);
+        }
 
         game.batch.end();
 
@@ -196,7 +215,7 @@ public class PrologueSpace implements Screen {
         });
 
         //Этот флаг нужен, чтобы персонаж начинал говорить не с запуска окна, а с нажатия пробела
-        if (!startSpeak && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (!startSpeak /*&& Gdx.input.isKeyJustPressed(Input.Keys.SPACE)*/) {
             startSpeak = true;
             speakingClass.start();
         }
@@ -283,10 +302,17 @@ public class PrologueSpace implements Screen {
             }
         }
 
-        //Этот метод вызывается каждый цикл рендера и на текстовом поле мечатается фраза
+        //Этот метод вызывается каждый цикл рендера и на текстовом поле печатается фраза
         if (startSpeak) {
             speak();
         }
+
+
+        if(screenShakingMoment)
+            screenShaking();
+        /*if(blueGlowMoment)
+            blueGlow();*/
+
 
         paceOfSpeak++;
     }
@@ -378,8 +404,27 @@ public class PrologueSpace implements Screen {
     }
 
     public static void doEffect(String name) {
+        //Добавляющие эффекты
+        if (name.equals("PORTAL")) {
+            portalMoment = true;
+        }
         if (name.equals("ABOBA21")) {
-            System.out.println("АБОБА21");
+            screenShakingMoment = true;
+        }
+        if (name.equals("BLOOD")) {
+            bloodMoment = true;
+        }
+        if (name.equals("AMOGUS36")) {
+            blueGlowMoment = true;
+        }
+        //Убирающие эффекты
+        if (name.equals("CLEAR")) {
+            screenShakingMoment = false;
+            portalMoment = false;
+        }
+        if (name.equals("HEADCRAB11")) {
+            bloodMoment = false;
+            blueGlowMoment = false;
         }
     }
 
@@ -392,6 +437,40 @@ public class PrologueSpace implements Screen {
     public static void changeBG(String fileName) {
         currentBackground = backgroundPolyana;
     }
+
+    //Методы эффектов
+    private void screenShaking(){
+        if(!screenUp && !screenDown) {
+            backgroundY += 5;
+            backgroundX += 5;
+            screenUp = true;
+            screenDown = false;
+        }
+        else if (screenUp && !screenDown){
+            backgroundY += 5;
+            backgroundX -= 5;
+            screenUp = false;
+            screenDown = true;
+        }
+        else if (!screenUp && screenDown){
+            backgroundY -= 5;
+            backgroundX += 5;
+            screenDown = true;
+            screenUp = true;
+        }
+        else if (screenUp && screenDown){
+            backgroundY -= 5;
+            backgroundX -= 5;
+            screenUp = false;
+            screenDown = false;
+        }
+    }
+    /*private void blueGlow(){
+        //нужно найти способ изменять прозрачность текстуры
+        if(blueGlowAlpha <= 0){
+            blueGlowMoment = false;
+        }
+    }*/
 
     @Override
     public void show() {

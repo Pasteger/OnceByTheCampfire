@@ -13,6 +13,7 @@ EFFECT PUPSITCH98
 EFFECT BLOOD
 DEBT
 APPEAR DEBT 570 140
+EFFECT CLEAR
 Сталкер, жив? Держи аптечку и давай за мной, бегом!
 PROTAGONIST
 *Да ну, неужто мне помочь кто-то решил в этом аду?*
@@ -22,11 +23,11 @@ CHOICE 1
 2. Сделать рывок в сторону, откуда шёл.
 PROTAGONIST
 *Наверное, он может мне помочь, да и ему самому нужна помощь*
-EFFECT ABOBA21
 DEBT
 О, ты уже тут, отлично. Видишь?
 Знаю, что видишь, я оттащил туда пару человек,
 которые были не против, так что полезай сам, да поживее!
+EFFECT PORTAL
 PROTAGONIST
 *Разбежавшись прыгну...*
 EFFECT ABOBA21
@@ -34,6 +35,7 @@ APPEAR DEBT -1000 -1000
 EFFECT CHLORKA
 CHANGE_BG main_polyana.png
 PROTAGONIST
+EFFECT CLEAR
 Ух ты ж мать, приложило так приложило…. А где… люди. О боже…
 PROTAGONIST
 *Вокруг лежат израненные тела.
@@ -101,7 +103,6 @@ AUTHOR
 на бандита и свободовца, метров через 50
 они скрываются из вашего поля зрения.
 Вы идете еще немного, прежде чем...
-EFFECT ABOBA21
 BANDIT
 APPEAR VOLITION 380 140
 APPEAR BANDIT 540 140
@@ -128,7 +129,6 @@ REPUTATION - 15 MILITARY
 AUTHOR
 Вы медленно идете назад и пристально смотрите на военного и долговца.
 Спустя метров 50 они скрываются из вашего поля зрения...
-EFFECT ABOBA21
 BANDIT
 APPEAR VOLITION 380 140
 APPEAR BANDIT 540 140
@@ -162,13 +162,12 @@ CHOICE 3
 AUTHOR
 Вы решили не вмешиваться в происходящее.
 Кто знает, как еще могут среагировать ваши новые знакомые...
-EFFECT ABOBA21
 REPUTATION - 5 BANDIT
 REPUTATION - 5 VOLITION
 REPUTATION - 5 DEBT
 REPUTATION - 5 MILITARY
 BANDIT
-Ай, млин, башкой ударился… Опять вы? 
+Ай, млин, башкой ударился… Опять вы?
 MILITARY
 М-да, во дела. Как вы тут оказались..?
 BANDIT
@@ -245,3 +244,4 @@ NYAMNYAMNYAM6 - Хруст костей
 BLOOD - Кровь на экране
 BLOODKAPETZ - Много крови на экране
 CHLORKA - Белый экран
+CLEAR - убирает действующие эффекты (не все)
