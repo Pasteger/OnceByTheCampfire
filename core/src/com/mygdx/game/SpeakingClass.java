@@ -5,6 +5,8 @@ import com.badlogic.gdx.utils.Array;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.mygdx.game.MainMenuScreen.doReading;
 import static com.mygdx.game.MainMenuScreen.QTESuccess;
@@ -30,7 +32,12 @@ public class SpeakingClass extends Thread{
             boolean waitForAnswer = false;
             boolean startWriting = false;
             boolean startChoiceReading = false;
+            Map<Integer, Integer> choiceMap = new HashMap<>();
+            choiceMap.put(1, 0);
+            choiceMap.put(2, 0);
+            choiceMap.put(3, 0);
             int choiceIndex = 0;
+            int linesInChoice = 1;
         while (true){
                 sleep(250);
                 if (doReading){
@@ -77,6 +84,7 @@ public class SpeakingClass extends Thread{
                             if (!phrase.isEmpty()){
                                 startWriting = false;
                                 setPhrase(currentSpeaker, phrase);
+                                System.out.println("I pucknul");
                             }
                             currentSpeaker = "CHOICE" + command[1];
                             System.out.println("CHOICE " + command[1] +" STARTED");
@@ -87,23 +95,16 @@ public class SpeakingClass extends Thread{
                         }
                         // Считывание строк выбора
                         if (startChoiceReading){
-                            /*if(line.contains("CHOICE") && line.contains("END")){
-                                if(Integer.parseInt(command[1]) == choiceIndex){
+                            if(line.contains("CHOICE") && line.contains("END")){
+                                if(Integer.parseInt(command[1]) == 1){
                                     System.out.println("Choice ended");
                                     skipLines = false;
                                 }
-                            }*/
+                            }
                             if (waitForAnswer){
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
                                 waitForAnswer = false;
                                 startChoiceReading = false;
-                            }
-                            if (ChoiceHandler.getChoiceArray().notEmpty()){
-                                if (ChoiceHandler.getChoiceFromArray(1).equals(choicesInPrologue.get(0))){
-                                    System.out.println("KAVO");
-                                } else {
-                                    System.out.println("NEKAVO");
-                                }
                             }
                             if(line.contains("CHOICE") && command.length == 3){
                                 if (line.equals(choicesInPrologue.get(0))){
@@ -120,13 +121,18 @@ public class SpeakingClass extends Thread{
                             choicesToPick.add(line);
                             if (line.contains("/")){
                                 waitForAnswer = true;
-                                startChoice(2, 1, choicesToPick);
+                                startChoice(linesInChoice, choiceIndex, choicesToPick);
+                                linesInChoice = 1;
+                                choiceIndex = 0;
+                                choicesToPick.clear();
                                 doReading = false;
                                 break;
-                            }
+                            } else linesInChoice++;
                             continue;}
+
+                        if (line.split(" ")[0].contains("END")){ doReading=false; break; }
+
                         if (!skipLines){
-                            if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                             // Репутация
                             if (line.contains("REPUTATION")){
                                 if (line.contains("DEBT")){
@@ -209,6 +215,10 @@ public class SpeakingClass extends Thread{
         choiceMaker.phraseInArrayWithdrawn = new boolean[choiceMaker.phraseArray.size];
         currentCharacter = "Choice";
     }*/
+
+    public void startWriting(boolean startWriting){
+
+    }
 
     public void banditNewPhrase(Array<String> phraseArrayNew) {
         String tempLine = "";
