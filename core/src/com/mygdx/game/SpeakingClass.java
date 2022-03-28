@@ -97,7 +97,6 @@ public class SpeakingClass extends Thread{
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
                                 waitForAnswer = false;
                                 startChoiceReading = false;
-                                doReading = false;
                             }
                             if (ChoiceHandler.getChoiceArray().notEmpty()){
                                 if (ChoiceHandler.getChoiceFromArray(1).equals(choicesInPrologue.get(0))){

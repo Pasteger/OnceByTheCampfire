@@ -33,8 +33,8 @@ public class PrologueSpace implements Screen {
     static int currentLetter = 0;
 
     //Эти переменные отвечают за вывод фраз на экран
-    private String speakerName;
-    private StringBuilder getPhrase;
+    private static String speakerName;
+    private static StringBuilder getPhrase;
     private int paceOfSpeak;
     private boolean startSpeak;
     public static String currentCharacter = "";
@@ -417,6 +417,10 @@ public class PrologueSpace implements Screen {
     }
 
     public static void startChoice(int countChoice, int choiceID, ArrayList<String> choiceNames) {
+        currentCharacter = "";
+        speakerName = "Выбор";
+        protagonist.clearPhrase();
+        getPhrase = new StringBuilder();
         ArrayList<String> tempArray = new ArrayList<>();
         for (String i : choiceNames){
             if (i.contains("/")){
