@@ -28,10 +28,8 @@ public class PrologueSpace implements Screen {
     public static Texture currentBackground;
     private final Texture textField;
     private final Texture nameField;
-    private final Texture portal;
     private static Texture[] QTELetters;
     static int currentLetter = 0;
-    public boolean portalMoment = false;
 
     //Эти переменные отвечают за вывод фраз на экран
     private String speakerName;
