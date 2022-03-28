@@ -3,12 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -70,6 +69,7 @@ public class PrologueSpace implements Screen {
     //Переменные для эффектов
     private final Sprite portal;
     private final Texture blueGlowTexture;
+    private final Texture bloodMoreTexture;
     private final Texture bloodTexture;
     private static boolean screenShakingMoment;
     private static boolean screenUp;
@@ -77,6 +77,14 @@ public class PrologueSpace implements Screen {
     public static boolean portalMoment;
     private static boolean blueGlowMoment;
     private static boolean bloodMoment;
+    private static boolean bloodMoreMoment;
+    private static Sound contusionSound;
+    private static Sound healSound;
+    private static Sound footstepsSound;
+    private static Sound boneCrackSound;
+    private static int flashAlpha;
+    private static boolean flashUp;
+    private static boolean flashDown;
     private int backgroundX = -10;
     private int backgroundY = -10;
 
@@ -113,7 +121,14 @@ public class PrologueSpace implements Screen {
         portal = new Sprite(new Texture("sprites/effects/portal.png"), 400, 400);
         portal.setX(300);
         portal.setY(250);
+        bloodMoreTexture = new Texture("sprites/effects/blood4.png");
         bloodTexture = new Texture("sprites/effects/blood3.png");
+
+        //Звуки эффектов
+        contusionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/effects/contusion.wav"));
+        healSound = Gdx.audio.newSound(Gdx.files.internal("sounds/effects/heal.wav"));
+        footstepsSound = Gdx.audio.newSound(Gdx.files.internal("sounds/effects/footsteps.wav"));
+        boneCrackSound = Gdx.audio.newSound(Gdx.files.internal("sounds/effects/boneCrack.wav"));
 
         game.stage = new Stage();
         Gdx.input.setInputProcessor(game.stage);
@@ -169,8 +184,29 @@ public class PrologueSpace implements Screen {
         if (bloodMoment){
             game.batch.draw(bloodTexture, 0, 0);
         }
+        if (bloodMoreMoment){
+            game.batch.draw(bloodMoreTexture, 0, 0);
+        }
         if (blueGlowMoment){
             game.batch.draw(blueGlowTexture, 0, 0);
+        }
+        if (flashUp){
+            Gdx.gl.glClearColor(1, 1, 1, flashAlpha);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            flashAlpha++;
+            if(flashAlpha >= 100){
+                flashUp = false;
+                flashDown = true;
+            }
+        }
+        if (flashDown){
+            Gdx.gl.glClearColor(1, 1, 1, flashAlpha);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            flashAlpha--;
+            if(flashAlpha < 1){
+                flashUp = false;
+                flashDown = false;
+            }
         }
 
         game.batch.end();
@@ -455,8 +491,14 @@ public class PrologueSpace implements Screen {
         if (name.equals("BLOOD")) {
             bloodMoment = true;
         }
+        if (name.equals("BLOODKAPETZ")) {
+            bloodMoreMoment = true;
+        }
         if (name.equals("AMOGUS36")) {
             blueGlowMoment = true;
+        }
+        if (name.equals("CHLORKA")) {
+            flashUp = true;
         }
         //Убирающие эффекты
         if (name.equals("CLEAR")) {
@@ -464,8 +506,20 @@ public class PrologueSpace implements Screen {
             portalMoment = false;
         }
         if (name.equals("HEADCRAB11")) {
+            healSound.play(0.1f);
             bloodMoment = false;
+            bloodMoreMoment = false;
             blueGlowMoment = false;
+        }
+        //Скоротечные эффекты
+        if (name.equals("PUPSITCH98")){
+            contusionSound.play(0.1f);
+        }
+        if (name.equals("BEBRA4")){
+            footstepsSound.play(0.1f);
+        }
+        if (name.equals("NYAMNYAMNYAM6")){
+            boneCrackSound.play(0.1f);
         }
     }
 
