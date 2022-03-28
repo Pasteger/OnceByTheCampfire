@@ -23,12 +23,15 @@ public class PrologueSpace implements Screen {
     private final MyGdxGame game;
 
     // Текстуры
+    private static Texture background;
     private static Texture backgroundPolyana;
     public static Texture currentBackground;
     private final Texture textField;
     private final Texture nameField;
+    private final Texture portal;
     private static Texture[] QTELetters;
     static int currentLetter = 0;
+    public boolean portalMoment = false;
 
     //Эти переменные отвечают за вывод фраз на экран
     private String speakerName;
@@ -77,6 +80,9 @@ public class PrologueSpace implements Screen {
     private static boolean bloodMoment;
     int backgroundX = -10;
     int backgroundY = -10;
+
+    //Sheash для работы выборов
+    public static ChoiceHandler choiceHandler = new ChoiceHandler();
 
 
     PrologueSpace(final MyGdxGame game) {
@@ -167,18 +173,22 @@ public class PrologueSpace implements Screen {
         game.stage.draw();
 
         choiceFirstButton.addListener(new ChangeListener() {
+            boolean listener;
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (game.isButtonIsPressed()) {
+                    listener = true;
                     game.setButtonIsPressed(true);
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-
-                    System.out.println("Произошёл выбор 1");
-
-                    dispose();
+                    setChoice(1);
+                    System.out.println("Choice 1 was taken");
                 }
+            }
+            public void setChoice(int choiceID){
+                System.out.println("baobab");
+                ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 1);
             }
         });
 
@@ -190,11 +200,13 @@ public class PrologueSpace implements Screen {
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-
-                    System.out.println("Произошёл выбор 2");
-
-                    dispose();
+                    setChoice(1);
+                    System.out.println("Choice 2 was taken");
                 }
+            }
+            public void setChoice(int choiceID){
+                System.out.println("baobab");
+                ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 2);
             }
         });
 
@@ -206,11 +218,13 @@ public class PrologueSpace implements Screen {
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-
-                    System.out.println("Произошёл выбор 3");
-
-                    dispose();
+                    setChoice(1);
+                    System.out.println("Choice 3 was taken");
                 }
+            }
+            public void setChoice(int choiceID){
+                System.out.println("baobab");
+                ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 3);
             }
         });
 
@@ -369,6 +383,7 @@ public class PrologueSpace implements Screen {
             paceOfSpeak = 0;
             if (author.getPhraseId() == author.phraseArray.size) {
                 currentCharacter = "";
+
                 author.clearPhrase();
             }
         }
@@ -383,21 +398,38 @@ public class PrologueSpace implements Screen {
                 protagonist.clearPhrase();
             }
         }
+
+        /* Говорит... выбор?!
+        if (currentCharacter.equals("Choice") && paceOfSpeak >= choiceMaker.getPace()) {
+            speakerName = "Выбор";
+            getPhrase = choiceMaker.inputPhrase();
+            paceOfSpeak = 0;
+            if (choiceMaker.getPhraseId() == choiceMaker.phraseArray.size) {
+                currentCharacter = "";
+                choiceMaker.clearPhrase();
+            }
+        } */
     }
 
-    public static void startChoice(int countChoice, ArrayList<String> choiceNames) {
+    public static void startChoice(int countChoice, int choiceID, ArrayList<String> choiceNames) {
+        ArrayList<String> tempArray = new ArrayList<>();
+        for (String i : choiceNames){
+            if (i.contains("/")){
+                tempArray.add(i.substring(0, i.length()-1));
+            } else tempArray.add(i);
+        }
         if (countChoice >= 1) {
-            choiceFirstButton.setText(choiceNames.get(0));
+            choiceFirstButton.setText(tempArray.get(0));
             choiceFirstButton.setPosition(640, 110);
             choiceFirstButton.setVisible(true);
         }
         if (countChoice >= 2) {
-            choiceSecondButton.setText(choiceNames.get(1));
+            choiceSecondButton.setText(tempArray.get(1));
             choiceSecondButton.setPosition(640, 60);
             choiceSecondButton.setVisible(true);
         }
         if (countChoice >= 3) {
-            choiceThirdButton.setText(choiceNames.get(2));
+            choiceThirdButton.setText(tempArray.get(2));
             choiceThirdButton.setPosition(640, 10);
             choiceThirdButton.setVisible(true);
         }

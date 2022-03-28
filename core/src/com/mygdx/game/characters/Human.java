@@ -53,7 +53,7 @@ public class Human {
                         y -= 1;
                     }
                     if(voiceID > 2) {
-                        voice.get(random.nextInt(voice.size-1)).play(0.3f);
+                        voice.get(random.nextInt(voice.size-1)).play(0.1f);
                         voiceID = 0;
                     }
                 }

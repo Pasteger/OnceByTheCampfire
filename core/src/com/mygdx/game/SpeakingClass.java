@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 import static com.mygdx.game.MainMenuScreen.doReading;
 import static com.mygdx.game.MainMenuScreen.QTESuccess;
@@ -19,12 +20,16 @@ public class SpeakingClass extends Thread{
         try (FileInputStream fis =  new FileInputStream(inputFileName);
              BufferedReader reader = new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
             Array<String> phrase = new Array<>();
+            Array<Integer> choicesPicked = new Array<>();
             String[] command;
+            ArrayList<String> choicesToPick = new ArrayList<>();
             String line;
+            Array<String> choicesInPrologue = new Array<>();
             boolean skipLines = false;
             String currentSpeaker = "NONE";
+            boolean waitForAnswer = false;
             boolean startWriting = false;
-            boolean startChoice = false;
+            boolean startChoiceReading = false;
             int choiceIndex = 0;
         while (true){
                 sleep(250);
@@ -33,7 +38,7 @@ public class SpeakingClass extends Thread{
                     while ((line = reader.readLine()) != null) {
                         command = line.split(" ");
                         // QTE
-                        if (line.contains("QTE")){
+                        /*if (line.contains("QTE")){
                             switch (command[1]){
                                 case("EASY"):
                                 case("NORMAL"):
@@ -66,21 +71,61 @@ public class SpeakingClass extends Thread{
                                     QTEActive = false;
                             }
                         }
-                        if (QTEActive){ break; }
-                        if (line.contains("CHOICE")){
-                            currentSpeaker = "CHOICE";
-                            System.out.println("CHOICE STARTED");
-                            startChoice = true;
+                        if (QTEActive){ break; } */
+                        // Нахождение выбора
+                        if (line.contains("CHOICE") && command.length == 2){
+                            if (!phrase.isEmpty()){
+                                startWriting = false;
+                                setPhrase(currentSpeaker, phrase);
+                            }
+                            currentSpeaker = "CHOICE" + command[1];
+                            System.out.println("CHOICE " + command[1] +" STARTED");
+                            startChoiceReading = true;
                             choiceIndex = Integer.parseInt(command[1]);
+                            choicesPicked.add(choiceIndex);
                             continue;
                         }
-                        if (startChoice){
-                            if(line.contains("CHOICE") && line.contains("END")){
+                        // Считывание строк выбора
+                        if (startChoiceReading){
+                            /*if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == choiceIndex){
                                     System.out.println("Choice ended");
+                                    skipLines = false;
+                                }
+                            }*/
+                            if (waitForAnswer){
+                                choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
+                                waitForAnswer = false;
+                                startChoiceReading = false;
+                                doReading = false;
+                            }
+                            if (ChoiceHandler.getChoiceArray().notEmpty()){
+                                if (ChoiceHandler.getChoiceFromArray(1).equals(choicesInPrologue.get(0))){
+                                    System.out.println("KAVO");
+                                } else {
+                                    System.out.println("NEKAVO");
                                 }
                             }
-                        }
+                            if(line.contains("CHOICE") && command.length == 3){
+                                if (line.equals(choicesInPrologue.get(0))){
+                                    System.out.println("a niche");
+                                    skipLines = false;
+                                } else {
+                                    System.out.println("skipaem tupa");
+                                    skipLines = true;
+                                    startChoiceReading = false;
+                                }
+                                doReading = false;
+                                break;
+                            }
+                            choicesToPick.add(line);
+                            if (line.contains("/")){
+                                waitForAnswer = true;
+                                startChoice(2, 1, choicesToPick);
+                                doReading = false;
+                                break;
+                            }
+                            continue;}
                         if (!skipLines){
                             if (line.split(" ")[0].contains("END")){ doReading=false; break; }
                             // Репутация
@@ -127,7 +172,8 @@ public class SpeakingClass extends Thread{
                             // читаемся
                             if (startWriting) {
                                 if (line.equals("DEBT") || line.equals("VOLITION") || line.equals("MILITARY") ||
-                                        line.equals("PROTAGONIST") || line.equals("AUTHOR") || line.equals("BANDIT")) {
+                                        line.equals("PROTAGONIST") || line.equals("AUTHOR") || line.equals("BANDIT")
+                                || line.contains("CHOICE")) {
                                     startWriting = false;
                                     doReading = false;
                                     setPhrase(currentSpeaker, phrase);
@@ -143,8 +189,6 @@ public class SpeakingClass extends Thread{
                                     break;
                                 }
                             }
-                            // choices
-
                         }
                     }
                 }
@@ -154,6 +198,18 @@ public class SpeakingClass extends Thread{
             e.printStackTrace();
         }
     }
+
+    /*  public void choiceNewPhrase(Array<String> phraseArrayNew) {
+        String tempLine = "";
+        choiceMaker.setPhraseId(0);
+        choiceMaker.phraseArray.clear();
+        for (String line : phraseArrayNew) {
+            tempLine = tempLine + line + "\n";
+        }
+        choiceMaker.phraseArray.add(tempLine);
+        choiceMaker.phraseInArrayWithdrawn = new boolean[choiceMaker.phraseArray.size];
+        currentCharacter = "Choice";
+    }*/
 
     public void banditNewPhrase(Array<String> phraseArrayNew) {
         String tempLine = "";
