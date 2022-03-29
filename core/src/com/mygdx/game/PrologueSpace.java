@@ -63,6 +63,10 @@ public class PrologueSpace implements Screen {
     //Класс для прочитки текста
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
+    //Создаем choiceHandler
+    public static ChoiceHandler choiceHandler = new ChoiceHandler();
+    public static int choiceNow = 0;
+
     //Переменные для эффектов
     private final Sprite portal;
     private final Texture blueGlowTexture;
@@ -206,13 +210,12 @@ public class PrologueSpace implements Screen {
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-                    setChoice(1);
+                    setChoice(choiceNow);
                     System.out.println("Choice 1 was taken");
                 }
             }
 
             public void setChoice(int choiceID) {
-                System.out.println("baobab");
                 doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 1);
             }
@@ -226,13 +229,12 @@ public class PrologueSpace implements Screen {
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-                    setChoice(1);
+                    setChoice(choiceNow);
                     System.out.println("Choice 2 was taken");
                 }
             }
 
             public void setChoice(int choiceID) {
-                System.out.println("baobab");
                 doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 2);
             }
@@ -246,13 +248,12 @@ public class PrologueSpace implements Screen {
                     choiceFirstButton.setVisible(false);
                     choiceSecondButton.setVisible(false);
                     choiceThirdButton.setVisible(false);
-                    setChoice(1);
+                    setChoice(choiceNow);
                     System.out.println("Choice 3 was taken");
                 }
             }
 
             public void setChoice(int choiceID) {
-                System.out.println("baobab");
                 doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 3);
             }
@@ -428,6 +429,8 @@ public class PrologueSpace implements Screen {
     }
 
     public static void startChoice(int countChoice, int choiceID, ArrayList<String> choiceNames) {
+        choiceNow = choiceID;
+        System.out.println(choiceNow + "VIBOR!@!@!@!@!@");
         currentCharacter = "";
         speakerName = "Выбор";
         protagonist.clearPhrase();
