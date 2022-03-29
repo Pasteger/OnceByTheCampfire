@@ -16,9 +16,7 @@ public class MyGdxGame extends Game {
 	public Stage stage;
 	public BitmapFont font;
 	private String saveName;
-	public Music music;
 	private TextButton.TextButtonStyle textButtonStyle;
-	public Float volume = 0.2f;
 	private OrthographicCamera camera;
 	private boolean buttonIsPressed;
 
