@@ -134,7 +134,10 @@ public class SpeakingClass extends Thread{
                             } else linesInChoice++;
                             continue;}
 
-                        if (line.split(" ")[0].contains("END")){ doReading=false; break; }
+                        if (line.split(" ")[0].contains("END")){
+                            doReading=false;
+                            com.mygdx.game.PrologueSpace.doEffect("END", 0);
+                            break; }
 
                         if (!skipLines){
                             // Репутация
