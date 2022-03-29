@@ -36,7 +36,7 @@ public class SpeakingClass extends Thread{
             choiceMap.put(1, 0);
             choiceMap.put(2, 0);
             choiceMap.put(3, 0);
-            int choiceIndex = 0;
+            int choiceIndex = 1;
             int linesInChoice = 1;
         while (true){
                 sleep(250);
@@ -55,9 +55,8 @@ public class SpeakingClass extends Thread{
                                     if (!phrase.isEmpty()){
                                         startWriting = false;
                                         setPhrase(currentSpeaker, phrase);
-                                        while (!doReading) sleep(250);
+                                        phrase.clear();
                                     }
-                                    doReading = false;
                                     com.mygdx.game.PrologueSpace.makeQTE(command[1]);
                                     break;
                                 case("SUCCESS"):
@@ -91,45 +90,47 @@ public class SpeakingClass extends Thread{
                                 startWriting = false;
                                 setPhrase(currentSpeaker, phrase);
                                 doReading = false;
+                                phrase.clear();
+
                                 while (!doReading) sleep(250);
                             }
                             currentSpeaker = "CHOICE" + command[1];
                             System.out.println("CHOICE " + command[1] +" STARTED");
                             startChoiceReading = true;
                             choiceIndex = Integer.parseInt(command[1]);
-                            choicesPicked.add(choiceIndex);
                             continue;
                         }
                         // Считывание строк выбора
                         if (startChoiceReading){
                             if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == 1){
-                                    System.out.println("Choice ended");
+                                    System.out.println("Choice ended " + command[1]);
                                     skipLines = false;
                                 }
                             }
                             if (waitForAnswer){
-                                choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(1));
+                                choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(choiceIndex));
                                 waitForAnswer = false;
                                 startChoiceReading = false;
                             }
-                            if(line.contains("CHOICE") && command.length == 3){
-                                if (line.equals(choicesInPrologue.get(0))){
+                            if(line.contains("CHOICE") && command.length == 3 && command[2].length()==1){
+                                for (String i : ChoiceHandler.choiceArray){
+                                    System.out.println(i);
+                                }
+                                if (line.contains(ChoiceHandler.getChoiceFromArray(choiceIndex))){
                                     System.out.println("a niche");
                                     skipLines = false;
+                                    startChoiceReading = false;
                                 } else {
                                     System.out.println("skipaem tupa");
-                                    skipLines = true;
-                                    startChoiceReading = false;
-                                }
-                                break;
+                                    skipLines = true; }
                             }
                             choicesToPick.add(line);
                             if (line.contains("/")){
                                 waitForAnswer = true;
                                 startChoice(linesInChoice, choiceIndex, choicesToPick);
                                 linesInChoice = 1;
-                                choiceIndex = 0;
+                                choiceIndex = 1;
                                 choicesToPick.clear();
                                 doReading = false;
                                 break;
