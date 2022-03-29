@@ -88,33 +88,37 @@ public class SpeakingClass extends Thread{
                                 setPhrase(currentSpeaker, phrase);
                                 doReading = false;
                                 phrase.clear();
-
                                 while (!doReading) sleep(250);
                             }
-                            currentSpeaker = "CHOICE" + command[1];
                             System.out.println("CHOICE " + command[1] +" STARTED");
                             startChoiceReading = true;
                             choiceIndex = Integer.parseInt(command[1]);
+                            System.out.println(choiceIndex + "= cII");
+                            choicesToPick.clear();
                             continue;
                         }
                         // Считывание строк выбора
                         if (startChoiceReading){
                             if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == 1){
-                                    System.out.println("Choice ended " + command[1]);
+                                    System.out.println("Choice ended " + choiceIndex);
                                     skipLines = false;
                                 }
                             }
                             if (waitForAnswer){
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(choiceIndex));
+                                System.out.println("wfa est");
                                 waitForAnswer = false;
                                 startChoiceReading = false;
                             }
-                            if(line.contains("CHOICE") && command.length == 3 && command[2].length()==1){
-                                for (String i : ChoiceHandler.choiceArray){
+                            if(line.contains("CHOICE") && command.length == 3
+                                    && Integer.parseInt(command[1])==choiceIndex){
+                                System.out.println("Check1");
+                                for (String i : ChoiceHandler.getChoiceArray()){
                                     System.out.println(i);
                                 }
-                                if (line.contains(ChoiceHandler.getChoiceFromArray(choiceIndex))){
+                                System.out.println(choiceIndex + "cI");
+                                if (line.contains(choicesInPrologue.get(choiceIndex-1))){
                                     System.out.println("a niche");
                                     skipLines = false;
                                     startChoiceReading = false;
@@ -123,11 +127,11 @@ public class SpeakingClass extends Thread{
                                     skipLines = true; }
                             }
                             choicesToPick.add(line);
+                            System.out.println(line + "- nowline " + choicesToPick.size());
                             if (line.contains("/")){
                                 waitForAnswer = true;
                                 startChoice(linesInChoice, choiceIndex, choicesToPick);
                                 linesInChoice = 1;
-                                choiceIndex = 1;
                                 choicesToPick.clear();
                                 doReading = false;
                                 break;
@@ -219,22 +223,6 @@ public class SpeakingClass extends Thread{
         catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    /*  public void choiceNewPhrase(Array<String> phraseArrayNew) {
-        String tempLine = "";
-        choiceMaker.setPhraseId(0);
-        choiceMaker.phraseArray.clear();
-        for (String line : phraseArrayNew) {
-            tempLine = tempLine + line + "\n";
-        }
-        choiceMaker.phraseArray.add(tempLine);
-        choiceMaker.phraseInArrayWithdrawn = new boolean[choiceMaker.phraseArray.size];
-        currentCharacter = "Choice";
-    }*/
-
-    public void startWriting(boolean startWriting){
-
     }
 
     public void banditNewPhrase(Array<String> phraseArrayNew) {
