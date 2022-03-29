@@ -85,9 +85,7 @@ public class SpeakingClass extends Thread{
                                 startWriting = false;
                                 setPhrase(currentSpeaker, phrase);
                                 doReading = false;
-                                while (!doReading){
-                                    sleep(250);
-                                }
+                                while (!doReading) sleep(250);
                             }
                             currentSpeaker = "CHOICE" + command[1];
                             System.out.println("CHOICE " + command[1] +" STARTED");
@@ -118,7 +116,6 @@ public class SpeakingClass extends Thread{
                                     skipLines = true;
                                     startChoiceReading = false;
                                 }
-                                doReading = false;
                                 break;
                             }
                             choicesToPick.add(line);
@@ -174,6 +171,11 @@ public class SpeakingClass extends Thread{
                             }
                             // Эффект
                             if (line.contains("EFFECT")){
+                                if (!phrase.isEmpty()){
+                                    startWriting = false;
+                                    setPhrase(currentSpeaker, phrase);
+                                    doReading = false;
+                                }
                                 com.mygdx.game.PrologueSpace.doEffect(command[1]);
                                 continue;
                             }

@@ -229,7 +229,7 @@ EFFECT ABOBA21
 PROTAGONIST
 *Ух ты ж блин.... Фух... Свалил. Все. Нафиг зону эту, пойду у вояк просить выпустить*
 EFFECT CLEAR
-QTE HARD
+QTE FAIL
 EFFECT ABOBA21
 EFFECT BLOODKAPETZ
 EFFECT NYAMNYAMNYAM6
