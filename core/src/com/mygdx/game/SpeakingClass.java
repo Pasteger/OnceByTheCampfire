@@ -21,6 +21,7 @@ public class SpeakingClass extends Thread{
             Array<String> phrase = new Array<>();
             String[] command;
             ArrayList<String> choicesToPick = new ArrayList<>();
+            Array<Integer> choicesPicked = new Array<>();
             String line;
             Array<String> choicesInPrologue = new Array<>();
             boolean skipLines = false;
@@ -92,6 +93,7 @@ public class SpeakingClass extends Thread{
                             System.out.println("CHOICE " + command[1] +" STARTED");
                             startChoiceReading = true;
                             choiceIndex = Integer.parseInt(command[1]);
+                            choicesPicked.add(choiceIndex);
                             choicesToPick.clear();
                             linesInChoice = 0;
                             continue;
@@ -99,34 +101,21 @@ public class SpeakingClass extends Thread{
                         // Считывание строк выбора
                         if (startChoiceReading){
                             if(line.contains("CHOICE") && line.contains("END")){
-                                if(Integer.parseInt(command[1]) == 1){
+                                if(Integer.parseInt(command[1]) == choiceIndex){
                                     System.out.println("Choice ended " + choiceIndex);
                                     skipLines = false;
                                 }
                             }
+                            // Ждем ответыч
                             if (waitForAnswer){
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(choiceIndex));
                                 System.out.println("waiting for smth");
                                 waitForAnswer = false;
                                 startChoiceReading = false;
                             }
-                            if(line.contains("CHOICE") && command.length == 3
-                                    && Integer.parseInt(command[1])==choiceIndex){
-                                System.out.println("Check1");
-                                for (String i : ChoiceHandler.getChoiceArray()){
-                                    System.out.println(i);
-                                }
-                                System.out.println(choiceIndex + "cI");
-                                if (line.contains(choicesInPrologue.get(choiceIndex-1))){
-                                    System.out.println("slipLines flase");
-                                    skipLines = false;
-                                    startChoiceReading = false;
-                                } else {
-                                    System.out.println("slipslip trye");
-                                    skipLines = true; }
-                            }
                             choicesToPick.add(line);
                             System.out.println(line + "- nowline " + choicesToPick.size());
+                            // Отвечает за запись строк выбора и вывода на экран
                             if (line.contains("/")){
                                 waitForAnswer = true;
                                 startChoice(linesInChoice, choiceIndex, choicesToPick);
@@ -135,8 +124,19 @@ public class SpeakingClass extends Thread{
                                 doReading = false;
                                 break;
                             } else linesInChoice++;
-                            System.out.println(linesInChoice + " l i c 1312");
-                            continue;}
+                        }
+                        // Ищем выбор с длиной в 3, где 2 цифра = индексу выбора
+                        if(line.contains("CHOICE") && command.length == 3){
+                            System.out.println("MB skip?");
+                                if (line.contains(choicesInPrologue.get(choiceIndex-1))){
+                                    System.out.println("MB skip? Yes.");
+                                    skipLines = false;
+                                    startChoiceReading = false;
+                                } else {
+                                    System.out.println("MB skip? No.");
+                                    skipLines = true; }
+
+                        }
 
                         if (line.split(" ")[0].contains("END")){
                             doReading=false;
