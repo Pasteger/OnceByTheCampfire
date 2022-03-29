@@ -182,7 +182,12 @@ public class SpeakingClass extends Thread{
                                     setPhrase(currentSpeaker, phrase);
                                     doReading = false;
                                 }
-                                com.mygdx.game.PrologueSpace.doEffect(command[1]);
+                                try { com.mygdx.game.PrologueSpace.doEffect(command[1], Integer.parseInt(command[2]));
+                                } catch (Exception ignored){ com.mygdx.game.PrologueSpace.doEffect(command[1], 0); }
+                                if (line.contains("CHLORKA")){
+                                    sleep(250);
+                                    doReading = true;
+                                }
                                 continue;
                             }
                             // читаемся

@@ -33,11 +33,12 @@ PROTAGONIST
 *Разбежавшись прыгну...*
 EFFECT ABOBA21
 APPEAR DEBT -1000 -1000
-EFFECT CHLORKA
-CHANGE_BG main_polyana.png
+EFFECT PUPSITCH98
+EFFECT CHLORKA 130
 PROTAGONIST
-EFFECT CLEAR
 Ух ты ж мать, приложило так приложило…. А где… люди. О боже…
+CHANGE_BG main_polyana.png
+EFFECT CLEAR
 PROTAGONIST
 *Вокруг лежат израненные тела.
 Неужто мертвы? Меня тоже сейчас убьет ведь, да?*

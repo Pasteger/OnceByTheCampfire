@@ -82,9 +82,7 @@ public class PrologueSpace implements Screen {
     private static Sound healSound;
     private static Sound footstepsSound;
     private static Sound boneCrackSound;
-    private static int flashAlpha;
-    private static boolean flashUp;
-    private static boolean flashDown;
+    private static int flashTime;
     private int backgroundX = -10;
     private int backgroundY = -10;
 
@@ -190,24 +188,15 @@ public class PrologueSpace implements Screen {
         if (blueGlowMoment){
             game.batch.draw(blueGlowTexture, 0, 0);
         }
-        if (flashUp){
-            Gdx.gl.glClearColor(1, 1, 1, flashAlpha);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            flashAlpha++;
-            if(flashAlpha >= 100){
-                flashUp = false;
-                flashDown = true;
+
+            if(flashTime > 1){
+                flashTime--;
+                if(flashTime < 100){
+                    Gdx.gl.glClearColor(1, 1, 1, 1);
+                    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                }
             }
-        }
-        if (flashDown){
-            Gdx.gl.glClearColor(1, 1, 1, flashAlpha);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            flashAlpha--;
-            if(flashAlpha < 1){
-                flashUp = false;
-                flashDown = false;
-            }
-        }
+
 
         game.batch.end();
 
@@ -483,7 +472,7 @@ public class PrologueSpace implements Screen {
         }
     }
 
-    public static void doEffect(String name) {
+    public static void doEffect(String name, int var) {
         //Добавляющие эффекты
         if (name.equals("PORTAL")) {
             portalMoment = true;
@@ -501,7 +490,8 @@ public class PrologueSpace implements Screen {
             blueGlowMoment = true;
         }
         if (name.equals("CHLORKA")) {
-            flashUp = true;
+            flashTime = var;
+            doReading = true;
         }
         //Убирающие эффекты
         if (name.equals("CLEAR")) {
