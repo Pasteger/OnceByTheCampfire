@@ -52,6 +52,12 @@ public class SpeakingClass extends Thread{
                                 case("HARD"):
                                     QTEActive = true;
                                     doReading = false;
+                                    if (!phrase.isEmpty()){
+                                        startWriting = false;
+                                        setPhrase(currentSpeaker, phrase);
+                                        while (!doReading) sleep(250);
+                                    }
+                                    doReading = false;
                                     com.mygdx.game.PrologueSpace.makeQTE(command[1]);
                                     break;
                                 case("SUCCESS"):
