@@ -193,6 +193,7 @@ public class PrologueSpace implements Screen {
             }
             public void setChoice(int choiceID){
                 System.out.println("baobab");
+                doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 1);
             }
         });
@@ -211,6 +212,7 @@ public class PrologueSpace implements Screen {
             }
             public void setChoice(int choiceID){
                 System.out.println("baobab");
+                doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 2);
             }
         });
@@ -229,6 +231,7 @@ public class PrologueSpace implements Screen {
             }
             public void setChoice(int choiceID){
                 System.out.println("baobab");
+                doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 3);
             }
         });

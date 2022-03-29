@@ -84,7 +84,10 @@ public class SpeakingClass extends Thread{
                             if (!phrase.isEmpty()){
                                 startWriting = false;
                                 setPhrase(currentSpeaker, phrase);
-                                System.out.println("I pucknul");
+                                doReading = false;
+                                while (!doReading){
+                                    sleep(250);
+                                }
                             }
                             currentSpeaker = "CHOICE" + command[1];
                             System.out.println("CHOICE " + command[1] +" STARTED");
