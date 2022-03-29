@@ -19,7 +19,6 @@ public class SpeakingClass extends Thread{
         try (FileInputStream fis =  new FileInputStream(inputFileName);
              BufferedReader reader = new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
             Array<String> phrase = new Array<>();
-            Array<Integer> choicesPicked = new Array<>();
             String[] command;
             ArrayList<String> choicesToPick = new ArrayList<>();
             String line;
@@ -34,7 +33,7 @@ public class SpeakingClass extends Thread{
             choiceMap.put(2, 0);
             choiceMap.put(3, 0);
             int choiceIndex = 1;
-            int linesInChoice = 1;
+            int linesInChoice = 0;
         while (true){
                 sleep(250);
                 if (doReading){
@@ -93,8 +92,8 @@ public class SpeakingClass extends Thread{
                             System.out.println("CHOICE " + command[1] +" STARTED");
                             startChoiceReading = true;
                             choiceIndex = Integer.parseInt(command[1]);
-                            System.out.println(choiceIndex + "= cII");
                             choicesToPick.clear();
+                            linesInChoice = 0;
                             continue;
                         }
                         // Считывание строк выбора
@@ -107,7 +106,7 @@ public class SpeakingClass extends Thread{
                             }
                             if (waitForAnswer){
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(choiceIndex));
-                                System.out.println("wfa est");
+                                System.out.println("waiting for smth");
                                 waitForAnswer = false;
                                 startChoiceReading = false;
                             }
@@ -119,11 +118,11 @@ public class SpeakingClass extends Thread{
                                 }
                                 System.out.println(choiceIndex + "cI");
                                 if (line.contains(choicesInPrologue.get(choiceIndex-1))){
-                                    System.out.println("a niche");
+                                    System.out.println("slipLines flase");
                                     skipLines = false;
                                     startChoiceReading = false;
                                 } else {
-                                    System.out.println("skipaem tupa");
+                                    System.out.println("slipslip trye");
                                     skipLines = true; }
                             }
                             choicesToPick.add(line);
@@ -131,11 +130,12 @@ public class SpeakingClass extends Thread{
                             if (line.contains("/")){
                                 waitForAnswer = true;
                                 startChoice(linesInChoice, choiceIndex, choicesToPick);
-                                linesInChoice = 1;
+                                linesInChoice = 0;
                                 choicesToPick.clear();
                                 doReading = false;
                                 break;
                             } else linesInChoice++;
+                            System.out.println(linesInChoice + " l i c 1312");
                             continue;}
 
                         if (line.split(" ")[0].contains("END")){ doReading=false; break; }

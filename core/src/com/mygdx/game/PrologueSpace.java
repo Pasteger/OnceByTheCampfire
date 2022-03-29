@@ -430,28 +430,28 @@ public class PrologueSpace implements Screen {
 
     public static void startChoice(int countChoice, int choiceID, ArrayList<String> choiceNames) {
         choiceNow = choiceID;
-        System.out.println(choiceNow + "VIBOR!@!@!@!@!@");
         currentCharacter = "";
         speakerName = "Выбор";
         protagonist.clearPhrase();
         getPhrase = new StringBuilder();
         ArrayList<String> tempArray = new ArrayList<>();
+        System.out.println("CounyChoice = " + countChoice);
         for (String i : choiceNames) {
             if (i.contains("/")) {
                 tempArray.add(i.substring(0, i.length() - 1));
             } else tempArray.add(i);
         }
-        if (countChoice >= 1) {
+        if (countChoice >= 0) {
             choiceFirstButton.setText(tempArray.get(0));
             choiceFirstButton.setPosition(640, 110);
             choiceFirstButton.setVisible(true);
         }
-        if (countChoice >= 2) {
+        if (countChoice >= 1) {
             choiceSecondButton.setText(tempArray.get(1));
             choiceSecondButton.setPosition(640, 60);
             choiceSecondButton.setVisible(true);
         }
-        if (countChoice >= 3) {
+        if (countChoice >= 2) {
             choiceThirdButton.setText(tempArray.get(2));
             choiceThirdButton.setPosition(640, 10);
             choiceThirdButton.setVisible(true);
