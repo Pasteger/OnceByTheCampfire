@@ -13,17 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.characters.*;
-
 import java.util.ArrayList;
 import java.util.Random;
-
 import static com.mygdx.game.MainMenuScreen.*;
 
 public class PrologueSpace implements Screen {
     private final MyGdxGame game;
 
     // Текстуры
-    private static Texture background;
     private static Texture backgroundPolyana;
     public static Texture currentBackground;
     private final Texture textField;
@@ -85,10 +82,6 @@ public class PrologueSpace implements Screen {
     private static int flashTime;
     private int backgroundX = -10;
     private int backgroundY = -10;
-
-    //Sheash для работы выборов
-    public static ChoiceHandler choiceHandler = new ChoiceHandler();
-
 
     PrologueSpace(final MyGdxGame game) {
         this.game = game;
@@ -179,23 +172,23 @@ public class PrologueSpace implements Screen {
         game.font.draw(game.batch, getPhrase.toString(), 10, 150);
         game.font.draw(game.batch, speakerName, 10, 200);
 
-        if (bloodMoment){
+        if (bloodMoment) {
             game.batch.draw(bloodTexture, 0, 0);
         }
-        if (bloodMoreMoment){
+        if (bloodMoreMoment) {
             game.batch.draw(bloodMoreTexture, 0, 0);
         }
-        if (blueGlowMoment){
+        if (blueGlowMoment) {
             game.batch.draw(blueGlowTexture, 0, 0);
         }
 
-            if(flashTime > 1){
-                flashTime--;
-                if(flashTime < 100){
-                    Gdx.gl.glClearColor(1, 1, 1, 1);
-                    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                }
+        if (flashTime > 1) {
+            flashTime--;
+            if (flashTime < 100) {
+                Gdx.gl.glClearColor(1, 1, 1, 1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             }
+        }
 
 
         game.batch.end();
@@ -204,6 +197,7 @@ public class PrologueSpace implements Screen {
 
         choiceFirstButton.addListener(new ChangeListener() {
             boolean listener;
+
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (game.isButtonIsPressed()) {
@@ -216,7 +210,8 @@ public class PrologueSpace implements Screen {
                     System.out.println("Choice 1 was taken");
                 }
             }
-            public void setChoice(int choiceID){
+
+            public void setChoice(int choiceID) {
                 System.out.println("baobab");
                 doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 1);
@@ -235,7 +230,8 @@ public class PrologueSpace implements Screen {
                     System.out.println("Choice 2 was taken");
                 }
             }
-            public void setChoice(int choiceID){
+
+            public void setChoice(int choiceID) {
                 System.out.println("baobab");
                 doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 2);
@@ -254,7 +250,8 @@ public class PrologueSpace implements Screen {
                     System.out.println("Choice 3 was taken");
                 }
             }
-            public void setChoice(int choiceID){
+
+            public void setChoice(int choiceID) {
                 System.out.println("baobab");
                 doReading = true;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 3);
@@ -355,11 +352,8 @@ public class PrologueSpace implements Screen {
         }
 
 
-        if(screenShakingMoment)
+        if (screenShakingMoment)
             screenShaking();
-        /*if(blueGlowMoment)
-            blueGlow();*/
-
 
         paceOfSpeak++;
     }
@@ -431,17 +425,6 @@ public class PrologueSpace implements Screen {
                 protagonist.clearPhrase();
             }
         }
-
-        /* Говорит... выбор?!
-        if (currentCharacter.equals("Choice") && paceOfSpeak >= choiceMaker.getPace()) {
-            speakerName = "Выбор";
-            getPhrase = choiceMaker.inputPhrase();
-            paceOfSpeak = 0;
-            if (choiceMaker.getPhraseId() == choiceMaker.phraseArray.size) {
-                currentCharacter = "";
-                choiceMaker.clearPhrase();
-            }
-        } */
     }
 
     public static void startChoice(int countChoice, int choiceID, ArrayList<String> choiceNames) {
@@ -450,9 +433,9 @@ public class PrologueSpace implements Screen {
         protagonist.clearPhrase();
         getPhrase = new StringBuilder();
         ArrayList<String> tempArray = new ArrayList<>();
-        for (String i : choiceNames){
-            if (i.contains("/")){
-                tempArray.add(i.substring(0, i.length()-1));
+        for (String i : choiceNames) {
+            if (i.contains("/")) {
+                tempArray.add(i.substring(0, i.length() - 1));
             } else tempArray.add(i);
         }
         if (countChoice >= 1) {
@@ -505,13 +488,13 @@ public class PrologueSpace implements Screen {
             blueGlowMoment = false;
         }
         //Скоротечные эффекты
-        if (name.equals("PUPSITCH98")){
+        if (name.equals("PUPSITCH98")) {
             contusionSound.play(0.1f);
         }
-        if (name.equals("BEBRA4")){
+        if (name.equals("BEBRA4")) {
             footstepsSound.play(0.1f);
         }
-        if (name.equals("NYAMNYAMNYAM6")){
+        if (name.equals("NYAMNYAMNYAM6")) {
             boneCrackSound.play(0.1f);
         }
     }
@@ -527,38 +510,29 @@ public class PrologueSpace implements Screen {
     }
 
     //Методы эффектов
-    private void screenShaking(){
-        if(!screenUp && !screenDown) {
+    private void screenShaking() {
+        if (!screenUp && !screenDown) {
             backgroundY += 5;
             backgroundX += 5;
             screenUp = true;
             screenDown = false;
-        }
-        else if (screenUp && !screenDown){
+        } else if (screenUp && !screenDown) {
             backgroundY += 5;
             backgroundX -= 5;
             screenUp = false;
             screenDown = true;
-        }
-        else if (!screenUp && screenDown){
+        } else if (!screenUp) {
             backgroundY -= 5;
             backgroundX += 5;
             screenDown = true;
             screenUp = true;
-        }
-        else if (screenUp && screenDown){
+        } else {
             backgroundY -= 5;
             backgroundX -= 5;
             screenUp = false;
             screenDown = false;
         }
     }
-    /*private void blueGlow(){
-        //нужно найти способ изменять прозрачность текстуры
-        if(blueGlowAlpha <= 0){
-            blueGlowMoment = false;
-        }
-    }*/
 
     @Override
     public void show() {

@@ -19,6 +19,6 @@ public class Monolith extends Human{
         //voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/monolith/ci.wav")));
 
         //Темп речи Монолитовца (неторопливый)
-        pace = 3;
+        pace = 4;
     }
 }

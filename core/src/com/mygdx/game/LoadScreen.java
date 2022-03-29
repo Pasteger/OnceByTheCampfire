@@ -9,20 +9,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class LoadScreen implements Screen {
-    final MyGdxGame game;
-    Button loadButtonFirst;
-    Button loadButtonSecond;
-    Button loadButtonThird;
-    Button deleteButtonFirst;
-    Button deleteButtonSecond;
-    Button deleteButtonThird;
-    Button saveDescriptionFirst;
-    Button saveDescriptionSecond;
-    Button saveDescriptionThird;
-    Button backButton;
-    Texture background;
-    Texture saveSquare;
-    boolean isPressed;
+    private final MyGdxGame game;
+    private final Button loadButtonFirst;
+    private final Button loadButtonSecond;
+    private final Button loadButtonThird;
+    private final Button deleteButtonFirst;
+    private final Button deleteButtonSecond;
+    private final Button deleteButtonThird;
+    private final Button saveDescriptionFirst;
+    private final Button saveDescriptionSecond;
+    private final Button saveDescriptionThird;
+    private final Button backButton;
+    private Texture background;
+    private Texture saveSquare;
+    private boolean isPressed;
 
     LoadScreen(final MyGdxGame game){
         this.game = game;

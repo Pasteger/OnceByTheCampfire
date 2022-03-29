@@ -1,18 +1,15 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.utils.Array;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.mygdx.game.MainMenuScreen.doReading;
 import static com.mygdx.game.MainMenuScreen.QTESuccess;
 import static com.mygdx.game.MainMenuScreen.QTEActive;
 import static com.mygdx.game.PrologueSpace.*;
-
 
 public class SpeakingClass extends Thread{
     String inputFileName;
