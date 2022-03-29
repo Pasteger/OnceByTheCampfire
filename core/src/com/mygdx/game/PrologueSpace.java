@@ -87,6 +87,8 @@ public class PrologueSpace implements Screen {
     private int backgroundX = -10;
     private int backgroundY = -10;
 
+    private static boolean end;
+
     PrologueSpace(final MyGdxGame game) {
         this.game = game;
 
@@ -357,6 +359,12 @@ public class PrologueSpace implements Screen {
             screenShaking();
 
         paceOfSpeak++;
+
+        if (end){
+            speakingClass.stop();
+            game.setScreen(new TitlesScreen(game));
+            dispose();
+        }
     }
 
     private void speak() {
@@ -500,6 +508,10 @@ public class PrologueSpace implements Screen {
         if (name.equals("NYAMNYAMNYAM6")) {
             boneCrackSound.play(0.1f);
         }
+        //конец (костыль)
+        if (name.equals("END")){
+            end = true;
+        }
     }
 
     public static void makeQTE(String difficultyNew) {
@@ -559,6 +571,5 @@ public class PrologueSpace implements Screen {
 
     @Override
     public void dispose() {
-        game.font.dispose();
     }
 }
