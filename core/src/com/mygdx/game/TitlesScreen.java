@@ -61,20 +61,20 @@ public class TitlesScreen implements Screen {
                  "Разработчики:\n" +
                  "Дмитрий Рубин - Pasteger\n" +
                  "Дмитрий Придуха - DemasMemas\n" +
-                 "Илья Соусов - Ne1ran\n" +
+                 "Илья Соусов - Neiran\n" +
                  "\n" +
                  "\n" +
                  "\n" +
                  "Тестировщики:\n" +
                  "Дмитрий Рубин - Pasteger\n" +
                  "Дмитрий Придуха - DemasMemas\n" +
-                 "Илья Соусов - Ne1ran\n" +
-                 "\n" +
+                 "Илья Соусов - Neiran\n" +
+                "Валентин Жуков - Zzzhukov\n" +
                  "\n" +
                  "\n" +
                  "Сценаристы:\n" +
                  "Дмитрий Придуха - DemasMemas\n" +
-                 "Илья Соусов - Ne1ran\n" +
+                 "Илья Соусов - Neiran\n" +
                  "\n" +
                  "\n" +
                  "\n" +
@@ -126,7 +126,6 @@ public class TitlesScreen implements Screen {
                  "Неизвестному с Хабра\n" +
                  "Лисовой Анастасии\n" +
                  "Рубиной Любе\n" +
-                 "Катковой Лизе\n" +
                  "\n" +
                  "\n" +
                  "А также тебе :)\n" +
