@@ -42,46 +42,7 @@ public class SpeakingClass extends Thread{
                     phrase.clear();
                     while ((line = reader.readLine()) != null) {
                         command = line.split(" ");
-                        // QTE
-                        if (line.contains("QTE")){
-                            switch (command[1]){
-                                case("EASY"):
-                                case("NORMAL"):
-                                case("HARD"):
-                                    QTEActive = true;
-                                    doReading = false;
-                                    if (!phrase.isEmpty()){
-                                        startWriting = false;
-                                        setPhrase(currentSpeaker, phrase);
-                                        phrase.clear();
-                                    }
-                                    com.mygdx.game.PrologueSpace.makeQTE(command[1]);
-                                    break;
-                                case("SUCCESS"):
-                                    QTEActive = false;
-                                    if(!QTESuccess){
-                                        skipLines = true;
-                                    }
-                                    if (QTESuccess && skipLines){
-                                        skipLines = false;
-                                    }
-                                    break;
-                                case("FAIL"):
-                                    QTEActive = false;
-                                    if(QTESuccess){
-                                        skipLines = true;
-                                    }
-                                    if (!QTESuccess && skipLines){
-                                        skipLines = false;
-                                    }
-                                    break;
-                                case("END"):
-                                    QTESuccess = false;
-                                    skipLines = false;
-                                    QTEActive = false;
-                            }
-                        }
-                        if (QTEActive){ break; }
+
                         if (!stopReadingChoices){
                             // Нахождение выбора
                             if (line.contains("CHOICE") && command.length == 2){
@@ -116,20 +77,64 @@ public class SpeakingClass extends Thread{
                                 waitForAnswer = false;
                                 startChoiceReading = false;
                             }
-                            choicesToPick.add(line);
                             System.out.println(line + "- nowline " + choicesToPick.size());
                             // Отвечает за запись строк выбора и вывода на экран
                             if (line.contains("/")){
+                                choicesToPick.add(line);
                                 waitForAnswer = true;
                                 startChoice(linesInChoice, choiceIndex, choicesToPick);
                                 linesInChoice = 0;
                                 choicesToPick.clear();
                                 doReading = false;
                                 break;
-                            } else linesInChoice++;
+                            } else {
+                                linesInChoice++;
+                                choicesToPick.add(line);
+                            }
+                            // QTE
+                            if (line.contains("QTE")){
+                                switch (command[1]){
+                                    case("EASY"):
+                                    case("NORMAL"):
+                                    case("HARD"):
+                                        QTEActive = true;
+                                        doReading = false;
+                                        if (!phrase.isEmpty()){
+                                            startWriting = false;
+                                            setPhrase(currentSpeaker, phrase);
+                                            phrase.clear();
+                                        }
+                                        com.mygdx.game.PrologueSpace.makeQTE(command[1]);
+                                        break;
+                                    case("SUCCESS"):
+                                        QTEActive = false;
+                                        if(!QTESuccess){
+                                            skipLines = true;
+                                        }
+                                        if (QTESuccess && skipLines){
+                                            skipLines = false;
+                                        }
+                                        break;
+                                    case("FAIL"):
+                                        QTEActive = false;
+                                        if(QTESuccess){
+                                            skipLines = true;
+                                        }
+                                        if (!QTESuccess && skipLines){
+                                            skipLines = false;
+                                        }
+                                        break;
+                                    case("END"):
+                                        QTESuccess = false;
+                                        skipLines = false;
+                                        QTEActive = false;
+                                }
+                            }
+                            if (QTEActive){ break; }
                         }
                         // Ищем выбор с длиной в 3, где 2 цифра = индексу выбора
-                        if(line.contains("CHOICE") && command.length == 3 && choicesPicked.contains(Integer.parseInt(command[1]))){
+                        if(line.contains("CHOICE") && command.length == 3
+                                && choicesPicked.contains(Integer.parseInt(command[1]))){
                             System.out.println("Current cIndex =" + choiceIndex + choicesInPrologue.get(choiceIndex-1));
                                 if (!line.contains(choicesInPrologue.get(choiceIndex-1))){
                                     System.out.println("MB skip? Yes.");
@@ -142,7 +147,6 @@ public class SpeakingClass extends Thread{
                                     startChoiceReading = true;
                                     skipLines = false; }
                         }
-
                         if (line.split(" ")[0].contains("END")){
                             doReading=false;
                             com.mygdx.game.PrologueSpace.doEffect("END", 0);
