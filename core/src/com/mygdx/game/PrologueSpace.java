@@ -55,10 +55,11 @@ public class PrologueSpace implements Screen {
     public static Author author;
     public static Protagonist protagonist;
 
-    //кнопки
+    //кнопки выборов
     private static TextButton choiceFirstButton;
     private static TextButton choiceSecondButton;
     private static TextButton choiceThirdButton;
+    public static boolean choiceActive;
 
     //Класс для прочитки текста
     SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
@@ -219,6 +220,7 @@ public class PrologueSpace implements Screen {
 
             public void setChoice(int choiceID) {
                 doReading = true;
+                choiceActive = false;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 1);
             }
         });
@@ -238,6 +240,7 @@ public class PrologueSpace implements Screen {
 
             public void setChoice(int choiceID) {
                 doReading = true;
+                choiceActive = false;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 2);
             }
         });
@@ -257,6 +260,7 @@ public class PrologueSpace implements Screen {
 
             public void setChoice(int choiceID) {
                 doReading = true;
+                choiceActive = false;
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 3);
             }
         });
@@ -267,7 +271,7 @@ public class PrologueSpace implements Screen {
             speakingClass.start();
         }
         // Временное значение для промотки текста
-        if (!doReading && Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !QTEActive) {
+        if (!doReading && Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !QTEActive && !choiceActive) {
             doReading = true;
             if (!currentCharacter.equals("")){
                 doReading = false;
@@ -469,6 +473,7 @@ public class PrologueSpace implements Screen {
     }
 
     public static void startChoice(int countChoice, int choiceID, ArrayList<String> choiceNames) {
+        choiceActive = true;
         choiceNow = choiceID;
         currentCharacter = "";
         speakerName = "Выбор";

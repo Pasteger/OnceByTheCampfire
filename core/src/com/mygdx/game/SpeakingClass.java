@@ -53,7 +53,6 @@ public class SpeakingClass extends Thread{
                                     phrase.clear();
                                     while (!doReading) sleep(250);
                                 }
-                                System.out.println("CHOICE " + command[1] +" STARTED");
                                 startChoiceReading = true;
                                 choiceIndex = Integer.parseInt(command[1]);
                                 choicesPicked.add(choiceIndex);
@@ -66,30 +65,27 @@ public class SpeakingClass extends Thread{
                         if (startChoiceReading){
                             if(line.contains("CHOICE") && line.contains("END")){
                                 if(Integer.parseInt(command[1]) == choiceIndex){
-                                    System.out.println("Choice ended " + choiceIndex);
                                     skipLines = false;
                                 }
                             }
                             // Ждем ответыч
                             if (waitForAnswer){
                                 choicesInPrologue.add(ChoiceHandler.getChoiceFromArray(choiceIndex));
-                                System.out.println("waiting for smth");
                                 waitForAnswer = false;
                                 startChoiceReading = false;
                             }
-                            System.out.println(line + "- nowline " + choicesToPick.size());
                             // Отвечает за запись строк выбора и вывода на экран
-                            if (line.contains("/")){
+                            if (line.contains("1.") || line.contains("2.") || line.contains("3.")){
                                 choicesToPick.add(line);
-                                waitForAnswer = true;
-                                startChoice(linesInChoice, choiceIndex, choicesToPick);
-                                linesInChoice = 0;
-                                choicesToPick.clear();
-                                doReading = false;
-                                break;
-                            } else {
+                                if (line.contains("/")){
+                                    waitForAnswer = true;
+                                    startChoice(linesInChoice, choiceIndex, choicesToPick);
+                                    linesInChoice = 0;
+                                    choicesToPick.clear();
+                                    doReading = false;
+                                    break;
+                                }
                                 linesInChoice++;
-                                choicesToPick.add(line);
                             }
                             // QTE
                             if (line.contains("QTE")){
@@ -135,14 +131,11 @@ public class SpeakingClass extends Thread{
                         // Ищем выбор с длиной в 3, где 2 цифра = индексу выбора
                         if(line.contains("CHOICE") && command.length == 3
                                 && choicesPicked.contains(Integer.parseInt(command[1]))){
-                            System.out.println("Current cIndex =" + choiceIndex + choicesInPrologue.get(choiceIndex-1));
                                 if (!line.contains(choicesInPrologue.get(choiceIndex-1))){
-                                    System.out.println("MB skip? Yes.");
                                     stopReadingChoices = true;
                                     skipLines = true;
                                     startChoiceReading = false;
                                 } else {
-                                    System.out.println("MB skip? No.");
                                     stopReadingChoices = false;
                                     startChoiceReading = true;
                                     skipLines = false; }
