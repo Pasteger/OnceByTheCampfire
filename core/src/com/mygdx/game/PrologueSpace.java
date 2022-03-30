@@ -269,6 +269,39 @@ public class PrologueSpace implements Screen {
         // Временное значение для промотки текста
         if (!doReading && Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !QTEActive) {
             doReading = true;
+            if (!currentCharacter.equals("")){
+                doReading = false;
+                if(currentCharacter.equals("Bandit")) {
+                    while (bandit.getPhraseId() != bandit.phraseArray.size) getPhrase = bandit.inputPhrase();
+                    currentCharacter = "";
+                    bandit.clearPhrase();
+                }
+                if(currentCharacter.equals("Debter")) {
+                    while (debter.getPhraseId() != debter.phraseArray.size) getPhrase = debter.inputPhrase();
+                    currentCharacter = "";
+                    debter.clearPhrase();
+                }
+                if(currentCharacter.equals("Volition")) {
+                    while (volition.getPhraseId() != volition.phraseArray.size) getPhrase = volition.inputPhrase();
+                    currentCharacter = "";
+                    volition.clearPhrase();
+                }
+                if(currentCharacter.equals("Military")) {
+                    while (military.getPhraseId() != military.phraseArray.size) getPhrase = military.inputPhrase();
+                    currentCharacter = "";
+                    military.clearPhrase();
+                }
+                if(currentCharacter.equals("Author")) {
+                    while (author.getPhraseId() != author.phraseArray.size) getPhrase = author.inputPhrase();
+                    currentCharacter = "";
+                    author.clearPhrase();
+                }
+                if(currentCharacter.equals("Protagonist")) {
+                    while (protagonist.getPhraseId() != protagonist.phraseArray.size) getPhrase = protagonist.inputPhrase();
+                    currentCharacter = "";
+                    protagonist.clearPhrase();
+                }
+            }
         }
 
         // Вызов метода QTE
@@ -419,7 +452,6 @@ public class PrologueSpace implements Screen {
             paceOfSpeak = 0;
             if (author.getPhraseId() == author.phraseArray.size) {
                 currentCharacter = "";
-
                 author.clearPhrase();
             }
         }
