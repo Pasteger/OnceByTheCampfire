@@ -84,6 +84,7 @@ public class PrologueSpace implements Screen {
     private static Sound healSound;
     private static Sound footstepsSound;
     private static Sound boneCrackSound;
+    private static Sound anomaly;
     private static int flashTime;
     private int backgroundX = -10;
     private int backgroundY = -10;
@@ -127,6 +128,7 @@ public class PrologueSpace implements Screen {
         healSound = Gdx.audio.newSound(Gdx.files.internal("sounds/effects/heal.wav"));
         footstepsSound = Gdx.audio.newSound(Gdx.files.internal("sounds/effects/footsteps.wav"));
         boneCrackSound = Gdx.audio.newSound(Gdx.files.internal("sounds/effects/boneCrack.wav"));
+        anomaly = Gdx.audio.newSound(Gdx.files.internal("sounds/effects/anomaly.wav"));
 
         game.stage = new Stage();
         Gdx.input.setInputProcessor(game.stage);
@@ -524,8 +526,13 @@ public class PrologueSpace implements Screen {
             flashTime = var;
             doReading = true;
         }
+        if (name.equals("ANOMALY")) {
+            anomaly.play(0.2f);
+            anomaly.loop();
+        }
         //Убирающие эффекты
         if (name.equals("CLEAR")) {
+            anomaly.stop();
             screenShakingMoment = false;
             portalMoment = false;
         }

@@ -8,9 +8,9 @@ public class Military extends Human{
         texture = new Texture("sprites/characters/military.png");
         x = -1000f;
         y = -1000f;
-        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/bandit/sol.wav")));
-        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/bandit/lya.wav")));
-        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/bandit/ci.wav")));
+        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/military/sol.wav")));
+        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/military/lya.wav")));
+        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/military/ci.wav")));
         pace = 3;
     }
 }

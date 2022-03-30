@@ -227,6 +227,7 @@ APPEAR DEBT -1000 -1000
 PROTAGONIST
 *Нужно смываться, пока при памяти*
 EFFECT ABOBA21
+EFFECT ANOMALY
 PROTAGONIST
 Черт, аномалия! А-А-А-А-А!
 QTE EASY
@@ -259,3 +260,4 @@ BLOOD - Кровь на экране
 BLOODKAPETZ - Много крови на экране
 CHLORKA - Белый экран
 CLEAR - убирает действующие эффекты (не все)
+ANOMALY - аномалия

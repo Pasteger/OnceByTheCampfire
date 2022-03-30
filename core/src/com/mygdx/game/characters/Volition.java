@@ -8,8 +8,9 @@ public class Volition extends Human{
         texture = new Texture("sprites/characters/volition.png");
         x = -1000f;
         y = -1000f;
-        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/bandit/mi.wav")));
-        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/bandit/fa.wav")));
+        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/volition/sol.wav")));
+        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/volition/lya.wav")));
+        voice.add(Gdx.audio.newSound(Gdx.files.internal("sounds/voice/volition/ci.wav")));
         pace = 2;
     }
 }
