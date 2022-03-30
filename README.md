@@ -1,4 +1,8 @@
 # OnceByTheCampfire
+
+## Скачать игру можете по ссылке:
+https://disk.yandex.ru/d/J3IA4G9eOtDQNg
+
 ![Бандиты у костра](https://github.com/Pasteger/OnceByTheCampfire/blob/master/android/assets/sprites/titles/by_the_campfire.png)
 
 ## Описание
