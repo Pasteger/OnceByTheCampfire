@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.utilities.MyTextInputListener;
 
 public class MainMenuScreen implements Screen {
     private final MyGdxGame game;
@@ -25,11 +27,11 @@ public class MainMenuScreen implements Screen {
     public static boolean QTEActive = false;
 
 
-    MainMenuScreen(final MyGdxGame gam){
+    public MainMenuScreen(final MyGdxGame gam){
         this.game = gam;
         listenerExist = false;
 
-        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/Zhukov - Forest.mp3"));
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/main_menu.mp3"));
         menuMusic.setLooping(true);
         menuMusic.setVolume(0.2f);
 
@@ -75,7 +77,7 @@ public class MainMenuScreen implements Screen {
                 if (game.isButtonIsPressed()) {
                     game.setButtonIsPressed(true);
                     menuMusic.stop();
-                    game.setScreen(new PrologueSpace(game));
+                    game.setScreen(new MainGameScreen(game));
                     dispose();
                 }
             }

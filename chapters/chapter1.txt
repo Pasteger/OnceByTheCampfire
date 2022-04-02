@@ -250,6 +250,7 @@ EFFECT CLEAR
 CHOICE 1 END
 QTE END
 END
+
 ABOBA21 - Тряска экрана
 AMOGUS36 - Синее свечение
 PUPSITCH98 - Звон в ушах

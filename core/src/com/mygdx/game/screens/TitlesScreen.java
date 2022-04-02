@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,9 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-
-import static com.mygdx.game.MainMenuScreen.QTEActive;
-import static com.mygdx.game.MainMenuScreen.doReading;
+import com.mygdx.game.MyGdxGame;
 
 public class TitlesScreen implements Screen {
     private final MyGdxGame game;
@@ -26,7 +24,7 @@ public class TitlesScreen implements Screen {
     private float sponsorY;
     private final float speed;
 
-    TitlesScreen(final MyGdxGame gam){
+    public TitlesScreen(final MyGdxGame gam){
         this.game = gam;
 
         titlesMusic = Gdx.audio.newMusic(Gdx.files.internal("music/titles.wav"));
@@ -177,6 +175,7 @@ public class TitlesScreen implements Screen {
         thanksY += speed;
 
         if(!titlesMusic.isPlaying() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            titlesMusic.stop();
             game.setScreen(new MainMenuScreen(game));
         }
     }

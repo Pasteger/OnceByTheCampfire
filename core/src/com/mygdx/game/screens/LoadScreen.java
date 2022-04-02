@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.game.MyGdxGame;
 
 public class LoadScreen implements Screen {
     private final MyGdxGame game;
@@ -24,7 +25,7 @@ public class LoadScreen implements Screen {
     private Texture saveSquare;
     private boolean isPressed;
 
-    LoadScreen(final MyGdxGame game){
+    public LoadScreen(final MyGdxGame game){
         this.game = game;
         game.stage = new Stage();
         Gdx.input.setInputProcessor(game.stage);
@@ -70,7 +71,7 @@ public class LoadScreen implements Screen {
         backButton.setPosition(20, 20);
 
         background = new Texture("sprites/main_menu_background.jpg");
-        saveSquare = new Texture("sprites/marble_square.png");
+        saveSquare = new Texture("sprites/interface/marble_square.png");
     }
 
     @Override

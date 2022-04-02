@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -12,17 +12,21 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.utilities.ChoiceHandler;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.utilities.SpeakingClass;
 import com.mygdx.game.characters.*;
 import java.util.ArrayList;
 import java.util.Random;
-import static com.mygdx.game.MainMenuScreen.*;
+import static com.mygdx.game.screens.MainMenuScreen.*;
 
-public class PrologueSpace implements Screen {
+public class MainGameScreen implements Screen {
     private final MyGdxGame game;
 
     // Текстуры
-    private static Texture backgroundPolyana;
     public static Texture currentBackground;
+    public static Texture backgroundPolyana;
     private final Texture textField;
     private final Texture nameField;
     private static Texture[] QTELetters;
@@ -52,6 +56,7 @@ public class PrologueSpace implements Screen {
     public static Debter debter;
     public static Military military;
     public static Volition volition;
+    public static Monolith monolith;
     public static Author author;
     public static Protagonist protagonist;
 
@@ -62,10 +67,9 @@ public class PrologueSpace implements Screen {
     public static boolean choiceActive;
 
     //Класс для прочитки текста
-    SpeakingClass speakingClass = new SpeakingClass("chapters/chapter1.txt");
+    private final SpeakingClass speakingClass;
 
     //Создаем choiceHandler
-    public static ChoiceHandler choiceHandler = new ChoiceHandler();
     public static int choiceNow = 0;
 
     //Переменные для эффектов
@@ -89,13 +93,36 @@ public class PrologueSpace implements Screen {
     private int backgroundX = -10;
     private int backgroundY = -10;
 
+    //костёр
+    private static boolean campfireIsLit;
+    private final Array<Texture> campfire;
+    private int campfirePhase;
+    private int campfireThreePhase;
+
     private static boolean end;
 
-    PrologueSpace(final MyGdxGame game) {
+    public MainGameScreen(final MyGdxGame game) {
         this.game = game;
+
+        speakingClass = new SpeakingClass("chapters/chapter1.txt");
 
         getPhrase = new StringBuilder();
         speakerName = "";
+
+        campfire = new Array<>();
+        //Спрайты огня помещаются в массив
+        campfire.add(new Texture("sprites/campfire/fire1.png"));
+        campfire.add(new Texture("sprites/campfire/fire2.png"));
+        campfire.add(new Texture("sprites/campfire/fire3.png"));
+        campfire.add(new Texture("sprites/campfire/fire4.png"));
+        campfire.add(new Texture("sprites/campfire/fire5.png"));
+        campfire.add(new Texture("sprites/campfire/fire6.png"));
+        campfire.add(new Texture("sprites/campfire/fire7.png"));
+        campfire.add(new Texture("sprites/campfire/fire8.png"));
+        campfire.add(new Texture("sprites/campfire/fire9.png"));
+        campfire.add(new Texture("sprites/campfire/fire10.png"));
+        campfire.add(new Texture("sprites/campfire/fire11.png"));
+        campfire.add(new Texture("sprites/campfire/fire12.png"));
 
         //Это персонажи нашей игры
         bandit = new Bandit();
@@ -107,8 +134,8 @@ public class PrologueSpace implements Screen {
 
         currentBackground = new Texture("sprites/backgrounds/orange_forest.png");
         backgroundPolyana = new Texture("sprites/backgrounds/main_polyana.png");
-        textField = new Texture("sprites/text_field.png");
-        nameField = new Texture("sprites/name_field.png");
+        textField = new Texture("sprites/interface/text_field.png");
+        nameField = new Texture("sprites/interface/name_field.png");
         QTELetters = new Texture[]{new Texture("sprites/QTELetters/letter_A.png"),
                 new Texture("sprites/QTELetters/letter_D.png"),
                 new Texture("sprites/QTELetters/letter_S.png"),
@@ -158,7 +185,7 @@ public class PrologueSpace implements Screen {
 
         game.batch.begin();
         game.batch.draw(currentBackground, backgroundX, backgroundY);
-        // Здесь рисуется портал, если он нужен
+
         if (portalMoment) {
             portal.draw(game.batch);
             portal.rotate(-1);
@@ -170,10 +197,10 @@ public class PrologueSpace implements Screen {
         game.batch.draw(military.getTexture(), military.getX(), military.getY());
         game.batch.draw(volition.getTexture(), volition.getX(), volition.getY());
 
+        //Здесь поспрайтово рисуется костёр
+        if (campfireIsLit) game.batch.draw(campfire.get(campfirePhase), 550, 150);
         // Отрисовка буковки для QTE
-        if (QTEActive) {
-            game.batch.draw(QTELetters[currentLetter], 50, 400);
-        }
+        if (QTEActive) game.batch.draw(QTELetters[currentLetter], 50, 400);
 
         game.batch.draw(textField, 0, 0);
         game.batch.draw(nameField, 0, 162);
@@ -181,16 +208,9 @@ public class PrologueSpace implements Screen {
         game.font.draw(game.batch, getPhrase.toString(), 10, 150);
         game.font.draw(game.batch, speakerName, 10, 200);
 
-        if (bloodMoment) {
-            game.batch.draw(bloodTexture, 0, 0);
-        }
-        if (bloodMoreMoment) {
-            game.batch.draw(bloodMoreTexture, 0, 0);
-        }
-        if (blueGlowMoment) {
-            game.batch.draw(blueGlowTexture, 0, 0);
-        }
-
+        if (bloodMoment) game.batch.draw(bloodTexture, 0, 0);
+        if (bloodMoreMoment) game.batch.draw(bloodMoreTexture, 0, 0);
+        if (blueGlowMoment) game.batch.draw(blueGlowTexture, 0, 0);
         if (flashTime > 1) {
             flashTime--;
             if (flashTime < 100) {
@@ -199,11 +219,92 @@ public class PrologueSpace implements Screen {
             }
         }
 
-
         game.batch.end();
 
         game.stage.draw();
 
+        choiceButtons();
+
+        if (!startSpeak) {
+            startSpeak = true;
+            speakingClass.start();
+        }
+        // Временное значение для промотки текста
+        if (!doReading && Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !QTEActive && !choiceActive) skipSpeakingPhrase();
+        // Вызов метода QTE
+        if (QTEActive && FuncStarted) activeQTE();
+        // Этот метод вызывается каждый цикл рендера и на текстовом поле печатается фраза
+        if (startSpeak) speak();
+        // Тряска экрана
+        if (screenShakingMoment) screenShaking();
+
+        paceOfSpeak++;
+
+        //Здесь происходит переключение спрайтов огня
+        //Один спрайт держится на экране 3 цикла рендера
+        if (campfireIsLit) {
+            campfireThreePhase++;
+            if (campfireThreePhase > 3) {
+                campfireThreePhase = 0;
+                campfirePhase++;
+                if (campfirePhase > 11) {
+                    campfirePhase = 0;
+                }
+            }
+        }
+
+        if (end) {
+            speakingClass.stop();
+            startSpeak = false;
+            game.setScreen(new TitlesScreen(game));
+            dispose();
+        }
+    }
+
+    private void skipSpeakingPhrase(){
+        doReading = true;
+        if (!currentCharacter.equals("")) {
+            doReading = false;
+            if (currentCharacter.equals("Bandit")) {
+                while (bandit.getPhraseId() != bandit.phraseArray.size) getPhrase = bandit.inputPhrase();
+                currentCharacter = "";
+                bandit.clearPhrase();
+            }
+            if (currentCharacter.equals("Debter")) {
+                while (debter.getPhraseId() != debter.phraseArray.size) getPhrase = debter.inputPhrase();
+                currentCharacter = "";
+                debter.clearPhrase();
+            }
+            if (currentCharacter.equals("Volition")) {
+                while (volition.getPhraseId() != volition.phraseArray.size) getPhrase = volition.inputPhrase();
+                currentCharacter = "";
+                volition.clearPhrase();
+            }
+            if (currentCharacter.equals("Military")) {
+                while (military.getPhraseId() != military.phraseArray.size) getPhrase = military.inputPhrase();
+                currentCharacter = "";
+                military.clearPhrase();
+            }
+            if (currentCharacter.equals("Monolith")) {
+                while (monolith.getPhraseId() != monolith.phraseArray.size) getPhrase = monolith.inputPhrase();
+                currentCharacter = "";
+                monolith.clearPhrase();
+            }
+            if (currentCharacter.equals("Author")) {
+                while (author.getPhraseId() != author.phraseArray.size) getPhrase = author.inputPhrase();
+                currentCharacter = "";
+                author.clearPhrase();
+            }
+            if (currentCharacter.equals("Protagonist")) {
+                while (protagonist.getPhraseId() != protagonist.phraseArray.size)
+                    getPhrase = protagonist.inputPhrase();
+                currentCharacter = "";
+                protagonist.clearPhrase();
+            }
+        }
+    }
+
+    private void choiceButtons(){
         choiceFirstButton.addListener(new ChangeListener() {
             boolean listener;
 
@@ -266,143 +367,78 @@ public class PrologueSpace implements Screen {
                 ChoiceHandler.addInArray("CHOICE " + choiceID + " " + 3);
             }
         });
+    }
 
-        //Этот флаг нужен, чтобы персонаж начинал говорить не с запуска окна, а с нажатия пробела
-        if (!startSpeak) {
-            startSpeak = true;
-            speakingClass.start();
-        }
-        // Временное значение для промотки текста
-        if (!doReading && Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !QTEActive && !choiceActive) {
-            doReading = true;
-            if (!currentCharacter.equals("")){
-                doReading = false;
-                if(currentCharacter.equals("Bandit")) {
-                    while (bandit.getPhraseId() != bandit.phraseArray.size) getPhrase = bandit.inputPhrase();
-                    currentCharacter = "";
-                    bandit.clearPhrase();
-                }
-                if(currentCharacter.equals("Debter")) {
-                    while (debter.getPhraseId() != debter.phraseArray.size) getPhrase = debter.inputPhrase();
-                    currentCharacter = "";
-                    debter.clearPhrase();
-                }
-                if(currentCharacter.equals("Volition")) {
-                    while (volition.getPhraseId() != volition.phraseArray.size) getPhrase = volition.inputPhrase();
-                    currentCharacter = "";
-                    volition.clearPhrase();
-                }
-                if(currentCharacter.equals("Military")) {
-                    while (military.getPhraseId() != military.phraseArray.size) getPhrase = military.inputPhrase();
-                    currentCharacter = "";
-                    military.clearPhrase();
-                }
-                if(currentCharacter.equals("Author")) {
-                    while (author.getPhraseId() != author.phraseArray.size) getPhrase = author.inputPhrase();
-                    currentCharacter = "";
-                    author.clearPhrase();
-                }
-                if(currentCharacter.equals("Protagonist")) {
-                    while (protagonist.getPhraseId() != protagonist.phraseArray.size) getPhrase = protagonist.inputPhrase();
-                    currentCharacter = "";
-                    protagonist.clearPhrase();
-                }
+    private void activeQTE(){
+        if (!tunedUp) {
+            aimCountTemp = 0;
+            mistakes = 3;
+            time = 8000 + System.currentTimeMillis();
+            aimCount = 5;
+            keyMas = new String[]{"A", "D"};
+            if (difficulty.equals("NORMAL")) {
+                mistakes = 2;
+                time = 5000 + System.currentTimeMillis();
+                aimCount = 8;
+                keyMas = new String[]{"A", "D", "S"};
             }
+            if (difficulty.equals("HARD")) {
+                mistakes = 1;
+                time = 3000 + System.currentTimeMillis();
+                aimCount = 10;
+                keyMas = new String[]{"A", "D", "S", "W"};
+            }
+            Random random = new Random();
+            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
+            tunedUp = true;
         }
+        Random random = new Random();
 
-        // Вызов метода QTE
-        if (QTEActive && FuncStarted) {
-            if (!tunedUp) {
-                aimCountTemp = 0;
-                mistakes = 3;
-                time = 8000 + System.currentTimeMillis();
-                aimCount = 5;
-                keyMas = new String[]{"A", "D"};
-                if (difficulty.equals("NORMAL")) {
-                    mistakes = 2;
-                    time = 5000 + System.currentTimeMillis();
-                    aimCount = 8;
-                    keyMas = new String[]{"A", "D", "S"};
-                }
-                if (difficulty.equals("HARD")) {
-                    mistakes = 1;
-                    time = 3000 + System.currentTimeMillis();
-                    aimCount = 10;
-                    keyMas = new String[]{"A", "D", "S", "W"};
-                }
-                Random random = new Random();
+        // Кнопки для QTE
+        if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+            if (currentKey.equals("A")) {
+                aimCountTemp += 1;
                 currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                tunedUp = true;
-            }
-            if (tunedUp) {
-                Random random = new Random();
-                // Кнопки для QTE
-                while (true) {
-                    if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
-                        if (currentKey.equals("A")) {
-                            aimCountTemp += 1;
-                            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                            break;
-                        } else {
-                            mistakes -= 1;
-                        }
-                    }
-                    if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-                        if (currentKey.equals("D")) {
-                            aimCountTemp += 1;
-                            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                            break;
-                        } else {
-                            mistakes -= 1;
-                        }
-                    }
-                    if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-                        if (currentKey.equals("S")) {
-                            aimCountTemp += 1;
-                            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                            break;
-                        } else {
-                            mistakes -= 1;
-                        }
-                    }
-                    if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-                        if (currentKey.equals("W")) {
-                            aimCountTemp += 1;
-                            currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
-                            break;
-                        } else {
-                            mistakes -= 1;
-                        }
-                    }
-                    break;
-                }
-                if (aimCountTemp >= aimCount || System.currentTimeMillis() - timeStart > time) {
-                    long timeFinish = System.currentTimeMillis();
-                    if (timeFinish - timeStart > time) {
-                        mistakes = -1;
-                    }
-                    QTESuccess = mistakes >= 0;
-                    doReading = true;
-                    FuncStarted = false;
-                }
+
+            } else {
+                mistakes -= 1;
             }
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            if (currentKey.equals("D")) {
+                aimCountTemp += 1;
+                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
 
-        //Этот метод вызывается каждый цикл рендера и на текстовом поле печатается фраза
-        if (startSpeak) {
-            speak();
+            } else {
+                mistakes -= 1;
+            }
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            if (currentKey.equals("S")) {
+                aimCountTemp += 1;
+                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
 
+            } else {
+                mistakes -= 1;
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            if (currentKey.equals("W")) {
+                aimCountTemp += 1;
+                currentKey = keyMas[currentLetter = random.nextInt(keyMas.length)];
 
-        if (screenShakingMoment)
-            screenShaking();
-
-        paceOfSpeak++;
-
-        if (end){
-            speakingClass.stop();
-            game.setScreen(new TitlesScreen(game));
-            dispose();
+            } else {
+                mistakes -= 1;
+            }
+        }
+        if (aimCountTemp >= aimCount || System.currentTimeMillis() - timeStart > time) {
+            long timeFinish = System.currentTimeMillis();
+            if (timeFinish - timeStart > time) {
+                mistakes = -1;
+            }
+            QTESuccess = mistakes >= 0;
+            doReading = true;
+            FuncStarted = false;
         }
     }
 
@@ -527,8 +563,11 @@ public class PrologueSpace implements Screen {
             doReading = true;
         }
         if (name.equals("ANOMALY")) {
-            anomaly.play(0.2f);
+            anomaly.play(0.005f);
             anomaly.loop();
+        }
+        if (name.equals("LIT_CAMPFIRE")){
+            campfireIsLit = true;
         }
         //Убирающие эффекты
         if (name.equals("CLEAR")) {
@@ -552,7 +591,10 @@ public class PrologueSpace implements Screen {
         if (name.equals("NYAMNYAMNYAM6")) {
             boneCrackSound.play(0.1f);
         }
-        //конец (костыль)
+        if (name.equals("PUT_OUT_CAMPFIRE")){
+            campfireIsLit = false;
+        }
+        //конец
         if (name.equals("END")){
             end = true;
         }
@@ -565,7 +607,7 @@ public class PrologueSpace implements Screen {
     }
 
     public static void changeBG(String fileName) {
-        currentBackground = backgroundPolyana;
+        if(fileName.equals("main_polyana.png")) currentBackground = backgroundPolyana;
     }
 
     //Методы эффектов

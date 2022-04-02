@@ -1,11 +1,12 @@
-package com.mygdx.game;
+package com.mygdx.game.utilities;
 
 import com.badlogic.gdx.Input;
+import com.mygdx.game.MyGdxGame;
 
 public class MyTextInputListener implements Input.TextInputListener {
     final MyGdxGame game;
 
-    MyTextInputListener(final MyGdxGame game){
+    public MyTextInputListener(final MyGdxGame game){
         this.game = game;
     }
 

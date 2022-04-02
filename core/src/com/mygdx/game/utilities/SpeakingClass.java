@@ -1,19 +1,21 @@
-package com.mygdx.game;
+package com.mygdx.game.utilities;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.screens.MainGameScreen;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import static com.mygdx.game.MainMenuScreen.doReading;
-import static com.mygdx.game.MainMenuScreen.QTESuccess;
-import static com.mygdx.game.MainMenuScreen.QTEActive;
-import static com.mygdx.game.PrologueSpace.*;
+import static com.mygdx.game.screens.MainMenuScreen.doReading;
+import static com.mygdx.game.screens.MainMenuScreen.QTESuccess;
+import static com.mygdx.game.screens.MainMenuScreen.QTEActive;
+import static com.mygdx.game.screens.MainGameScreen.*;
 
 public class SpeakingClass extends Thread{
     String inputFileName;
-    SpeakingClass (String inputFileName){ this.inputFileName = inputFileName; }
+    public SpeakingClass (String inputFileName){ this.inputFileName = inputFileName; }
     @Override
     public void run() {
         try (FileInputStream fis =  new FileInputStream(inputFileName);
@@ -100,7 +102,7 @@ public class SpeakingClass extends Thread{
                                             setPhrase(currentSpeaker, phrase);
                                             phrase.clear();
                                         }
-                                        com.mygdx.game.PrologueSpace.makeQTE(command[1]);
+                                        MainGameScreen.makeQTE(command[1]);
                                         break;
                                     case("SUCCESS"):
                                         QTEActive = false;
@@ -142,7 +144,7 @@ public class SpeakingClass extends Thread{
                         }
                         if (line.split(" ")[0].contains("END")){
                             doReading=false;
-                            com.mygdx.game.PrologueSpace.doEffect("END", 0);
+                            MainGameScreen.doEffect("END", 0);
                             break; }
 
                         if (!skipLines){
@@ -179,7 +181,7 @@ public class SpeakingClass extends Thread{
                             }
                             // Смена фона
                             if (line.contains("CHANGE_BG")){
-                                    com.mygdx.game.PrologueSpace.changeBG(command[1]);
+                                    MainGameScreen.changeBG(command[1]);
                                     continue;
                             }
                             // Эффект
@@ -189,8 +191,8 @@ public class SpeakingClass extends Thread{
                                     setPhrase(currentSpeaker, phrase);
                                     doReading = false;
                                 }
-                                try { com.mygdx.game.PrologueSpace.doEffect(command[1], Integer.parseInt(command[2]));
-                                } catch (Exception ignored){ com.mygdx.game.PrologueSpace.doEffect(command[1], 0); }
+                                try { MainGameScreen.doEffect(command[1], Integer.parseInt(command[2]));
+                                } catch (Exception ignored){ MainGameScreen.doEffect(command[1], 0); }
                                 if (line.contains("CHLORKA")){
                                     sleep(250);
                                     doReading = true;
