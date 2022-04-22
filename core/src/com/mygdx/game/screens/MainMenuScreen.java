@@ -35,19 +35,19 @@ public class MainMenuScreen implements Screen {
         menuMusic.setLooping(true);
         menuMusic.setVolume(0.2f);
 
-        newGameButton = new TextButton("New Game", game.getTextButtonStyle());
+        newGameButton = new TextButton("Новая игра", game.getTextButtonStyle());
         game.stage.addActor(newGameButton);
         newGameButton.setPosition(20, 200);
 
-        loadGameButton = new TextButton("Load Game", game.getTextButtonStyle());
+        loadGameButton = new TextButton("Загрузить игру", game.getTextButtonStyle());
         game.stage.addActor(loadGameButton);
         loadGameButton.setPosition(20, 150);
 
-        settingsButton = new TextButton("Settings", game.getTextButtonStyle());
+        settingsButton = new TextButton("Настройки", game.getTextButtonStyle());
         game.stage.addActor(settingsButton);
         settingsButton.setPosition(20, 100);
 
-        exitButton = new TextButton("Exit", game.getTextButtonStyle());
+        exitButton = new TextButton("Выход", game.getTextButtonStyle());
         game.stage.addActor(exitButton);
         exitButton.setPosition(20, 50);
 

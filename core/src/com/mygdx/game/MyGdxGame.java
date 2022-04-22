@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -19,7 +20,6 @@ public class MyGdxGame extends Game {
 	private TextButton.TextButtonStyle textButtonStyle;
 	private OrthographicCamera camera;
 	private boolean buttonIsPressed;
-
 
 	@Override
 	public void create () {
